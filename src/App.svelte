@@ -11,9 +11,9 @@
   })
   let show_search = false
 </script>
-
+{@debug show_search}
 <main>
-  <Search shown={show_search} />
+  <Search bind:shown={show_search} />
   {#each $open_apps as session (session.id)}
     <App {session}>
       <svelte:component this={session.app.component} />

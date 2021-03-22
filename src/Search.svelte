@@ -1,6 +1,6 @@
 <script lang="ts">
   export let shown: boolean = false;
-  import { blur, fade } from "svelte/transition";
+  import { blur, fade, fly } from "svelte/transition";
   import apps from "./apps";
   import { open_apps, nanoid } from "./stores";
   import type { App } from "./types";
@@ -36,23 +36,16 @@
         bind:value={query}
       />
     </form>
-    <main>
       {#each results as result (result.name)}
-        <article on:click={()=>open(result)}>
+        <article on:click={()=>open(result)} transition:fly={{y: -100}}>
           <img alt={result.name} src={result.icon} width="50" />
           {result.name}
         </article>
       {/each}
-    </main>
   </section>
 {/if}
 
 <style>
-  main {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-  }
   article img {
     margin-right: 1em;
   }
@@ -61,14 +54,17 @@
     cursor: pointer;
     padding: 1em;
     text-align: center;
-    margin: 1em;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 500px;
+    width: 500px;
   }
   section {
+    overflow: auto;
     color: white;
     text-align: center;
     padding: 0;
