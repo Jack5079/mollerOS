@@ -189,6 +189,7 @@
     if (cmd === "cls" || cmd === "clear") {
       messages = [];
     }
+    command = ''
   }
 </script>
 
