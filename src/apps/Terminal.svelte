@@ -5,30 +5,12 @@
   import { tick } from "svelte";
   import apps from "../apps";
   import fs from "../fs";
-  import { open_apps } from "../stores";
+  import { open_apps, nanoid } from "../stores";
   import Window from "../Window.svelte";
   let needsauth = false;
   let form: HTMLFormElement;
-  let username: string;
-  let password: string;
   let messages = [];
   let directory = "/";
-  const nanoid = (t = 21) => {
-    let e = "",
-      r = crypto.getRandomValues(new Uint8Array(t));
-    for (; t--; ) {
-      let n = 63 & r[t];
-      e +=
-        n < 36
-          ? n.toString(36)
-          : n < 62
-          ? (n - 26).toString(36).toUpperCase()
-          : n < 63
-          ? "_"
-          : "-";
-    }
-    return e;
-  };
   function gitcommand(args: string[]) {
     async function isogit({ _: [command], ...opts }: minimist.ParsedArgs) {
       try {

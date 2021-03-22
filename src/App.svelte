@@ -2,15 +2,33 @@
   import { fly } from "svelte/transition";
   import { open_apps, minimized } from "./stores";
   import App from "./Window.svelte";
+  import { install } from "@github/hotkey";
+  import {onMount} from 'svelte'
+  let search: HTMLButtonElement
+  import Search from './Search.svelte'
+  onMount(()=>{
+    install(search)
+  })
+  let show_search = false
 </script>
 
 <main>
+  <Search shown={show_search} />
   {#each $open_apps as session (session.id)}
     <App {session}>
       <svelte:component this={session.app.component} />
     </App>
   {/each}
   <nav class="taskbar">
+    <button
+    data-hotkey="` `"
+    bind:this={search}
+      on:click={() => {
+        show_search = !show_search
+      }}
+    >
+      🔎
+    </button>
     {#each $open_apps as session}
       <button
         in:fly={{ duration: 300, x: window.innerWidth }}
