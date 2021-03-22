@@ -3,7 +3,7 @@ import fivede from './apps/5de.svelte'
 import type { App } from './types'
 import Terminal from './apps/Terminal.svelte'
 import Hoppscotch from './apps/Hoppscotch.svelte'
-import Dog from './apps/Dog.svelte'
+import Dog from './apps/dog.svelte'
 
 const apps: App[] = [{
   name: 'Notepad',
