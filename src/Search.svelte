@@ -27,7 +27,13 @@
 </script>
 
 {#if shown}
-  <section out:blur in:fade={{ duration: 100 }}>
+  <section
+    out:blur
+    in:fade={{ duration: 100 }}
+    on:keydown={(e) => {
+      if (e.key === "Escape") shown = false;
+    }}
+  >
     <form on:submit|preventDefault={() => open(results[0])}>
       <input
         type="search"
@@ -36,12 +42,12 @@
         bind:value={query}
       />
     </form>
-      {#each results as result (result.name)}
-        <article on:click={()=>open(result)} transition:fly={{y: -100}}>
-          <img alt={result.name} src={result.icon} width="50" />
-          {result.name}
-        </article>
-      {/each}
+    {#each results as result (result.name)}
+      <article on:click={() => open(result)} transition:fly={{ y: -100 }}>
+        <img alt={result.name} src={result.icon} width="50" />
+        {result.name}
+      </article>
+    {/each}
   </section>
 {/if}
 
@@ -70,7 +76,7 @@
     padding: 0;
     margin: 0;
     position: fixed;
-    z-index: 9999;
+    z-index: 999;
     width: 100%;
     height: 100%;
     top: 0;

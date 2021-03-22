@@ -11,7 +11,7 @@
   })
   let show_search = false
 </script>
-{@debug show_search}
+
 <main>
   <Search bind:shown={show_search} />
   {#each $open_apps as session (session.id)}
