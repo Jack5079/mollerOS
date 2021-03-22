@@ -123,14 +123,14 @@
       }
     }
     if (cmd === "overwrite") {
-      const parsed = minimist(args);
-      const stat = await fs.promises.stat(`${directory}/${parsed.file}`);
+      const [name, ...content] = args
+      const stat = await fs.promises.stat(`${directory}/${name}`);
       if (stat.type === "file") {
         messages = [
           ...messages,
           await fs.promises.writeFile(
-            `${directory}/${parsed.file}`,
-            parsed.content,
+            `${directory}/${name}`,
+            content.join(' '),
             "utf8"
           ),
         ];
