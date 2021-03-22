@@ -22,6 +22,8 @@
   <nav class="taskbar">
     <button
     data-hotkey="` `"
+    aria-label="Search"
+    title="Search (`+`)"
     bind:this={search}
       on:click={() => {
         show_search = !show_search
@@ -34,6 +36,7 @@
         in:fly={{ duration: 300, x: window.innerWidth }}
         out:fly={{ duration: 300, y: -10 }}
         class:open={true}
+        title={session.app.name}
         on:click={() => {
           $minimized.delete(session.id);
           $minimized = $minimized;

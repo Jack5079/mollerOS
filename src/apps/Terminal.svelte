@@ -105,14 +105,14 @@
       }
     }
     if (cmd === "overwrite") {
-      const [name, ...content] = args
+      const [name, ...content] = args;
       const stat = await fs.promises.stat(`${directory}/${name}`);
       if (stat.type === "file") {
         messages = [
           ...messages,
           await fs.promises.writeFile(
             `${directory}/${name}`,
-            content.join(' '),
+            content.join(" "),
             "utf8"
           ),
         ];
@@ -171,20 +171,20 @@
     if (cmd === "cls" || cmd === "clear") {
       messages = [];
     }
-    command = ''
+    command = "";
   }
 </script>
 
 <main on:click={focus}>
-  {#each messages as message}
-    <pre>{message}</pre>
+  {#each messages as message, index}
+    <code>{index === 0 ? "" : "\n"}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
     <label for="terminal">{directory}&gt;</label><input
       name="terminal"
       type="text"
       bind:this={text}
-      placeholder="git clone..."
+      placeholder="# we support git!"
       bind:value={command}
     />
   </form>
@@ -211,6 +211,9 @@
 {/if}
 
 <style>
+  code {
+    white-space: pre-wrap;
+  }
   main form {
     display: flex;
   }
@@ -234,7 +237,8 @@
     color: white;
   }
   @media (prefers-color-scheme: light) {
-    main, main input {
+    main,
+    main input {
       color: black;
     }
     main {
