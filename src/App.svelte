@@ -1,7 +1,7 @@
 <script lang="ts">
+  import { fly } from "svelte/transition";
   import { open_apps, minimized } from "./stores";
   import App from "./Window.svelte";
-  let trollface
 </script>
 
 <main>
@@ -13,11 +13,12 @@
   <nav class="taskbar">
     {#each $open_apps as session}
       <button
+        in:fly={{ duration: 300, x: window.innerWidth }}
+        out:fly={{ duration: 300, y: -10 }}
         class:open={true}
         on:click={() => {
           $minimized.delete(session.id);
           $minimized = $minimized;
-          
         }}
       >
         <img src={session.app.icon} alt="Svelte" height="30" />

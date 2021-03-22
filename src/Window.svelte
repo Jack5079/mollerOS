@@ -3,8 +3,8 @@
   import type { Session } from "./types";
   import { slide } from "svelte/transition";
   export let session: Session;
-  export let x = $open_apps.indexOf(session) * 50 + 50;
-  export let y = $open_apps.indexOf(session) * 50 + 50;
+  export let x = Math.random() * (window.innerWidth - 500);
+  export let y = Math.random() * window.innerHeight;
   export let resizable = true;
   let win: HTMLDivElement;
   let navbar: HTMLDivElement;
