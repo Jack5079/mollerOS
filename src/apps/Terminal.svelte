@@ -251,4 +251,12 @@
     background: black;
     color: white;
   }
+  @media (prefers-color-scheme: light) {
+    main, main input {
+      color: black;
+    }
+    main {
+      background: white;
+    }
+  }
 </style>

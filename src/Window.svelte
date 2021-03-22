@@ -86,7 +86,7 @@
   nav button:hover {
     background: #e81123;
   }
-
+  
   :global(.slot > *) {
     margin: 0;
     padding: 0;
@@ -123,5 +123,22 @@
     height: 35px;
     color: white;
     background: darkslategray;
+  }
+  @media (prefers-color-scheme: light) {
+    nav button {
+      color: black;
+    }
+    nav button:focus,
+    nav button:hover {
+      color: white;
+    }
+
+    article {
+      scrollbar-color: rgb(255, 255, 255) rgb(139, 216, 216);
+    }
+    header {
+      color: black;
+      background: rgb(139, 216, 216);
+    }
   }
 </style>

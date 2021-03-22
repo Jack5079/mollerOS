@@ -54,4 +54,12 @@
     height: 40px;
     position: fixed;
   }
+  @media (prefers-color-scheme: light) {
+    .taskbar {
+      background: rgba(150, 150, 230, 0.7);
+    }
+    .open {
+      border-bottom: 2px solid #917171;
+    }
+  }
 </style>

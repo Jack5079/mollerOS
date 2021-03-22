@@ -7,4 +7,10 @@
     background: black;
     color: white;
   }
+  @media (prefers-color-scheme: light) {
+    div {
+      background: white;
+      color: black;
+    }
+  }
 </style>
