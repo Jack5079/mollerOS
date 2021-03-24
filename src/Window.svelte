@@ -1,7 +1,7 @@
 <script lang="ts">
   import { minimized, open_apps } from "./stores";
   import type { Session } from "./types";
-  import { slide, fade } from "svelte/transition";
+  import { slide } from "svelte/transition";
   export let session: Session;
   export let x = Math.random() * (window.innerWidth - 500);
   export let y = Math.random() * (window.innerHeight - 500);
@@ -46,14 +46,13 @@
 
 <article
   bind:this={win}
-  in:fade
-  out:slide={{ duration: 500 }}
+  transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable
 >
   <header on:mousedown={dragstart} bind:this={navbar}>
     <div>
-      <img src={session.app.icon} height="20" alt={session.app.name} />{session
+      <img on:dblclick={close} src={session.app.icon} height="20" alt={session.app.name} />{session
         .app.name}
     </div>
     <nav>
