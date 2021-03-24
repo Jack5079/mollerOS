@@ -48,5 +48,8 @@
       background: white;
       color: black;
     }
+    select {
+      color: black;
+    }
   }
 </style>
