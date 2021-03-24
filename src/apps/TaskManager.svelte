@@ -7,6 +7,7 @@
       (session) =>
         !closes.map((closedsession) => closedsession.id).includes(session.id)
     );
+    closes = []
   }
 </script>
 
