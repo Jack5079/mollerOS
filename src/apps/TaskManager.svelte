@@ -24,18 +24,21 @@
 </main>
 
 <style>
-    select {
-      scrollbar-width: none;
-      background: transparent;
-      border: 0;
-    }
-    main {
-      height: calc(100% - 35px);
-    }
-    select,
-    main {
-      background: black;
-      color: white;
-      width: 100%;
-    }
-  </style>
+  select {
+    scrollbar-width: none;
+    background: transparent;
+    border: 0;
+  }
+  main {
+    height: calc(100% - 35px);
+  }
+  select,
+  main {
+    background: black;
+    color: white;
+    width: 100%;
+  }
+  button {
+    width: 100%;
+  }
+</style>
