@@ -8,6 +8,7 @@
   export let resizable = true;
   let win: HTMLDivElement;
   let navbar: HTMLDivElement;
+  let close_button: HTMLButtonElement
   $: {
     if (win) {
       win.style.left = x + "px";
@@ -39,12 +40,18 @@
   function close() {
     $open_apps = $open_apps.filter((sess) => session !== sess);
   }
+  function move_to_top(event: MouseEvent) {
+    if ($open_apps.includes(session) && event.target !== close_button) {
+      $open_apps = [...$open_apps.filter((sess) => session !== sess), session];
+    }
+  }
   function minimize() {
     $minimized = $minimized.add(session.id);
   }
 </script>
 
 <article
+  on:mousedown={move_to_top}
   bind:this={win}
   transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
@@ -52,12 +59,16 @@
 >
   <header on:mousedown={dragstart} bind:this={navbar}>
     <div>
-      <img on:dblclick={close} src={session.app.icon} height="20" alt={session.app.name} />{session
-        .app.name}
+      <img
+        on:dblclick={close}
+        src={session.app.icon}
+        height="20"
+        alt={session.app.name}
+      />{session.app.name}
     </div>
     <nav>
       <button on:click={minimize}>_</button>
-      <button on:click={close}>✖</button>
+      <button on:click={close} bind:this={close_button}>✖</button>
     </nav>
   </header>
   <div class="slot">
@@ -86,7 +97,7 @@
   nav button:hover {
     background: #e81123;
   }
-  
+
   :global(.slot > *) {
     margin: 0;
     padding: 0;
@@ -98,14 +109,17 @@
     background: white;
     display: block;
     overflow: auto;
-    width: 500px;
+
     max-width: 100vw;
     max-height: 100vh;
+    min-height: 35px;
+    min-width: max-content;
+    width: 500px;
+    height: 500px;
+
     scrollbar-width: thin;
     scrollbar-color: lightslategray darkslategray;
-    height: 500px;
-    min-width: max-content;
-    min-height: 35px;
+    
     position: fixed;
     box-shadow: 5px 5px 50px black;
   }

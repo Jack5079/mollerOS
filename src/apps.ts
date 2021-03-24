@@ -2,7 +2,6 @@ import Hello from './apps/Notepad.svelte'
 import fivede from './apps/5de.svelte'
 import type { App } from './types'
 import Terminal from './apps/Terminal.svelte'
-import Hoppscotch from './apps/Hoppscotch.svelte'
 import Dog from './apps/dog.svelte'
 import Spuchbop from './apps/spuchbop.svelte'
 import DaBaby from './apps/DaBaby.svelte'
@@ -20,10 +19,6 @@ const apps: App[] = [{
   name: 'Terminal',
   component: Terminal,
   icon: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Windows_Terminal_Logo_256x256.png'
-}, {
-  name: 'Hoppscotch',
-  component: Hoppscotch,
-  icon: 'https://hoppscotch.io/icon.png'
 }, {
   name: 'dog',
   component: Dog,

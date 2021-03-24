@@ -13,8 +13,6 @@
           app.icon =
             "https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg";
           app.component = self.component;
-        } else {
-          app.name = 'SmallInfant'
         }
       });
       function spawn(timeout: number = 5000) {

@@ -71,6 +71,7 @@
     text.focus();
   }
   async function run() {
+    messages = [...messages, `${directory}>${command}`];
     const [cmd, ...args] = command.split(" ");
     if (cmd === "git") {
       gitcommand(args);
@@ -177,7 +178,7 @@
 
 <main on:click={focus}>
   {#each messages as message, index}
-    <code>{index === 0 ? "" : "\n"}{message}</code>
+    <code>{index === 0 || !message ? "" : "\n"}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
     <label for="terminal">{directory}&gt;</label><input

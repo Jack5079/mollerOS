@@ -1,6 +1,7 @@
 <script lang="ts">
   export let shown: boolean = false;
   import { blur, fade, fly } from "svelte/transition";
+  import { flip } from "svelte/animate";
   import apps from "./apps";
   import { open_apps, nanoid } from "./stores";
   import type { App } from "./types";
@@ -11,9 +12,9 @@
       search.focus();
     }
   }
-  $: results = apps.filter((app) =>
-    app.name.toLowerCase().includes(query.toLowerCase())
-  );
+  $: results = apps
+    .filter((app) => app.name.toLowerCase().includes(query.toLowerCase()))
+    .sort((a, b) => +(a.name > b.name));
   function open(app: App) {
     shown = false;
     $open_apps = [
@@ -42,32 +43,39 @@
         bind:value={query}
       />
     </form>
-    {#each results as result (result.name)}
-      <article on:click={() => open(result)} transition:fly={{ y: -100 }}>
-        <img alt={result.name} src={result.icon} width="50" />
-        {result.name}
-      </article>
-    {/each}
+    <div>
+      {#each results as result (result.name)}
+        <article
+          on:click={() => open(result)}
+          in:fly={{ y: -100 }}
+          animate:flip={{ duration: 500 }}
+        >
+          <img alt={result.name} src={result.icon} width="50" />
+          {result.name}
+        </article>
+      {/each}
+    </div>
   </section>
 {/if}
 
 <style>
+  div {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
   article img {
     margin-right: 1em;
   }
   article {
-    height: 100px;
     cursor: pointer;
     padding: 1em;
     text-align: center;
-    margin: auto;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: 1em;
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
+    display: inline-flex;
+    height: 200px;
     justify-content: center;
     align-items: center;
-    width: 500px;
   }
   section {
     overflow: auto;

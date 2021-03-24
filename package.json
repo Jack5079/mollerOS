@@ -1,5 +1,6 @@
 {
-  "name": "svelte-app",
+  "name": "moller-os",
+  "description": "OS.js but it's all on your browser",
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",

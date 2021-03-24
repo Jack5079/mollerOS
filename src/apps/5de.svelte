@@ -1,10 +1,19 @@
-<iframe title="5de" src="https://5079.ml/5de/" width="100%" height="100%" frameborder=0>
-  
-</iframe>
+<main>
+  <div>
+    <img src="https://5079.ml/5079mlicon.svg" alt="molly the beagle gradient" />
+    <br />
+    5de will return soon.
+  </div>
+</main>
+
 <style>
-  iframe {
-    position: absolute;
-    top: 35px;
-    height: calc(100% - 35px);
+  main {
+    width: 100%;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
   }
 </style>

@@ -4,6 +4,7 @@
   import App from "./Window.svelte";
   import { install } from "@github/hotkey";
   import { onMount } from "svelte";
+  import { flip } from "svelte/animate";
   let search: HTMLButtonElement;
   import Search from "./Search.svelte";
   onMount(() => {
@@ -31,11 +32,12 @@
     >
       🔎
     </button>
-    {#each $open_apps as session}
+    {#each $open_apps as session (session.id)}
       <button
-        in:fly={{ duration: 300, x: 50 }}
+        in:fly={{ duration: 300, y: 10 }}
+        animate:flip={{ duration: 300 }}
         out:fly={{ duration: 300, y: -10 }}
-        class:open={true}
+        class:open={!$minimized.has(session.id)}
         title={session.app.name}
         on:click={() => {
           $minimized.delete(session.id);
@@ -58,6 +60,7 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
     margin: 0;
+    transition: border-bottom 300ms;
   }
   .open {
     border-bottom: 2px solid #ff8181;
