@@ -1,6 +1,6 @@
 <script lang="ts">
   import { open_apps } from "../stores";
-  import { fade } from "svelte/transition";
+  import { fade, fly } from "svelte/transition";
   let closes: import("../types").Session[] = [];
   function close() {
     $open_apps = $open_apps.filter(
@@ -14,7 +14,7 @@
 <main>
   <select multiple bind:value={closes} size={$open_apps.length}>
     {#each $open_apps as session (session.id)}
-      <option value={session}>{session.app.name}</option>
+      <option transition:fly={{x: -10}} value={session}>{session.app.name}</option>
     {/each}
   </select>
   {#if closes.length}
@@ -29,17 +29,24 @@
     scrollbar-width: none;
     background: transparent;
     border: 0;
+    background: transparent;
   }
   main {
     min-height: calc(100% - 35px);
+    background: black;
   }
   select,
   main {
-    background: black;
     color: white;
     width: 100%;
   }
   button {
     width: 100%;
+  }
+  @media (prefers-color-scheme: light) {
+    main {
+      background: white;
+      color: black;
+    }
   }
 </style>
