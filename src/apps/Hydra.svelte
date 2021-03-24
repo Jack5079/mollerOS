@@ -35,10 +35,18 @@
 
 <style>
   main {
+    background: black;
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
     text-align: center;
+  }
+  @media (prefers-color-scheme: light) {
+    main {
+      background: white;
+      color: black;
+    }
   }
 </style>
