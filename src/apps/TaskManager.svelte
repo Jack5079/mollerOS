@@ -7,14 +7,16 @@
       (session) =>
         !closes.map((closedsession) => closedsession.id).includes(session.id)
     );
-    closes = []
+    closes = [];
   }
 </script>
 
 <main>
   <select multiple bind:value={closes} size={$open_apps.length}>
     {#each $open_apps as session (session.id)}
-      <option transition:fly={{x: -10}} value={session}>{session.app.name}</option>
+      <option transition:fly={{ x: -10 }} value={session}
+        >{session.app.name}</option
+      >
     {/each}
   </select>
   {#if closes.length}
