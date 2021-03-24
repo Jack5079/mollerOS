@@ -1,7 +1,7 @@
 <script lang="ts">
   import { minimized, open_apps } from "./stores";
   import type { Session } from "./types";
-  import { slide } from "svelte/transition";
+  import { slide, fade } from "svelte/transition";
   export let session: Session;
   export let x = Math.random() * (window.innerWidth - 500);
   export let y = Math.random() * (window.innerHeight - 500);
@@ -46,7 +46,8 @@
 
 <article
   bind:this={win}
-  transition:slide={{ duration: 500 }}
+  in:fade
+  out:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable
 >
