@@ -7,7 +7,7 @@ import Dog from './apps/dog.svelte'
 import Spuchbop from './apps/spuchbop.svelte'
 import DaBaby from './apps/DaBaby.svelte'
 import Hydra from './apps/Hydra.svelte'
-
+import TaskManager from './apps/TaskManager.svelte'
 const apps: App[] = [{
   name: 'Notepad',
   component: Hello,
@@ -32,6 +32,10 @@ const apps: App[] = [{
   name: 'spuchbop',
   component: Spuchbop,
   icon: 'https://cdn.discordapp.com/attachments/763177139850969090/823616397283295264/tenor.gif'
+}, {
+  name: 'Task Manager',
+  component: TaskManager,
+  icon: 'https://winaero.com/blog/wp-content/uploads/2019/03/task-manager-taskmgr-icon-big.png'
 }, {
   name: 'DaBaby',
   component: DaBaby,
