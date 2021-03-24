@@ -3,30 +3,30 @@
   import { open_apps, minimized } from "./stores";
   import App from "./Window.svelte";
   import { install } from "@github/hotkey";
-  import {onMount} from 'svelte'
-  let search: HTMLButtonElement
-  import Search from './Search.svelte'
-  onMount(()=>{
-    install(search)
-  })
-  let show_search = false
+  import { onMount } from "svelte";
+  let search: HTMLButtonElement;
+  import Search from "./Search.svelte";
+  onMount(() => {
+    install(search);
+  });
+  let show_search = false;
 </script>
 
 <main>
   <Search bind:shown={show_search} />
   {#each $open_apps as session (session.id)}
     <App {session}>
-      <svelte:component this={session.app.component} />
+      <svelte:component this={session.app.component} session={session.id} />
     </App>
   {/each}
   <nav class="taskbar">
     <button
-    data-hotkey="` `"
-    aria-label="Search"
-    title="Search (`+`)"
-    bind:this={search}
+      data-hotkey="` `"
+      aria-label="Search"
+      title="Search (`+`)"
+      bind:this={search}
       on:click={() => {
-        show_search = !show_search
+        show_search = !show_search;
       }}
     >
       🔎

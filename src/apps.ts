@@ -6,6 +6,8 @@ import Hoppscotch from './apps/Hoppscotch.svelte'
 import Dog from './apps/dog.svelte'
 import Spuchbop from './apps/spuchbop.svelte'
 import DaBaby from './apps/DaBaby.svelte'
+import Hydra from './apps/Hydra.svelte'
+
 const apps: App[] = [{
   name: 'Notepad',
   component: Hello,
@@ -34,5 +36,9 @@ const apps: App[] = [{
   name: 'DaBaby',
   component: DaBaby,
   icon: 'https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg'
+}, {
+  name: 'Hydra',
+  component: Hydra,
+  icon: 'https://windows93.net/c/sys/skins/w93/apps/hydra.png'
 }]
 export default apps
