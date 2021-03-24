@@ -31,7 +31,7 @@
     border: 0;
   }
   main {
-    height: calc(100% - 35px);
+    min-height: calc(100% - 35px);
   }
   select,
   main {
