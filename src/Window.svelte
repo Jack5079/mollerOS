@@ -4,7 +4,7 @@
   import { slide } from "svelte/transition";
   export let session: Session;
   export let x = Math.random() * (window.innerWidth - 500);
-  export let y = Math.random() * window.innerHeight;
+  export let y = Math.random() * (window.innerHeight - 500);
   export let resizable = true;
   let win: HTMLDivElement;
   let navbar: HTMLDivElement;

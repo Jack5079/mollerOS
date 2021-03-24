@@ -33,7 +33,7 @@
     </button>
     {#each $open_apps as session}
       <button
-        in:fly={{ duration: 300, x: window.innerWidth }}
+        in:fly={{ duration: 300, x: 50 }}
         out:fly={{ duration: 300, y: -10 }}
         class:open={true}
         title={session.app.name}
@@ -63,6 +63,8 @@
     border-bottom: 2px solid #ff8181;
   }
   .taskbar {
+    overflow-x: auto;
+    scrollbar-width: thin;
     display: flex;
     justify-content: left;
     align-items: center;
