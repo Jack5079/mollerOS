@@ -42,6 +42,7 @@
         on:click={() => {
           $minimized.delete(session.id);
           $minimized = $minimized;
+          $open_apps = [...$open_apps.filter((sess) => session !== sess), session];
         }}
       >
         <img src={session.app.icon} alt="Svelte" height="30" />
