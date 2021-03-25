@@ -12,9 +12,9 @@
       search.focus();
     }
   }
-  $: results = apps
-    .filter((app) => app.name.toLowerCase().includes(query.toLowerCase()))
-    .sort((a, b) => +(a.name > b.name));
+  $: results = apps.filter((app) =>
+    app.name.toLowerCase().includes(query.toLowerCase())
+  );
   function open(app: App) {
     shown = false;
     $open_apps = [

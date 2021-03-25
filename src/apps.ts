@@ -39,5 +39,5 @@ const apps: App[] = [{
   name: 'Hydra',
   component: Hydra,
   icon: 'https://windows93.net/c/sys/skins/w93/apps/hydra.png'
-}]
+}].sort((a, b) => +(a.name > b.name))
 export default apps
