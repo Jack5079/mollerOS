@@ -14,10 +14,22 @@
 </script>
 
 <main>
-  <select multiple bind:value={closes} size={$open_apps.length + apps.filter(app=>$open_apps.some(session=>session.app === app)).length}>
+  <select
+    multiple
+    bind:value={closes}
+    size={$open_apps.length +
+      apps.filter((app) => $open_apps.some((session) => session.app === app))
+        .length}
+  >
     {#each apps as app}
       {#if $open_apps.find((session) => session.app === app)}
-        <optgroup label={app.name} style="background-image: url({JSON.stringify(app.icon)}); background-repeat: no-repeat; background-position: top right; background-size: 25px 25px;">
+        <optgroup
+          transition:fly={{ x: -10, duration: 300 }}
+          label={app.name}
+          style="background-image: url({JSON.stringify(
+            app.icon
+          )}); background-repeat: no-repeat; background-position: top right; background-size: 25px 25px;"
+        >
           {#each $open_apps.filter((session) => session.app === app) as session (session.id)}
             <option
               animate:flip={{ duration: 300 }}
