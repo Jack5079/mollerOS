@@ -105,6 +105,9 @@
         messages = [...messages, err + ""];
       }
     }
+    if (cmd === "touch") {
+      await fs.promises.writeFile(`${directory}/${args.join("")}`, "", "utf8");
+    }
     if (cmd === "overwrite") {
       const [name, ...content] = args;
       const stat = await fs.promises.stat(`${directory}/${name}`);
@@ -185,7 +188,7 @@
       name="terminal"
       type="text"
       bind:this={text}
-      placeholder="# we support git!"
+      placeholder="# mollerscript moment"
       bind:value={command}
     />
   </form>

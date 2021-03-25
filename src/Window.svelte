@@ -53,6 +53,9 @@
 <article
   on:mousedown={move_to_top}
   bind:this={win}
+  on:introstart={()=>win.style.pointerEvents = 'none'}
+  on:introend={()=>win.style.pointerEvents = 'auto'}
+  on:outrostart={()=>win.style.pointerEvents = 'auto'}
   transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable

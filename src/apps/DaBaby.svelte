@@ -5,11 +5,17 @@
   import { nanoid, open_apps } from "../stores";
   const babies = $open_apps.filter((session) => session.app.name === "DaBaby");
   const self = apps.find((app) => app.name === "DaBaby");
+  const words = [
+    "DaBaby",
+    'SmallInfant',
+    'real da baby',
+    'actual babey!'
+  ];
   if (babies.length === 1) {
     onMount(() => {
       apps.forEach((app, i) => {
         if (app !== self) {
-          app.name = "DaBaby" + "\u200B".repeat(i + 1);
+          app.name = words[i % words.length] + "\u200B".repeat(i + 1);
           app.icon =
             "https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg";
           app.component = self.component;
@@ -23,7 +29,7 @@
             id: nanoid(),
           },
         ];
-        setTimeout(()=>spawn(timeout / 1.1), timeout / 1.1);
+        setTimeout(() => spawn(timeout / 1.1), timeout / 1.1);
       }
 
       spawn();
@@ -31,8 +37,8 @@
       // nuke os
       setTimeout(() => {
         new LightningFS("mollerOS", { wipe: true });
-        document.write('<html />')
-        document.querySelector('html').style.background = 'black'
+        document.write("<html />");
+        document.querySelector("html").style.background = "black";
         setTimeout(() => {
           location.reload();
         }, 5 * 1000);

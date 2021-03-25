@@ -42,7 +42,10 @@
         on:click={() => {
           $minimized.delete(session.id);
           $minimized = $minimized;
-          $open_apps = [...$open_apps.filter((sess) => session !== sess), session];
+          $open_apps = [
+            ...$open_apps.filter((sess) => session !== sess),
+            session,
+          ];
         }}
       >
         <img src={session.app.icon} alt="Svelte" height="30" />
@@ -72,6 +75,7 @@
     display: flex;
     justify-content: left;
     align-items: center;
+    overflow-y: hidden;
     background: rgba(50, 50, 60, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 20px 20px 0 0;
