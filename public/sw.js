@@ -17,13 +17,10 @@ console.log(worker)
  */
 async function onfetch(event) {
   const path = event.request.url.replace(location.href.replace('sw.js', ''), '')
-  console.log(path)
   if (path.startsWith('fs/')) {
-    console.log('trollface')
     try {
-      const text = await fs.promises.readFile(path.replace('fs', ''), 'utf8')
-      console.log('FOUND', text)
-      return new Response(new Blob([text]), {
+      const uint8 = await fs.promises.readFile(path.replace('fs', ''))
+      return new Response(uint8, {
         status: 200
       })
     } catch {
