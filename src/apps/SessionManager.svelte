@@ -31,7 +31,7 @@
   </select>
   {#if closes.length}
     <button on:click={close} transition:fade
-      >End {closes.length === 1 ? "task" : "tasks"}</button
+      >End {closes.length === 1 ? "session" : "sessions"}</button
     >
   {/if}
 </main>
