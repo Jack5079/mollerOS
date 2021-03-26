@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
+  import LightningFS from "@jkearl/lightning-fs";
   import apps from "../apps";
+
+  import { onMount } from "svelte";
   import { nanoid, open_apps } from "../stores";
+
   const babies = $open_apps.filter((session) => session.app.name === "DaBaby");
   const self = apps.find((app) => app.name === "DaBaby");
-  const words = [
-    "DaBaby",
-    'SmallInfant',
-    'real da baby',
-    'actual babey!'
-  ];
+  const words = ["DaBaby", "SmallInfant", "real da baby", "actual babey!"];
   if (babies.length === 1) {
     onMount(() => {
       apps.forEach((app, i) => {

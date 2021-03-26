@@ -9,7 +9,6 @@
     "validate": "svelte-check"
   },
   "devDependencies": {
-    "@jkearl/lightning-fs": "^0.0.3",
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-typescript": "^8.0.0",
@@ -29,6 +28,7 @@
     "typescript": "^4.0.0"
   },
   "dependencies": {
+    "@jkearl/lightning-fs": "^0.0.3",
     "@github/hotkey": "^1.4.2",
     "minimist": "^1.2.5",
     "sirv-cli": "^1.0.0",

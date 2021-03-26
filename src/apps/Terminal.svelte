@@ -1,12 +1,14 @@
 <script lang="ts">
-  let text: HTMLInputElement;
-  let command: string;
   import minimist from "minimist";
-  import { tick } from "svelte";
   import apps from "../apps";
   import fs from "../fs";
-  import { open_apps, nanoid } from "../stores";
   import Window from "../Window.svelte";
+
+  import { tick } from "svelte";
+  import { open_apps, nanoid } from "../stores";
+  
+  let text: HTMLInputElement;
+  let command: string;
   let needsauth = false;
   let form: HTMLFormElement;
   let messages = [];
