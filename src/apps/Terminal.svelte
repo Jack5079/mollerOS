@@ -6,7 +6,7 @@
 
   import { tick } from "svelte";
   import { open_apps, nanoid } from "../stores";
-  
+
   let text: HTMLInputElement;
   let command: string;
   let needsauth = false;
@@ -176,6 +176,19 @@
     }
     if (cmd === "cls" || cmd === "clear") {
       messages = [];
+    }
+
+    if (cmd === "kill" || cmd === "taskkill" || cmd === "taskill") {
+      const app = apps.filter((app) =>
+        app.name.toLowerCase().includes(args.join(" ").toLowerCase())
+      )[0];
+      const apps_killed = $open_apps.filter(session=>session.app === app).length
+      if (app) {
+        $open_apps = $open_apps.filter(session=>session.app !== app)
+        messages = [...messages, `Killed ${apps_killed} session${apps_killed === 1 ? '' : 's'} of ${app.name}`];
+      } else {
+        messages = [...messages, `Couldn't find that app.`];
+      }
     }
     command = "";
   }

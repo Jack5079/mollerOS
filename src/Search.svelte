@@ -1,6 +1,6 @@
 <script lang="ts">
   export let shown: boolean = false;
-  import { blur, slide, fly } from "svelte/transition";
+  import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import apps from "./apps";
   import { open_apps, nanoid } from "./stores";
