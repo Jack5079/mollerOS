@@ -1,7 +1,7 @@
 import mollerOS from './mollerOS.svelte';
-
+if (document.body) document.body.remove()
 const app = new mollerOS({
-	target: document.body,
+	target: document.documentElement,
 	// intro: true
 });
 
