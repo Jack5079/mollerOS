@@ -1,6 +1,6 @@
 <script lang="ts">
   export let shown: boolean = false;
-  import { blur, fade, fly } from "svelte/transition";
+  import { blur, slide, fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import apps from "./apps";
   import { open_apps, nanoid } from "./stores";
@@ -29,13 +29,12 @@
 
 {#if shown}
   <section
-    out:blur
-    in:fade={{ duration: 100 }}
+    transition:fly={{ duration: 500, y: (window.innerHeight * .75) + 40, opacity: 1 }}
     on:keydown={(e) => {
       if (e.key === "Escape") shown = false;
     }}
   >
-    <form on:submit|preventDefault={() => open(results[0])}>
+    <form on:submit|preventDefault={() => results[0] && open(results[0])}>
       <input
         type="search"
         placeholder="Search for an app.."
@@ -47,8 +46,8 @@
       {#each results as result (result.name)}
         <article
           on:click={() => open(result)}
-          in:fly={{ y: -100 }}
-          animate:flip={{ duration: 500 }}
+          in:fly={{ y: -100, duration: 700 }}
+          animate:flip={{ duration: 700 }}
         >
           <img alt={result.name} src={result.icon} width="50" />
           {result.name}

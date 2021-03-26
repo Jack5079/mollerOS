@@ -1,6 +1,6 @@
-import App from './App.svelte';
+import mollerOS from './mollerOS.svelte';
 
-const app = new App({
+const app = new mollerOS({
 	target: document.body,
 	// intro: true
 });
