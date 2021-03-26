@@ -71,7 +71,6 @@
   }
   .taskbar {
     overflow-x: auto;
-    scrollbar-width: thin;
     display: flex;
     justify-content: left;
     align-items: center;
