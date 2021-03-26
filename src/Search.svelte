@@ -59,22 +59,16 @@
 {/if}
 
 <style>
-  div {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-  }
   article img {
     margin-right: 1em;
   }
   article {
+    width: 100%;
     cursor: pointer;
-    padding: 1em;
+    padding: 0;
     text-align: center;
-    margin: 1em;
-    background: rgba(0, 0, 0, 0.5);
     display: inline-flex;
-    height: 200px;
-    justify-content: center;
+    height: 100px;
     align-items: center;
   }
   section {
@@ -85,9 +79,9 @@
     margin: 0;
     position: fixed;
     z-index: 999;
-    width: 100%;
-    height: 100%;
-    top: 0;
+    width: 300px;
+    height: calc(max(75vh, 40px));
+    bottom: 40px;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
   }
