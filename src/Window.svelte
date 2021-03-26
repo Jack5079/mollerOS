@@ -8,7 +8,7 @@
   export let resizable = true;
   let win: HTMLDivElement;
   let navbar: HTMLDivElement;
-  let close_button: HTMLButtonElement
+  let close_button: HTMLButtonElement;
   $: {
     if (win) {
       win.style.left = x + "px";
@@ -53,9 +53,9 @@
 <article
   on:mousedown={move_to_top}
   bind:this={win}
-  on:introstart={()=>win.style.pointerEvents = 'none'}
-  on:introend={()=>win.style.pointerEvents = 'auto'}
-  on:outrostart={()=>win.style.pointerEvents = 'auto'}
+  on:introstart={() => (win.style.pointerEvents = "none")}
+  on:introend={() => (win.style.pointerEvents = "auto")}
+  on:outrostart={() => (win.style.pointerEvents = "auto")}
   transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable
@@ -121,7 +121,7 @@
     height: 500px;
 
     scrollbar-color: lightslategray darkslategray;
-    
+
     position: fixed;
     box-shadow: 5px 5px 50px black;
   }
@@ -160,6 +160,7 @@
   @media (max-width: 375px) {
     article {
       position: static;
+      height: calc(100vh - 40px);
     }
     .resizable {
       resize: none;
@@ -168,12 +169,12 @@
       pointer-events: all;
     }
     header {
-    pointer-events: none;
+      pointer-events: none;
       background: none;
-      position: fixed;
+      position: absolute;
       top: 0;
     }
-    .min {
+    .min, article:not(:first-of-type) {
       display: none;
     }
   }

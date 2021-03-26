@@ -69,3 +69,10 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+
+@media (max-width: 375px) {
+	html,body {
+		height: auto;
+		min-height: 100%;
+	}
+}
