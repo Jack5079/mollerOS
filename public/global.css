@@ -6,6 +6,8 @@ html, body {
 	position: relative;
 	width: 100%;
 	height: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 body {
@@ -13,7 +15,7 @@ body {
 	background-image: url(https://source.unsplash.com/1920x1080/?beagle), linear-gradient(to top right, blue, red);
 	background-size: cover;
 	margin: 0;
-	padding: 8px;
+	padding: 0;
 	box-sizing: border-box;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }

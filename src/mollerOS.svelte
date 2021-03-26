@@ -15,11 +15,6 @@
 </script>
 
 <body>
-  {#each $open_apps as session (session.id)}
-    <App {session}>
-      <svelte:component this={session.app.component} session={session.id} />
-    </App>
-  {/each}
   <Search bind:shown={show_search} />
   <Taskbar>
     <button
@@ -34,6 +29,11 @@
       🔎
     </button>
   </Taskbar>
+  {#each $open_apps as session (session.id)}
+    <App {session}>
+      <svelte:component this={session.app.component} session={session.id} />
+    </App>
+  {/each}
 </body>
 
 <style>

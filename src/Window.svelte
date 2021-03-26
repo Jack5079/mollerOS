@@ -70,8 +70,8 @@
       />{session.app.name}
     </div>
     <nav>
-      <button on:click={minimize}>_</button>
-      <button on:click={close} bind:this={close_button}>✖</button>
+      <button class="min" on:click={minimize}>_</button>
+      <button class="close" on:click={close} bind:this={close_button}>✖</button>
     </nav>
   </header>
   <div class="slot">
@@ -155,6 +155,26 @@
     header {
       color: black;
       background: rgb(139, 216, 216);
+    }
+  }
+  @media (max-width: 375px) {
+    article {
+      position: static;
+    }
+    .resizable {
+      resize: none;
+    }
+    .close {
+      pointer-events: all;
+    }
+    header {
+    pointer-events: none;
+      background: none;
+      position: fixed;
+      top: 0;
+    }
+    .min {
+      display: none;
     }
   }
 </style>

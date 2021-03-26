@@ -67,4 +67,15 @@
   button:hover, button:focus {
     background: #3E3E3E;
   }
+  @media (max-width: 375px) {
+    .taskbar {
+      position: static;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .taskbar > *:not(:first-child) {
+      display: none;
+    }
+  }
 </style>
