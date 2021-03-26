@@ -50,7 +50,7 @@
 
 <style>
   select {
-    scrollbar-width: none;
+    overflow: visible;
     background: transparent;
     border: 0;
     background: transparent;
