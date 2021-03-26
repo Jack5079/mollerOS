@@ -1,3 +1,7 @@
+* {
+	scrollbar-width: thin;
+}
+
 html, body {
 	position: relative;
 	width: 100%;

@@ -97,12 +97,12 @@
   .root {
     background: black;
     color: white;
+    height: calc(100% - 35px);
     width: 100%;
   }
   button {
     margin: 0;
   }
-
   nav > button {
     background: none;
     padding: 0;
@@ -123,6 +123,8 @@
     width: 100%;
   }
   main {
+    overflow: auto;
+    height: calc(100% - 21px);
     background: rgba(100, 100, 100, 0.1);
   }
   @media (prefers-color-scheme: light) {
@@ -151,6 +153,7 @@
     }
   }
   nav {
+    overflow-x: auto;
     display: flex;
     align-items: center;
   }

@@ -120,7 +120,6 @@
     width: 500px;
     height: 500px;
 
-    scrollbar-width: thin;
     scrollbar-color: lightslategray darkslategray;
     
     position: fixed;
