@@ -1,7 +1,9 @@
 <script lang="ts">
-  let directory = [];
+  let directory: string[] = [];
   import fs from "../fs";
   import { getIconForFile, getIconForFolder } from "vscode-icons-js";
+  let context: HTMLMenuElement;
+  let contextfile = "";
   $: files = fs.promises.readdir(
     directory.length === 0 ? "/" : directory.join("/")
   );
@@ -18,10 +20,20 @@
   function revert_to(index: number) {
     directory = directory.filter((_, i) => i <= index);
   }
+  async function menu(file: string, event: MouseEvent) {
+    const stat = await fs.promises.stat(directory.join("/") + "/" + file);
+    if (stat.type === "file") {
+      contextfile = directory.join("/") + "/" + file;
+      context.hidden = false;
+      context.style.left = event.clientX + "px";
+      context.style.top = event.clientY + "px";
+    }
+  }
+  const refresh = () => (directory = directory);
 </script>
 
 <div class="root">
-  <nav>
+  <nav on:click={() => (contextfile = "")}>
     <button on:click={() => (directory = [])}>/</button>
     {#each directory as folder, index}
       {#if folder}
@@ -29,12 +41,15 @@
       {/if}
     {/each}
   </nav>
-  <main>
+  <main on:click={() => (contextfile = "")}>
     {#await files}
       Loading...
     {:then files}
       {#each files as file}
-        <button on:click={() => open(file)}>
+        <button
+          on:click={() => open(file)}
+          on:contextmenu|preventDefault={(event) => menu(file, event)}
+        >
           {#await fs.promises.stat(directory.join("/") + "/" + file)}
             <img alt="" />
           {:then stat}
@@ -54,9 +69,31 @@
       {/each}
     {/await}
   </main>
+  <menu
+    class:hidden={!contextfile}
+    bind:this={context}
+    on:blur={() => (contextfile = "")}
+  >
+    <button
+      on:click={() => {
+        fs.promises.unlink(contextfile);
+        contextfile = "";
+        refresh();
+      }}>Delete</button
+    >
+  </menu>
 </div>
 
 <style>
+  .hidden {
+    display: none;
+  }
+  menu {
+    width: 200px;
+    padding: 0;
+    color: white;
+    background: rgb(50, 50, 50);
+  }
   .root {
     background: black;
     color: white;
@@ -72,20 +109,29 @@
     color: white;
     border: 0;
   }
-  button:hover,
-  button:focus {
+  button:not(menu > button):hover,
+  button:not(menu > button):focus {
     background: rgba(255, 255, 255, 0.3);
   }
-  main > button {
+  main > button,
+  menu > button {
     background: none;
     color: white;
     border: 0;
+  }
+  menu > button {
+    width: 100%;
   }
   main {
     background: rgba(100, 100, 100, 0.1);
   }
   @media (prefers-color-scheme: light) {
-    main > button {
+    main > button,
+    menu > button {
+      color: black;
+    }
+    menu {
+      background: rgb(200, 200, 200);
       color: black;
     }
     main {
@@ -99,8 +145,8 @@
       color: black;
     }
 
-    button:hover,
-    button:focus {
+    button:not(menu > button):hover,
+    button:not(menu > button):focus {
       background: rgba(0, 0, 0, 0.3);
     }
   }
@@ -110,5 +156,8 @@
   }
   nav > button:not(:first-child)::after {
     content: "/";
+  }
+  menu {
+    position: fixed;
   }
 </style>
