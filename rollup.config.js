@@ -28,7 +28,7 @@ function serve() {
 		}
 	}
 }
-
+/** @type {import('rollup').RollupOptions} */
 export default {
 	input: 'src/main.ts',
 	output: {
@@ -74,7 +74,20 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser({
+			ecma: 2020,
+			compress: {
+				unsafe_arrows: true,
+				unsafe_math: true,
+				unsafe_proto: true,
+				unsafe_methods: true,
+				unsafe: true,
+				unsafe_Function: true,
+				unsafe_comps: true,
+				unsafe_regexp: true,
+				unsafe_symbols: true
+			}
+		})
 	],
 	watch: {
 		clearScreen: false
