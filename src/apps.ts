@@ -8,6 +8,7 @@ import DaBaby from './apps/DaBaby.svelte'
 import Hydra from './apps/Hydra.svelte'
 import SessionManager from './apps/SessionManager.svelte'
 import FileExplorer from './apps/FileExplorer.svelte'
+import Trollface from './apps/Trollface.svelte'
 const apps: App[] = [{
   name: 'Notepad',
   component: Hello,
@@ -40,9 +41,13 @@ const apps: App[] = [{
   name: 'Hydra',
   component: Hydra,
   icon: 'https://windows93.net/c/sys/skins/w93/apps/hydra.png'
-  }, {
+}, {
   name: 'File Explorer',
   icon: 'https://winaero.com/blog/wp-content/uploads/2019/09/File-Explorer-fluent-icon.png',
   component: FileExplorer
+}, {
+  name: 'trollface',
+  icon: 'https://pngimg.com/uploads/trollface/trollface_PNG15.png',
+  component: Trollface
 }].sort((a, b) => a.name.localeCompare(b.name))
 export default apps

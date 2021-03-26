@@ -12,7 +12,7 @@ html, body {
 
 body {
 	color: #333;
-	background-image: url(https://source.unsplash.com/1920x1080/?beagle), linear-gradient(to top right, blue, red);
+	background-image: url(stare.png), linear-gradient(to top right, blue, red);
 	background-size: cover;
 	margin: 0;
 	padding: 0;
