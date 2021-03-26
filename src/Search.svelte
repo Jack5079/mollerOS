@@ -29,7 +29,11 @@
 
 {#if shown}
   <section
-    transition:fly={{ duration: 500, y: (window.innerHeight * .75) + 40, opacity: 1 }}
+    transition:fly={{
+      duration: 500,
+      y: window.innerHeight,
+      opacity: 1,
+    }}
     on:keydown={(e) => {
       if (e.key === "Escape") shown = false;
     }}
@@ -83,5 +87,12 @@
     bottom: 40px;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
+  }
+  @media (max-width: 375px) {
+    section {
+      bottom: 0;
+      width: 100%;
+      height: calc(100vh - 40px);
+    }
   }
 </style>
