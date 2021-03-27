@@ -7,7 +7,7 @@
   import { open_apps } from "./stores";
   import { onMount } from "svelte";
   import { install } from "@github/hotkey";
-  import { fade } from "svelte/transition";
+  import { fly } from "svelte/transition";
 
   let show_search = false;
   const facts: string[] = [
@@ -15,7 +15,7 @@
     "the DaBaby app will destroy your filesystem",
     "you can stop the hydra virus by opening session manager and closing all sessions (click the first session and then shift click the last session)",
     "5de probably won't return soon",
-    "the terminal has git support (isogit cli)"
+    "the terminal has git support (isogit cli)",
   ];
   onMount(() => {
     install(search);
@@ -42,7 +42,7 @@
       <svelte:component this={session.app.component} session={session.id} />
     </App>
   {:else}
-    <article transition:fade>
+    <article transition:fly={{y: -50, opacity: 1}}>
       mollerOS fact: {facts[Math.floor(Math.random() * facts.length)]}
     </article>
   {/each}
@@ -51,12 +51,17 @@
 <style>
   article {
     width: 100%;
-    height: 100%;
+    height: 50px;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
+  }
+  @media (max-width: 375px) {
+    article {
+      display: none;
+    }
   }
   button {
     background: none;
