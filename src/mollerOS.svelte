@@ -42,16 +42,17 @@
       <svelte:component this={session.app.component} session={session.id} />
     </App>
   {:else}
-    <article transition:fly={{y: -50, opacity: 1}}>
+    <header transition:fly={{y: -50, opacity: 1}}>
       mollerOS fact: {facts[Math.floor(Math.random() * facts.length)]}
-    </article>
+    </header>
   {/each}
 </body>
 
 <style>
-  article {
+  header {
     width: 100%;
     height: 50px;
+    user-select: none;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
@@ -59,7 +60,7 @@
     color: white;
   }
   @media (max-width: 375px) {
-    article {
+    header {
       display: none;
     }
   }

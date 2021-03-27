@@ -7,7 +7,6 @@
   export let y = Math.random() * (window.innerHeight - 500);
   export let resizable = true;
   let win: HTMLDivElement;
-  let navbar: HTMLDivElement;
   let close_button: HTMLButtonElement;
   $: {
     if (win) {
@@ -15,27 +14,22 @@
       win.style.top = y + "px";
     }
   }
-  function dragstart(event: Event) {
-    if (event.target === navbar) {
-      const move = (ev: MouseEvent) => {
-        const {
-          x: sizex,
-          y: sizey,
-        } = navbar.parentElement.getBoundingClientRect();
-        x = sizex + ev.movementX;
-        y = sizey + ev.movementY;
-      };
-      document.addEventListener("mousemove", move);
-      window.addEventListener(
-        "mouseup",
-        () => {
-          document.removeEventListener("mousemove", move);
-        },
-        {
-          once: true,
-        }
-      );
-    }
+  function dragstart() {
+    const move = (ev: MouseEvent) => {
+      const { x: sizex, y: sizey } = win.getBoundingClientRect();
+      x = sizex + ev.movementX;
+      y = sizey + ev.movementY;
+    };
+    document.addEventListener("mousemove", move);
+    window.addEventListener(
+      "mouseup",
+      () => {
+        document.removeEventListener("mousemove", move);
+      },
+      {
+        once: true,
+      }
+    );
   }
   function close() {
     $open_apps = $open_apps.filter((sess) => session !== sess);
@@ -60,7 +54,7 @@
   class:hidden={$minimized.has(session.id)}
   class:resizable
 >
-  <header on:mousedown={dragstart} bind:this={navbar}>
+  <header on:mousedown|self={dragstart}>
     <div>
       <img
         on:dblclick={close}
@@ -126,14 +120,19 @@
     box-shadow: 5px 5px 50px black;
   }
   header div {
+    pointer-events: none;
     height: 35px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
   }
+  header div img {
+    pointer-events: all;
+  }
   header {
     position: sticky;
     top: 0;
+    user-select: none;
     z-index: 10;
     width: 100%;
     height: 35px;
