@@ -29,7 +29,7 @@
 
 <style>
   .open {
-    border-bottom: 2px solid #86E8FF;
+    border-bottom: 2px solid #86e8ff;
   }
   .taskbar {
     z-index: 1000;
@@ -46,7 +46,7 @@
     height: 40px;
     position: fixed;
   }
-  
+
   @media (prefers-color-scheme: light) {
     .taskbar {
       background: rgba(150, 150, 230, 0.7);
@@ -57,22 +57,20 @@
     height: 100%;
     background: none;
     border: none;
-    height: 100%;
-    padding: 0;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding: 0 0.5em;
     margin: 0;
     transition: border-bottom 300ms;
   }
-  button:hover, button:focus {
-    background: #3E3E3E;
+  button:hover,
+  button:focus {
+    background: #3e3e3e;
   }
   @media (max-width: 375px) {
     .taskbar {
       position: static;
-      display:flex;
-      justify-content:center;
-      align-items:center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .taskbar > *:not(:first-child) {
       display: none;

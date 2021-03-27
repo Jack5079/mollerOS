@@ -3,7 +3,7 @@
   import App from "./Window.svelte";
   import Search from "./Search.svelte";
   import Taskbar from "./Taskbar.svelte";
-  
+
   import { open_apps } from "./stores";
   import { onMount } from "svelte";
   import { install } from "@github/hotkey";
@@ -26,7 +26,7 @@
         show_search = !show_search;
       }}
     >
-      🔎
+      <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
     </button>
   </Taskbar>
   {#each $open_apps as session (session.id)}
@@ -38,18 +38,15 @@
 
 <style>
   button {
-    height: 100%;
     background: none;
     border: none;
     height: 100%;
-    padding: 0;
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+    padding: 0 .5em;
     margin: 0;
-    transition: border-bottom 300ms;
   }
-  
-  button:hover, button:focus {
-    background: #3E3E3E;
+
+  button:hover,
+  button:focus {
+    background: #3e3e3e;
   }
 </style>
