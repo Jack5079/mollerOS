@@ -12,8 +12,8 @@ html, body {
 
 body {
 	color: #333;
-	background-image: url(stare.png), linear-gradient(to top right, blue, red);
-	background-size: cover;
+	background-image: url(bliss.jpg), linear-gradient(to top right, blue, red);
+	background-position: center 80%;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;

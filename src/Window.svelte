@@ -174,7 +174,8 @@
       position: absolute;
       top: 0;
     }
-    .min, article:not(:first-of-type) {
+    .min,
+    article:not(:first-of-type) {
       display: none;
     }
   }
