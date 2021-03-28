@@ -3,6 +3,7 @@
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import apps from "./apps";
+  import Fuse from "fuse.js";
   import { open_apps, nanoid } from "./stores";
   import type { App } from "./types";
   let search: HTMLInputElement;
@@ -12,9 +13,13 @@
       search.focus();
     }
   }
-  $: results = apps.filter((app) =>
-    app.name.toLowerCase().includes(query.toLowerCase())
-  );
+  $: results = query.trim()
+    ? new Fuse(apps, {
+        keys: ["name"],
+      })
+        .search(query)
+        .map((item) => item.item)
+    : apps;
   function open(app: App) {
     shown = false;
     $open_apps = [

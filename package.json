@@ -30,6 +30,7 @@
   "dependencies": {
     "@github/hotkey": "^1.4.2",
     "@jkearl/lightning-fs": "^0.0.3",
+    "fuse.js": "^6.4.6",
     "minimist": "^1.2.5",
     "sirv-cli": "^1.0.0",
     "vscode-icons-js": "^11.1.0"
