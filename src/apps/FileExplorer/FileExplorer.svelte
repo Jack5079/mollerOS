@@ -1,7 +1,6 @@
 <script lang="ts">
   let directory: string = "/";
   import fs from "../../fs";
-  import Git from "./Git.svelte";
   import { getIconForFile, getIconForFolder } from "vscode-icons-js";
   let context: HTMLMenuElement;
   let contextfile = "";
@@ -43,9 +42,7 @@
     {#await files}
       Loading...
     {:then files}
-      {#if files.includes(".git")}
-        <Git {directory} />
-      {/if}
+      <!-- put a thing with width 100 px here as like a sidebar -->
       <div>
         {#each files as file}
           <button
