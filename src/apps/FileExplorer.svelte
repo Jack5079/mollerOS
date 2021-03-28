@@ -1,29 +1,26 @@
 <script lang="ts">
-  let directory: string[] = [];
+  let directory: string = "/";
   import fs from "../fs";
   import { getIconForFile, getIconForFolder } from "vscode-icons-js";
   let context: HTMLMenuElement;
   let contextfile = "";
-  $: files = fs.promises.readdir(
-    directory.length === 0 ? "/" : directory.join("/")
-  );
+  $: files = fs.promises.readdir(directory);
   async function open(file: string) {
-    const stat = await fs.promises.stat(directory.join("/") + "/" + file);
+    const stat = await fs.promises.stat(directory + "/" + file);
     if (stat.type === "dir") {
-      if (directory[0] === "") {
-        directory = [...directory, file];
-      } else {
-        directory = ["", ...directory, file];
-      }
+      directory = `${directory}/${file}`;
     }
   }
   function revert_to(index: number) {
-    directory = directory.filter((_, i) => i <= index);
+    directory = directory
+      .split("/")
+      .filter((_, i) => i <= index)
+      .join("/");
   }
   async function menu(file: string, event: MouseEvent) {
-    const stat = await fs.promises.stat(directory.join("/") + "/" + file);
+    const stat = await fs.promises.stat(directory + "/" + file);
     if (stat.type === "file") {
-      contextfile = directory.join("/") + "/" + file;
+      contextfile = directory + "/" + file;
       context.hidden = false;
       context.style.left = event.clientX + "px";
       context.style.top = event.clientY + "px";
@@ -34,8 +31,8 @@
 
 <div class="root">
   <nav on:click={() => (contextfile = "")}>
-    <button on:click={() => (directory = [])}>/</button>
-    {#each directory as folder, index}
+    <button on:click={() => (directory = "/")}>/</button>
+    {#each directory.split("/") as folder, index}
       {#if folder}
         <button on:click={() => revert_to(index)}>{folder}</button>
       {/if}
@@ -50,7 +47,7 @@
           on:click={() => open(file)}
           on:contextmenu|preventDefault={(event) => menu(file, event)}
         >
-          {#await fs.promises.stat(directory.join("/") + "/" + file)}
+          {#await fs.promises.stat(directory + "/" + file)}
             <img alt="" />
           {:then stat}
             <img
@@ -75,10 +72,12 @@
     on:blur={() => (contextfile = "")}
   >
     <button
-      on:click={() => {
-        fs.promises.unlink(contextfile);
+      on:click={async () => {
+        await fs.promises.unlink(contextfile);
+        files = Promise.resolve(
+          (await files).filter((file) => file !== contextfile.split('/').pop())
+        );
         contextfile = "";
-        refresh();
       }}>Delete</button
     >
   </menu>

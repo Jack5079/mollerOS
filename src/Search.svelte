@@ -13,6 +13,7 @@
       search.focus();
     }
   }
+  
   $: results = query.trim()
     ? new Fuse(apps, {
         keys: ["name"],
