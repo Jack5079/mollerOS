@@ -107,6 +107,9 @@
 </div>
 
 <style>
+  thead th {
+    text-align: left;
+  }
   .hidden {
     display: none;
   }
@@ -140,6 +143,9 @@
   }
   td:first-child {
     user-select: none;
+  }
+  table {
+    width: 100%;
   }
   main table > tr > td,
   menu > button {
