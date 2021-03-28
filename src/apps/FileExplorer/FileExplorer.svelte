@@ -6,9 +6,9 @@
   let contextfile = "";
   $: files = fs.promises.readdir(directory);
   async function open(file: string) {
-    const stat = await fs.promises.stat(directory + file);
+    const stat = await fs.promises.stat(directory + "/" + file);
     if (stat.type === "dir") {
-      directory = `${directory}${file}/`;
+      directory = `${directory}/${file}/`;
     }
   }
   function revert_to(index: number) {
@@ -26,6 +26,12 @@
       context.style.top = event.clientY + "px";
     }
   }
+  function fileSize(bytes: number): string {
+    var exp = (Math.log(bytes) / Math.log(1024)) | 0;
+    var result = (bytes / Math.pow(1024, exp)).toFixed(2);
+
+    return result + " " + (exp == 0 ? "bytes" : "KMGTPEZY"[exp - 1] + "B");
+  }
   //const refresh = () => (directory = directory);
 </script>
 
@@ -42,31 +48,45 @@
     {#await files}
       Loading...
     {:then files}
-      <!-- put a thing with width 100 px here as like a sidebar -->
-      <div>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date modified</th>
+            <th>Size</th>
+          </tr>
+        </thead>
         {#each files as file}
-          <button
+          <tr
             on:click={() => open(file)}
             on:contextmenu|preventDefault={(event) => menu(file, event)}
           >
             {#await fs.promises.stat(directory + "/" + file)}
-              <img alt="" />
+              <td>{file}</td>
             {:then stat}
-              <img
-                width={25}
-                height={25}
-                alt={file}
-                src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{stat.type ===
-                'dir'
-                  ? getIconForFolder(file)
-                  : getIconForFile(file)}"
-              />
+              <td>
+                <img
+                  width="23"
+                  height="23"
+                  alt={file}
+                  src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{stat.type ===
+                  'dir'
+                    ? getIconForFolder(file)
+                    : getIconForFile(file)}"
+                />{file}</td
+              >
+              <td>
+                {new Date(stat.mtimeMs).toLocaleString()}
+              </td>
+              {#if stat.type !== "dir"}
+                <td>
+                  {fileSize(stat.size)}
+                </td>
+              {/if}
             {/await}
-            <br />
-            {file}
-          </button>
+          </tr>
         {/each}
-      </div>
+      </table>
     {/await}
   </main>
   <menu
@@ -115,7 +135,13 @@
   button:not(menu > button):focus {
     background: rgba(255, 255, 255, 0.3);
   }
-  main div > button,
+  tr:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  td:first-child {
+    user-select: none;
+  }
+  main table > tr > td,
   menu > button {
     background: none;
     color: white;
@@ -125,18 +151,12 @@
     width: 100%;
   }
   main {
-    display: flex;
-    justify-content: left;
-    align-items: center;
     overflow: auto;
     height: calc(100% - 21px);
     background: rgba(100, 100, 100, 0.1);
   }
-  main div {
-    height: 100%;
-  }
   @media (prefers-color-scheme: light) {
-    main div > button,
+    main div table > tr > td,
     menu > button {
       color: black;
     }
@@ -157,6 +177,9 @@
 
     button:not(menu > button):hover,
     button:not(menu > button):focus {
+      background: rgba(0, 0, 0, 0.3);
+    }
+    tr:hover {
       background: rgba(0, 0, 0, 0.3);
     }
   }
