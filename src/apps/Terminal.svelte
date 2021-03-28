@@ -14,6 +14,74 @@
   let form: HTMLFormElement;
   let messages = [];
   let directory = "/";
+
+  const gitauth = {
+    onAuth: () => {
+      if (localStorage.getItem("git_user")) {
+        return {
+          username: localStorage.getItem("git_user"),
+          password: localStorage.getItem("git_pass"),
+        };
+      }
+      return new Promise(async (resolve) => {
+        needsauth = true;
+        await tick();
+        form.addEventListener(
+          "submit",
+          (
+            event: Event & {
+              currentTarget: EventTarget & HTMLFormElement;
+            }
+          ) => {
+            resolve({
+              username: (event.currentTarget.querySelector(
+                'input[type="text"]'
+              ) as HTMLInputElement).value,
+              password: (event.currentTarget.querySelector(
+                'input[type="password"]'
+              ) as HTMLInputElement).value,
+            });
+          },
+          {
+            once: true,
+          }
+        );
+      });
+    },
+    onAuthFailure: () => {
+      return new Promise(async (resolve) => {
+        form.addEventListener(
+          "submit",
+          (
+            event: Event & {
+              currentTarget: EventTarget & HTMLFormElement;
+            }
+          ) => {
+            resolve({
+              username: (event.currentTarget.querySelector(
+                'input[type="text"]'
+              ) as HTMLInputElement).value,
+              password: (event.currentTarget.querySelector(
+                'input[type="password"]'
+              ) as HTMLInputElement).value,
+            });
+          },
+          {
+            once: true,
+          }
+        );
+      });
+    },
+    onAuthSuccess: (
+      _url: string,
+      auth: { username: string; password: string }
+    ) => {
+      needsauth = false;
+      localStorage.setItem("git_user", auth.username);
+      localStorage.setItem("git_password", auth.password);
+    },
+  };
+
   const commands: {
     [key: string]: (
       args: string[]
@@ -36,35 +104,12 @@
                 dir: directory,
                 http,
                 corsProxy: "https://cors.isomorphic-git.org",
-                onAuth: () => {
-                  needsauth = true;
-                  return new Promise(async (resolve) => {
-                    await tick();
-                    form.addEventListener(
-                      "submit",
-                      (
-                        event: Event & {
-                          currentTarget: EventTarget & HTMLFormElement;
-                        }
-                      ) => {
-                        needsauth = false;
-                        resolve({
-                          username: (event.currentTarget.querySelector(
-                            'input[type="text"]'
-                          ) as HTMLInputElement).value,
-                          password: (event.currentTarget.querySelector(
-                            'input[type="password"]'
-                          ) as HTMLInputElement).value,
-                        });
-                      }
-                    );
-                  });
-                },
                 headers: {
                   "User-Agent": `git/mollerOS/isogit-${git.version()}`,
                 },
               },
-              opts
+              opts,
+              gitauth
             )
           );
           if (result === undefined) return;
@@ -119,7 +164,10 @@
       try {
         const stat = await fs.promises.stat(`${directory}/${args.join(" ")}`);
         if (stat.type === "file") {
-          return fs.promises.readFile(`${directory}/${args.join(" ")}`, "utf8") as Promise<unknown> as Promise<string>;
+          return (fs.promises.readFile(
+            `${directory}/${args.join(" ")}`,
+            "utf8"
+          ) as Promise<unknown>) as Promise<string>;
         } else {
           return "That's a folder retard";
         }
