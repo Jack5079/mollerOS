@@ -1,14 +1,15 @@
 <script lang="ts">
   let directory: string = "/";
-  import fs from "../fs";
+  import fs from "../../fs";
+  import Git from "./Git.svelte";
   import { getIconForFile, getIconForFolder } from "vscode-icons-js";
   let context: HTMLMenuElement;
   let contextfile = "";
   $: files = fs.promises.readdir(directory);
   async function open(file: string) {
-    const stat = await fs.promises.stat(directory + "/" + file);
+    const stat = await fs.promises.stat(directory + file);
     if (stat.type === "dir") {
-      directory = `${directory}/${file}`;
+      directory = `${directory}${file}/`;
     }
   }
   function revert_to(index: number) {
@@ -18,15 +19,15 @@
       .join("/");
   }
   async function menu(file: string, event: MouseEvent) {
-    const stat = await fs.promises.stat(directory + "/" + file);
+    const stat = await fs.promises.stat(directory + file + "/");
     if (stat.type === "file") {
-      contextfile = directory + "/" + file;
+      contextfile = directory + file;
       context.hidden = false;
       context.style.left = event.clientX + "px";
       context.style.top = event.clientY + "px";
     }
   }
-  const refresh = () => (directory = directory);
+  //const refresh = () => (directory = directory);
 </script>
 
 <div class="root">
@@ -42,28 +43,33 @@
     {#await files}
       Loading...
     {:then files}
-      {#each files as file}
-        <button
-          on:click={() => open(file)}
-          on:contextmenu|preventDefault={(event) => menu(file, event)}
-        >
-          {#await fs.promises.stat(directory + "/" + file)}
-            <img alt="" />
-          {:then stat}
-            <img
-              width={25}
-              height={25}
-              alt={file}
-              src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{stat.type ===
-              'dir'
-                ? getIconForFolder(file)
-                : getIconForFile(file)}"
-            />
-          {/await}
-          <br />
-          {file}
-        </button>
-      {/each}
+      {#if files.includes(".git")}
+        <Git {directory} />
+      {/if}
+      <div>
+        {#each files as file}
+          <button
+            on:click={() => open(file)}
+            on:contextmenu|preventDefault={(event) => menu(file, event)}
+          >
+            {#await fs.promises.stat(directory + "/" + file)}
+              <img alt="" />
+            {:then stat}
+              <img
+                width={25}
+                height={25}
+                alt={file}
+                src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{stat.type ===
+                'dir'
+                  ? getIconForFolder(file)
+                  : getIconForFile(file)}"
+              />
+            {/await}
+            <br />
+            {file}
+          </button>
+        {/each}
+      </div>
     {/await}
   </main>
   <menu
@@ -75,7 +81,7 @@
       on:click={async () => {
         await fs.promises.unlink(contextfile);
         files = Promise.resolve(
-          (await files).filter((file) => file !== contextfile.split('/').pop())
+          (await files).filter((file) => file !== contextfile.split("/").pop())
         );
         contextfile = "";
       }}>Delete</button
@@ -112,7 +118,7 @@
   button:not(menu > button):focus {
     background: rgba(255, 255, 255, 0.3);
   }
-  main > button,
+  main div > button,
   menu > button {
     background: none;
     color: white;
@@ -122,12 +128,18 @@
     width: 100%;
   }
   main {
+    display: flex;
+    justify-content: left;
+    align-items: center;
     overflow: auto;
     height: calc(100% - 21px);
     background: rgba(100, 100, 100, 0.1);
   }
+  main div {
+    height: 100%;
+  }
   @media (prefers-color-scheme: light) {
-    main > button,
+    main div > button,
     menu > button {
       color: black;
     }

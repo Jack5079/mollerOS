@@ -7,7 +7,7 @@ import Spuchbop from './apps/spuchbop.svelte'
 import DaBaby from './apps/DaBaby.svelte'
 import Hydra from './apps/Hydra.svelte'
 import SessionManager from './apps/SessionManager.svelte'
-import FileExplorer from './apps/FileExplorer.svelte'
+import FileExplorer from './apps/FileExplorer/FileExplorer.svelte'
 import Trollface from './apps/Trollface.svelte'
 const apps: App[] = [{
   name: 'Notepad',
