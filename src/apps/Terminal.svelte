@@ -156,7 +156,9 @@
     const [cmd, ...args] = command.split(" ");
     if (commands[cmd]) {
       const output = await commands[cmd](args);
-      messages = [...messages, output];
+      if (output) {
+        messages = [...messages, output];
+      }
     } else {
       let stat: FS.Stats;
       switch (cmd) {
