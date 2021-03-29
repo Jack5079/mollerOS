@@ -163,7 +163,8 @@
   }
   @media (prefers-color-scheme: light) {
     main div table > tr > td,
-    menu > button {
+    menu > button,
+    main table > tr > td {
       color: black;
     }
     menu {
