@@ -1,12 +1,12 @@
 <script lang="ts">
   import { open_apps } from "../stores";
-  import { fade, fly } from "svelte/transition";
+  import { slide, fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import apps from "../apps";
   let closes: import("../types").Session[] = [];
   // amount of apps that are open + amount of sessions that are open = size of select
-  $: size = $open_apps.length +
-      new Set($open_apps.map(session=>session.app)).size
+  $: size =
+    $open_apps.length + new Set($open_apps.map((session) => session.app)).size;
   function close() {
     $open_apps = $open_apps.filter(
       (session) =>
@@ -17,11 +17,7 @@
 </script>
 
 <main>
-  <select
-    multiple
-    bind:value={closes}
-    {size}
-  >
+  <select multiple bind:value={closes} {size}>
     {#each apps as app}
       {#if $open_apps.find((session) => session.app === app)}
         <optgroup
@@ -43,7 +39,7 @@
     {/each}
   </select>
   {#if closes.length}
-    <button on:click={close} transition:fade
+    <button on:click={close} transition:slide
       >End {closes.length === 1 ? "session" : "sessions"}</button
     >
   {/if}
