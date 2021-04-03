@@ -4,6 +4,9 @@
   import { flip } from "svelte/animate";
   import apps from "../apps";
   let closes: import("../types").Session[] = [];
+  // amount of apps that are open + amount of sessions that are open = size of select
+  $: size = $open_apps.length +
+      new Set($open_apps.map(session=>session.app)).size
   function close() {
     $open_apps = $open_apps.filter(
       (session) =>
@@ -17,9 +20,7 @@
   <select
     multiple
     bind:value={closes}
-    size={$open_apps.length +
-      apps.filter((app) => $open_apps.some((session) => session.app === app))
-        .length}
+    {size}
   >
     {#each apps as app}
       {#if $open_apps.find((session) => session.app === app)}
