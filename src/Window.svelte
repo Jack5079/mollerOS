@@ -1,13 +1,12 @@
 <script lang="ts">
   import { minimized, open_apps, close } from "./stores";
-  import type { Session } from "./types";
+  import type { Session, MouseEventHandler } from "./types";
   import { slide } from "svelte/transition";
   export let session: Session;
   export let x = Math.random() * (window.innerWidth - 500);
   export let y = Math.random() * (window.innerHeight - 500);
   export let resizable = true;
   let win: HTMLDivElement;
-  let close_button: HTMLButtonElement;
   $: {
     if (win) {
       win.style.left = x + "px";
@@ -31,11 +30,14 @@
       }
     );
   }
-  function move_to_top(event: MouseEvent) {
-    if ($open_apps.includes(session) && event.target !== close_button) {
+  const move_to_top: MouseEventHandler<HTMLElement> = (event) => {
+    if (
+      $open_apps.includes(session) &&
+      !(event.target as HTMLElement).matches("article > header > nav > button")
+    ) {
       $open_apps = [...$open_apps.filter((sess) => session !== sess), session];
     }
-  }
+  };
   function minimize() {
     $minimized = $minimized.add(session.id);
   }
@@ -63,11 +65,7 @@
     </div>
     <nav>
       <button class="min" on:click={minimize}>_</button>
-      <button
-        class="close"
-        on:click={() => close(session.id)}
-        bind:this={close_button}>✖</button
-      >
+      <button class="close" on:click={() => close(session.id)}>✖</button>
     </nav>
   </header>
   <div class="slot">
