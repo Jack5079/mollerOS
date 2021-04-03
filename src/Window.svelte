@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { minimized, open_apps } from "./stores";
+  import { minimized, open_apps, close } from "./stores";
   import type { Session } from "./types";
   import { slide } from "svelte/transition";
   export let session: Session;
@@ -31,9 +31,6 @@
       }
     );
   }
-  function close() {
-    $open_apps = $open_apps.filter((sess) => session !== sess);
-  }
   function move_to_top(event: MouseEvent) {
     if ($open_apps.includes(session) && event.target !== close_button) {
       $open_apps = [...$open_apps.filter((sess) => session !== sess), session];
@@ -49,7 +46,8 @@
   bind:this={win}
   on:introstart={() => (win.style.pointerEvents = "none")}
   on:introend={() => (win.style.pointerEvents = "auto")}
-  on:outrostart={() => (win.style.pointerEvents = "auto")}
+  on:outrostart={() => (win.style.pointerEvents = "none")}
+  on:outroend={() => (win.style.pointerEvents = "auto")}
   transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable
@@ -57,7 +55,7 @@
   <header on:mousedown|self={dragstart}>
     <div>
       <img
-        on:dblclick={close}
+        on:dblclick={() => close(session.id)}
         src={session.app.icon}
         height="20"
         alt={session.app.name}
@@ -65,7 +63,11 @@
     </div>
     <nav>
       <button class="min" on:click={minimize}>_</button>
-      <button class="close" on:click={close} bind:this={close_button}>✖</button>
+      <button
+        class="close"
+        on:click={() => close(session.id)}
+        bind:this={close_button}>✖</button
+      >
     </nav>
   </header>
   <div class="slot">
