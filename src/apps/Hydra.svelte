@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import apps from "../apps";
-  import { nanoid, open_apps } from "../stores";
+  import { nanoid, open_apps, close } from "../stores";
   export let session: string;
   const self = apps.find((app) => app.name === "Hydra");
   onMount(() => () => {
@@ -17,9 +17,6 @@
       },
     ];
   });
-  function close() {
-    $open_apps = $open_apps.filter((sess) => session !== sess.id);
-  }
 </script>
 
 <!-- svelte-ignore a11y-media-has-caption -->
@@ -29,7 +26,7 @@
   <article>
     Cut off a head, two more will take its place.<br />
     [ Hydra ViRuS BioCoded by Typhon/Echidna ]<br />
-    <button on:click={close}>OK</button>
+    <button on:click={() => close(session)}>OK</button>
   </article>
 </main>
 

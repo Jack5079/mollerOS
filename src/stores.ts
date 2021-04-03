@@ -20,3 +20,7 @@ export const nanoid = (t = 21) => {
   }
   return e
 }
+
+export const close = (...toclose: string[]) => {
+  open_apps.update(sessions => sessions.filter((session) => !toclose.includes(session.id)))
+}

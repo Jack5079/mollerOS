@@ -5,9 +5,10 @@
   import Window from "../Window.svelte";
 
   import { tick } from "svelte";
-  import { open_apps, nanoid } from "../stores";
+  import { open_apps, nanoid, close as stop } from "../stores";
   import type FS from "@jkearl/lightning-fs";
 
+  export let session: string;
   let text: HTMLInputElement;
   let command: string;
   let needsauth = false;
@@ -15,6 +16,13 @@
   let messages = [];
   let directory = "/";
 
+  // //====================================================\\
+  //                    COMMANDS
+  // \\====================================================//
+  /**
+   * git settings
+   * pretty stupid but uh i guess it works
+   */
   const gitauth = {
     onAuth: () => {
       if (localStorage.getItem("git_user")) {
@@ -81,19 +89,23 @@
       localStorage.setItem("git_password", auth.password);
     },
   };
-
+  const close = stop.bind(undefined, session);
+  const clear = () => void (messages = []);
   const commands: {
     [key: string]: (
       args: string[]
     ) => string | Promise<string> | void | Promise<void>;
   } = {
+    close,
+    clear,
+    exit: close,
+    stop: close,
+    cls: clear,
+    clr: clear,
     touch: (args) =>
       fs.promises.writeFile(`${directory}/${args.join("")}`, "", "utf8"),
     mkdir: (args) => fs.promises.mkdir(args.join(" ")),
     ls: async () => (await fs.promises.readdir(directory)).join("\n"),
-    cls: () => void (messages = []),
-    clear: () => void (messages = []),
-    clr: () => void (messages = []),
     git(args: string[]) {
       async function isogit({ _: [command], ...opts }: minimist.ParsedArgs) {
         try {

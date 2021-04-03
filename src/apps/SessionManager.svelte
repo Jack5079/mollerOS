@@ -1,23 +1,16 @@
 <script lang="ts">
-  import { open_apps } from "../stores";
+  import { open_apps, close } from "../stores";
   import { slide, fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import apps from "../apps";
-  let closes: import("../types").Session[] = [];
+  let selected_sessions: string[] = [];
   // amount of apps that are open + amount of sessions that are open = size of select
   $: size =
     $open_apps.length + new Set($open_apps.map((session) => session.app)).size;
-  function close() {
-    $open_apps = $open_apps.filter(
-      (session) =>
-        !closes.map((closedsession) => closedsession.id).includes(session.id)
-    );
-    closes = [];
-  }
 </script>
 
 <main>
-  <select multiple bind:value={closes} {size}>
+  <select multiple bind:value={selected_sessions} {size}>
     {#each apps as app}
       {#if $open_apps.find((session) => session.app === app)}
         <optgroup
@@ -31,16 +24,16 @@
             <option
               animate:flip={{ duration: 300 }}
               transition:fly={{ x: -10, duration: 300 }}
-              value={session}>Session {session.id}</option
+              value={session.id}>Session {session.id}</option
             >
           {/each}
         </optgroup>
       {/if}
     {/each}
   </select>
-  {#if closes.length}
-    <button on:click={close} transition:slide
-      >End {closes.length === 1 ? "session" : "sessions"}</button
+  {#if selected_sessions.length}
+    <button on:click={() => close(...selected_sessions)} transition:slide
+      >End {selected_sessions.length === 1 ? "session" : "sessions"}</button
     >
   {/if}
 </main>
