@@ -35,7 +35,7 @@
     z-index: 1000;
     overflow-x: auto;
     display: flex;
-    justify-content: left;
+    justify-content: center;
     align-items: center;
     overflow-y: hidden;
     background: rgba(50, 50, 60, 0.7);
@@ -68,9 +68,6 @@
   @media (max-width: 375px) {
     .taskbar {
       position: static;
-      display: flex;
-      justify-content: center;
-      align-items: center;
     }
     .taskbar > *:not(:first-child) {
       display: none;

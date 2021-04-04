@@ -3,7 +3,7 @@
   import App from "./Window.svelte";
   import Search from "./Search.svelte";
   import Taskbar from "./Taskbar.svelte";
-  import Tip from './Tip.svelte'
+  import Tip from "./Tip.svelte";
 
   import { open_apps } from "../stores";
   import { onMount } from "svelte";
@@ -51,5 +51,11 @@
   button:hover,
   button:focus {
     background: #3e3e3e;
+  }
+  @media (min-width: 376px) {
+    button {
+      position: absolute;
+      left: 0;
+    }
   }
 </style>
