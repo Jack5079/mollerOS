@@ -5,7 +5,8 @@
   import Window from "../components/Window.svelte";
 
   import { tick } from "svelte";
-  import { open_apps, nanoid, close as stop } from "../stores";
+  import { open_apps } from "../stores";
+  import {nanoid, close as stop} from '../util'
   import type FS from "@jkearl/lightning-fs";
 
   export let session: string;

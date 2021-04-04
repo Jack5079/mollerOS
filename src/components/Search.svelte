@@ -4,7 +4,8 @@
   import { flip } from "svelte/animate";
   import apps from "../apps";
   import Fuse from "fuse.js";
-  import { open_apps, nanoid } from "../stores";
+  import { open_apps } from "../stores";
+  import { nanoid } from "../util";
   import type { App } from "../types";
   let search: HTMLInputElement;
   let query: string = "";
@@ -13,7 +14,7 @@
       search.focus();
     }
   }
-  
+
   $: results = query.trim()
     ? new Fuse(apps, {
         keys: ["name"],

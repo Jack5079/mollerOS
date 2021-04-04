@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { open_apps, close } from "../stores";
+  import { open_apps } from "../stores";
+  import { close } from "../util";
   import { slide, fly } from "svelte/transition";
   import { flip } from "svelte/animate";
   import apps from "../apps";

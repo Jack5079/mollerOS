@@ -1,7 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import apps from "../apps";
-  import { nanoid, open_apps, close } from "../stores";
+  import { open_apps } from "../stores";
+  import {close, nanoid} from '../util'
   export let session: string;
   const self = apps.find((app) => app.name === "Hydra");
   onMount(() => () => {

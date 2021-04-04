@@ -3,7 +3,8 @@
   import apps from "../apps";
 
   import { onMount } from "svelte";
-  import { nanoid, open_apps } from "../stores";
+  import { open_apps } from "../stores";
+  import { nanoid } from "../util";
 
   const babies = $open_apps.filter((session) => session.app.name === "DaBaby");
   const self = apps.find((app) => app.name === "DaBaby");
