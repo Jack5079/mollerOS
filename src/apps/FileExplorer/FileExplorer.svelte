@@ -1,12 +1,14 @@
 <script lang="ts">
-  import fs from "../../fs";
   import Row from "./Row.svelte";
   import Nav from "./Nav.svelte";
   import Menu from './Menu.svelte'
+  import Loading from '../../components/Loading.svelte'
+  import fs from "../../fs";
+
   let directory: string = "/";
   let context: HTMLMenuElement;
   let contextfile = "";
-
+  
   $: files = fs.promises.readdir(directory);
 </script>
 
@@ -14,7 +16,10 @@
   <Nav bind:contextfile bind:directory />
   <main on:click={() => (contextfile = "")}>
     {#await files}
-      Loading...
+      <div>
+        Loading...
+        <Loading />
+      </div>
     {:then files}
       <table>
         <thead>
@@ -34,6 +39,12 @@
 </div>
 
 <style>
+  main > div {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+  }
   thead th {
     text-align: left;
   }

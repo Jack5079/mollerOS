@@ -1,5 +1,6 @@
 <script lang="ts">
   import { getIconForFile, getIconForFolder } from "vscode-icons-js";
+  import Loading from "../../components/Loading.svelte";
   export let context: HTMLMenuElement;
   export let contextfile: string;
   export let directory: string = "/";
@@ -14,7 +15,7 @@
 
   function rightclick(node: HTMLElement, file: string) {
     node.addEventListener("contextmenu", async (event) => {
-      event.preventDefault()
+      event.preventDefault();
       const stat = await fs.promises.stat(directory + file + "/");
       if (stat.type === "file") {
         contextfile = directory + file;
@@ -35,7 +36,7 @@
 
 <tr on:click={() => open(file)} use:rightclick={file}>
   {#await fs.promises.stat(directory + "/" + file)}
-    <td>{file}</td>
+    <td><Loading size={23} />{file}</td>
   {:then stat}
     <td>
       <img
@@ -60,7 +61,6 @@
 </tr>
 
 <style>
-  
   tr:hover {
     background: rgba(255, 255, 255, 0.3);
   }
@@ -78,7 +78,7 @@
     tr > td {
       color: black;
     }
-    
+
     tr:hover {
       background: rgba(0, 0, 0, 0.3);
     }
