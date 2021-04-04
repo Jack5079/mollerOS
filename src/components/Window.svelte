@@ -1,6 +1,6 @@
 <script lang="ts">
   import { minimized, open_apps } from "../stores";
-  import {close} from '../util'
+  import { close } from "../util";
   import type { Session, MouseEventHandler } from "../types";
   import { slide } from "svelte/transition";
   export let session: Session;
