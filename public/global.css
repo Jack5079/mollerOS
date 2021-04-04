@@ -12,7 +12,7 @@ html, body {
 
 body {
 	color: #333;
-	background-image: url(bliss.jpg), linear-gradient(to top right, blue, red);
+	background-image: url(bliss.avif), url(bliss.jpg), linear-gradient(to top right, blue, red);
 	background-position: center 80%;
 	margin: 0;
 	padding: 0;
