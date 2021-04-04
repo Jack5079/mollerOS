@@ -2,7 +2,6 @@
   import Row from "./Row.svelte";
   import Nav from "./Nav.svelte";
   import Menu from './Menu.svelte'
-  import Loading from '../../components/Loading.svelte'
   import fs from "../../fs";
 
   let directory: string = "/";
@@ -15,12 +14,7 @@
 <div class="root">
   <Nav bind:contextfile bind:directory />
   <main on:click={() => (contextfile = "")}>
-    {#await files}
-      <div>
-        Loading...
-        <Loading />
-      </div>
-    {:then files}
+    {#await files then files}
       <table>
         <thead>
           <tr>
@@ -39,12 +33,6 @@
 </div>
 
 <style>
-  main > div {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-  }
   thead th {
     text-align: left;
   }
