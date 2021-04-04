@@ -13,7 +13,7 @@ const fs = new LightningFS('mollerOS')
  */
 // @ts-ignore
 const worker = self
-console.log(worker)
+//console.log(worker)
 /**
  * @param {FetchEvent} event
  */
