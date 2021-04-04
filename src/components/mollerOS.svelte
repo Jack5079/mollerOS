@@ -5,7 +5,7 @@
   import Tip from "./Tip.svelte";
 
   import { open_apps } from "../stores";
-  import { install } from "@github/hotkey";
+  import { install as hotkey } from "@github/hotkey";
 
   let show_search = false;
 </script>
@@ -14,10 +14,10 @@
   <Search bind:shown={show_search} />
   <Taskbar>
     <button
+      use:hotkey
       aria-label="Search"
       data-hotkey="` `"
       title="Search (Alt+A)"
-      use:install
       on:click={() => (show_search = !show_search)}
     >
       <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
