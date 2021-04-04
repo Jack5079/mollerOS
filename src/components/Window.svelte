@@ -7,6 +7,7 @@
   export let x = Math.random() * (window.innerWidth - 500)
   export let y = Math.random() * (window.innerHeight - 500)
   export let resizable = true
+  export let maximized = false
   let win: HTMLDivElement
   $: {
     if (win) {
@@ -54,6 +55,7 @@
   transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable
+  class:maximized
 >
   <header on:mousedown|self={dragstart}>
     <div>
@@ -65,8 +67,11 @@
       />{session.app.name}
     </div>
     <nav>
-      <button class="min" on:click={minimize}>_</button>
-      <button class="close" on:click={() => close(session.id)}>✖</button>
+      <button class="min" on:click={minimize}>🗕︎</button>
+      <button class="min" on:click={() => (maximized = !maximized)}
+        >{maximized ? '🗗︎' : '🗖'}</button
+      >
+      <button class="close" on:click={() => close(session.id)}>🗙︎</button>
     </nav>
   </header>
   <div class="slot">
@@ -77,6 +82,18 @@
 <style>
   .resizable {
     resize: both;
+  }
+  .maximized {
+    height: calc(100% - 40px);
+    resize: none;
+    animation: maximize 0s forwards;
+  }
+  @keyframes maximize {
+    to {
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
   }
   .hidden {
     display: none;
