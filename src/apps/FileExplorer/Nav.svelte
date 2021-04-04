@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { fly } from 'svelte/transition'
+
   export let directory: string = '/'
   export let contextfile: string = ''
 
@@ -11,10 +13,12 @@
 </script>
 
 <nav on:click={() => (contextfile = '')}>
-  <button on:click={() => (directory = '/')}>/</button>
+  <button on:click={() => (directory = '/')}>
+    /
+  </button>
   {#each directory.split('/') as folder, index}
     {#if folder}
-      <button on:click={() => revert_to(index)}>{folder}</button>
+      <button transition:fly={{y: -10}} on:click={() => revert_to(index)}>{folder}</button>
     {/if}
   {/each}
 </nav>
