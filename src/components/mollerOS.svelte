@@ -11,7 +11,9 @@
 </script>
 
 <body>
-  <Search bind:shown={show_search} />
+  {#if show_search}
+    <Search bind:shown={show_search} />
+  {/if}
   <Taskbar>
     <button
       use:hotkey

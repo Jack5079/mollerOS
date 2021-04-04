@@ -13,12 +13,15 @@
 </script>
 
 <nav on:click={() => (contextfile = '')}>
-  <button on:click={() => (directory = '/')}>
-    /
-  </button>
+  <slot />
+  <button on:click={() => (directory = '/')}> / </button>
   {#each directory.split('/') as folder, index}
     {#if folder}
-      <button transition:fly={{y: -10}} on:click={() => revert_to(index)}>{folder}</button>
+      <button
+        class="dir"
+        transition:fly={{ y: -10 }}
+        on:click={() => revert_to(index)}>{folder}</button
+      >
     {/if}
   {/each}
 </nav>
@@ -37,6 +40,10 @@
   }
 
   @media (prefers-color-scheme: light) {
+    button:hover,
+    button:focus {
+      background: rgba(0, 0, 0, 0.3);
+    }
     button {
       color: black;
     }
@@ -47,7 +54,7 @@
     display: flex;
     align-items: center;
   }
-  button:not(:first-child)::after {
+  button.dir:not(:first-of-type)::after {
     content: '/';
   }
 </style>

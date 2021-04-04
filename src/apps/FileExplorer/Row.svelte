@@ -17,12 +17,12 @@
     node.addEventListener('contextmenu', async (event) => {
       event.preventDefault()
       const stat = await fs.promises.stat(directory + file + '/')
-      if (stat.type === 'file') {
+      // if (stat.type === 'file') {
         contextfile = directory + file
         context.hidden = false
         context.style.left = event.clientX + 'px'
         context.style.top = event.clientY + 'px'
-      }
+      // }
     })
     return {}
   }
@@ -73,6 +73,12 @@
 
   td {
     user-select: none;
+  }
+  td:first-child {
+    display: flex;
+  }
+  img {
+    margin-right: .1em;
   }
   @media (prefers-color-scheme: light) {
     tr > td {

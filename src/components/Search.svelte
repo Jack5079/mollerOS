@@ -34,39 +34,37 @@
   }
 </script>
 
-{#if shown}
-  <section
-    transition:fly={{
-      duration: 500,
-      y: window.innerHeight,
-      opacity: 1
-    }}
-    on:keydown={(e) => {
-      if (e.key === 'Escape') shown = false
-    }}
-  >
-    <form on:submit|preventDefault={() => results[0] && open(results[0])}>
-      <input
-        type="search"
-        placeholder="Search for an app.."
-        bind:this={search}
-        bind:value={query}
-      />
-    </form>
-    <div>
-      {#each results as result (result.name)}
-        <article
-          on:click={() => open(result)}
-          in:fly={{ y: -100, duration: 700 }}
-          animate:flip={{ duration: 700 }}
-        >
-          <img alt={result.name} src={result.icon} width="50" />
-          {result.name}
-        </article>
-      {/each}
-    </div>
-  </section>
-{/if}
+<section
+  transition:fly={{
+    duration: 500,
+    y: window.innerHeight,
+    opacity: 1
+  }}
+  on:keydown={(e) => {
+    if (e.key === 'Escape') shown = false
+  }}
+>
+  <form on:submit|preventDefault={() => results[0] && open(results[0])}>
+    <input
+      type="search"
+      placeholder="Search for an app.."
+      bind:this={search}
+      bind:value={query}
+    />
+  </form>
+  <div>
+    {#each results as result (result.name)}
+      <article
+        on:click={() => open(result)}
+        in:fly={{ y: -100, duration: 700 }}
+        animate:flip={{ duration: 700 }}
+      >
+        <img alt={result.name} src={result.icon} width="50" />
+        {result.name}
+      </article>
+    {/each}
+  </div>
+</section>
 
 <style>
   article img {
