@@ -2,7 +2,7 @@
   import minimist from "minimist";
   import apps from "../apps";
   import fs from "../fs";
-  import Window from "../Window.svelte";
+  import Window from "../components/Window.svelte";
 
   import { tick } from "svelte";
   import { open_apps, nanoid, close as stop } from "../stores";

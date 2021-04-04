@@ -9,7 +9,11 @@
       "presentation": {
         "reveal": "always"
       },
-      "group": "build"
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
     }
   ]
 }

@@ -1,4 +1,4 @@
-import mollerOS from './mollerOS.svelte'
+import mollerOS from './components/mollerOS.svelte'
 document.body?.remove()
 new mollerOS({
 	target: document.documentElement,

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { minimized, open_apps, close } from "./stores";
-  import type { Session, MouseEventHandler } from "./types";
+  import { minimized, open_apps, close } from "../stores";
+  import type { Session, MouseEventHandler } from "../types";
   import { slide } from "svelte/transition";
   export let session: Session;
   export let x = Math.random() * (window.innerWidth - 500);

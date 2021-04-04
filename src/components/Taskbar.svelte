@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  import { open_apps, minimized } from "./stores";
+  import { open_apps, minimized } from "../stores";
   import { flip } from "svelte/animate";
 </script>
 

@@ -4,7 +4,7 @@
   import Search from "./Search.svelte";
   import Taskbar from "./Taskbar.svelte";
 
-  import { open_apps } from "./stores";
+  import { open_apps } from "../stores";
   import { onMount } from "svelte";
   import { install } from "@github/hotkey";
   import { fly } from "svelte/transition";

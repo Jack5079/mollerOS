@@ -2,10 +2,10 @@
   export let shown: boolean = false;
   import { fly } from "svelte/transition";
   import { flip } from "svelte/animate";
-  import apps from "./apps";
+  import apps from "../apps";
   import Fuse from "fuse.js";
-  import { open_apps, nanoid } from "./stores";
-  import type { App } from "./types";
+  import { open_apps, nanoid } from "../stores";
+  import type { App } from "../types";
   let search: HTMLInputElement;
   let query: string = "";
   $: {
