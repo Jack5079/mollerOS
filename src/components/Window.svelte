@@ -1,56 +1,56 @@
 <script lang="ts">
-  import { minimized, open_apps } from "../stores";
-  import { close } from "../util";
-  import type { Session, MouseEventHandler } from "../types";
-  import { slide } from "svelte/transition";
-  export let session: Session;
-  export let x = Math.random() * (window.innerWidth - 500);
-  export let y = Math.random() * (window.innerHeight - 500);
-  export let resizable = true;
-  let win: HTMLDivElement;
+  import { minimized, open_apps } from '../stores'
+  import { close } from '../util'
+  import type { Session, MouseEventHandler } from '../types'
+  import { slide } from 'svelte/transition'
+  export let session: Session
+  export let x = Math.random() * (window.innerWidth - 500)
+  export let y = Math.random() * (window.innerHeight - 500)
+  export let resizable = true
+  let win: HTMLDivElement
   $: {
     if (win) {
-      win.style.left = x + "px";
-      win.style.top = y + "px";
+      win.style.left = x + 'px'
+      win.style.top = y + 'px'
     }
   }
   function dragstart() {
     const move = (ev: MouseEvent) => {
-      const { x: sizex, y: sizey } = win.getBoundingClientRect();
-      x = sizex + ev.movementX;
-      y = sizey + ev.movementY;
-    };
-    document.addEventListener("mousemove", move);
+      const { x: sizex, y: sizey } = win.getBoundingClientRect()
+      x = sizex + ev.movementX
+      y = sizey + ev.movementY
+    }
+    document.addEventListener('mousemove', move)
     window.addEventListener(
-      "mouseup",
+      'mouseup',
       () => {
-        document.removeEventListener("mousemove", move);
+        document.removeEventListener('mousemove', move)
       },
       {
-        once: true,
+        once: true
       }
-    );
+    )
   }
   const move_to_top: MouseEventHandler<HTMLElement> = (event) => {
     if (
       $open_apps.includes(session) &&
-      !(event.target as HTMLElement).matches("article > header > nav > button")
+      !(event.target as HTMLElement).matches('article > header > nav > button')
     ) {
-      $open_apps = [...$open_apps.filter((sess) => session !== sess), session];
+      $open_apps = [...$open_apps.filter((sess) => session !== sess), session]
     }
-  };
+  }
   function minimize() {
-    $minimized = $minimized.add(session.id);
+    $minimized = $minimized.add(session.id)
   }
 </script>
 
 <article
   on:mousedown={move_to_top}
   bind:this={win}
-  on:introstart={() => (win.style.pointerEvents = "none")}
-  on:introend={() => (win.style.pointerEvents = "auto")}
-  on:outrostart={() => (win.style.pointerEvents = "none")}
-  on:outroend={() => (win.style.pointerEvents = "auto")}
+  on:introstart={() => (win.style.pointerEvents = 'none')}
+  on:introend={() => (win.style.pointerEvents = 'auto')}
+  on:outrostart={() => (win.style.pointerEvents = 'none')}
+  on:outroend={() => (win.style.pointerEvents = 'auto')}
   transition:slide={{ duration: 500 }}
   class:hidden={$minimized.has(session.id)}
   class:resizable

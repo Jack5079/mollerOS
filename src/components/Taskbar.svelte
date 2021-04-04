@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
-  import { open_apps, minimized } from "../stores";
-  import { flip } from "svelte/animate";
+  import { fly } from 'svelte/transition'
+  import { open_apps, minimized } from '../stores'
+  import { flip } from 'svelte/animate'
 </script>
 
 <nav class="taskbar">
@@ -14,12 +14,9 @@
       class:open={!$minimized.has(session.id)}
       title={session.app.name}
       on:click={() => {
-        $minimized.delete(session.id);
-        $minimized = $minimized;
-        $open_apps = [
-          ...$open_apps.filter((sess) => session !== sess),
-          session,
-        ];
+        $minimized.delete(session.id)
+        $minimized = $minimized
+        $open_apps = [...$open_apps.filter((sess) => session !== sess), session]
       }}
     >
       <img src={session.app.icon} alt={session.app.name} height="30" />

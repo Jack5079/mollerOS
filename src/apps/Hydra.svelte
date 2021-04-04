@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-  import apps from "../apps";
-  import { open_apps } from "../stores";
-  import {close, nanoid} from '../util'
-  export let session: string;
-  const self = apps.find((app) => app.name === "Hydra");
+  import { onMount } from 'svelte'
+  import apps from '../apps'
+  import { open_apps } from '../stores'
+  import { close, nanoid } from '../util'
+  export let session: string
+  const self = apps.find((app) => app.name === 'Hydra')
   onMount(() => () => {
     $open_apps = [
       ...$open_apps,
       {
         app: self,
-        id: nanoid(),
+        id: nanoid()
       },
       {
         app: self,
-        id: nanoid(),
-      },
-    ];
-  });
+        id: nanoid()
+      }
+    ]
+  })
 </script>
 
 <!-- svelte-ignore a11y-media-has-caption -->

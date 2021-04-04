@@ -8,6 +8,11 @@ export interface Session {
   app: App
 }
 
-export type EventHandler<E extends Event = Event, T extends EventTarget = HTMLElement> =
-  (event: E & { currentTarget: EventTarget & T }) => any
-export type MouseEventHandler<T extends EventTarget> = EventHandler<MouseEvent, T>
+export type EventHandler<
+  E extends Event = Event,
+  T extends EventTarget = HTMLElement
+> = (event: E & { currentTarget: EventTarget & T }) => any
+export type MouseEventHandler<T extends EventTarget> = EventHandler<
+  MouseEvent,
+  T
+>

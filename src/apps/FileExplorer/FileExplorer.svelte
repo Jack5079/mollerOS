@@ -1,20 +1,20 @@
 <script lang="ts">
-  import Row from "./Row.svelte";
-  import Nav from "./Nav.svelte";
+  import Row from './Row.svelte'
+  import Nav from './Nav.svelte'
   import Menu from './Menu.svelte'
   import Loading from '../../components/Loading.svelte'
-  import fs from "../../fs";
+  import fs from '../../fs'
 
-  let directory: string = "/";
-  let context: HTMLMenuElement;
-  let contextfile = "";
-  
-  $: files = fs.promises.readdir(directory);
+  let directory: string = '/'
+  let context: HTMLMenuElement
+  let contextfile = ''
+
+  $: files = fs.promises.readdir(directory)
 </script>
 
 <div class="root">
   <Nav bind:contextfile bind:directory />
-  <main on:click={() => (contextfile = "")}>
+  <main on:click={() => (contextfile = '')}>
     {#await files}
       <div>
         Loading...

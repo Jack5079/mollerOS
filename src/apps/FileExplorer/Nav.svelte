@@ -1,18 +1,18 @@
 <script lang="ts">
-  export let directory: string = "/";
-  export let contextfile: string = "";
+  export let directory: string = '/'
+  export let contextfile: string = ''
 
   function revert_to(index: number) {
     directory = directory
-      .split("/")
+      .split('/')
       .filter((_, i) => i <= index)
-      .join("/");
+      .join('/')
   }
 </script>
 
-<nav on:click={() => (contextfile = "")}>
-  <button on:click={() => (directory = "/")}>/</button>
-  {#each directory.split("/") as folder, index}
+<nav on:click={() => (contextfile = '')}>
+  <button on:click={() => (directory = '/')}>/</button>
+  {#each directory.split('/') as folder, index}
     {#if folder}
       <button on:click={() => revert_to(index)}>{folder}</button>
     {/if}
@@ -44,6 +44,6 @@
     align-items: center;
   }
   button:not(:first-child)::after {
-    content: "/";
+    content: '/';
   }
 </style>

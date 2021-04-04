@@ -1,11 +1,11 @@
 <script lang="ts">
-  import App from "./Window.svelte"
-  import Search from "./Search.svelte"
-  import Taskbar from "./Taskbar.svelte"
-  import Tip from "./Tip.svelte"
+  import App from './Window.svelte'
+  import Search from './Search.svelte'
+  import Taskbar from './Taskbar.svelte'
+  import Tip from './Tip.svelte'
 
-  import { open_apps } from "../stores"
-  import { install as hotkey } from "@github/hotkey"
+  import { open_apps } from '../stores'
+  import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
 </script>

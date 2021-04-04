@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { open_apps } from "../stores";
-  import { close } from "../util";
-  import { slide, fly } from "svelte/transition";
-  import { flip } from "svelte/animate";
-  import apps from "../apps";
-  let selected_sessions: string[] = [];
+  import { open_apps } from '../stores'
+  import { close } from '../util'
+  import { slide, fly } from 'svelte/transition'
+  import { flip } from 'svelte/animate'
+  import apps from '../apps'
+  let selected_sessions: string[] = []
   // amount of apps that are open + amount of sessions that are open = size of select
   $: size =
-    $open_apps.length + new Set($open_apps.map((session) => session.app)).size;
+    $open_apps.length + new Set($open_apps.map((session) => session.app)).size
 </script>
 
 <main>
@@ -34,7 +34,7 @@
   </select>
   {#if selected_sessions.length}
     <button on:click={() => close(...selected_sessions)} transition:slide
-      >End {selected_sessions.length === 1 ? "session" : "sessions"}</button
+      >End {selected_sessions.length === 1 ? 'session' : 'sessions'}</button
     >
   {/if}
 </main>

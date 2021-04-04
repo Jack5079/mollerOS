@@ -1,9 +1,15 @@
 <script lang="ts">
-  export let size: number = 60;
-  export let color = "#FF3E00";
-  export let unit: string = "px";
-  export let duration: `${number}${'s' | 'ms'}` | '0' = "0.75s";
+  export let size: number = 60
+  export let color = '#FF3E00'
+  export let unit: string = 'px'
+  export let duration: `${number}${'s' | 'ms'}` | '0' = '0.75s'
 </script>
+
+<div
+  class="circle"
+  style="--size: {size}{unit}; --color: {color}; --duration: {duration}"
+/>
+
 <style>
   .circle {
     display: inline-block;
@@ -25,4 +31,3 @@
     }
   }
 </style>
-<div class="circle" style="--size: {size}{unit}; --color: {color}; --duration: {duration}"></div>

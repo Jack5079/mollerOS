@@ -1,36 +1,36 @@
 <script lang="ts">
-  export let shown: boolean = false;
-  import { fly } from "svelte/transition";
-  import { flip } from "svelte/animate";
-  import apps from "../apps";
-  import Fuse from "fuse.js";
-  import { open_apps } from "../stores";
-  import { nanoid } from "../util";
-  import type { App } from "../types";
-  let search: HTMLInputElement;
-  let query: string = "";
+  export let shown: boolean = false
+  import { fly } from 'svelte/transition'
+  import { flip } from 'svelte/animate'
+  import apps from '../apps'
+  import Fuse from 'fuse.js'
+  import { open_apps } from '../stores'
+  import { nanoid } from '../util'
+  import type { App } from '../types'
+  let search: HTMLInputElement
+  let query: string = ''
   $: {
     if (shown && search) {
-      search.focus();
+      search.focus()
     }
   }
 
   $: results = query.trim()
     ? new Fuse(apps, {
-        keys: ["name"],
+        keys: ['name']
       })
         .search(query)
         .map((item) => item.item)
-    : apps;
+    : apps
   function open(app: App) {
-    shown = false;
+    shown = false
     $open_apps = [
       ...$open_apps,
       {
         app: app,
-        id: nanoid(),
-      },
-    ];
+        id: nanoid()
+      }
+    ]
   }
 </script>
 
@@ -39,10 +39,10 @@
     transition:fly={{
       duration: 500,
       y: window.innerHeight,
-      opacity: 1,
+      opacity: 1
     }}
     on:keydown={(e) => {
-      if (e.key === "Escape") shown = false;
+      if (e.key === 'Escape') shown = false
     }}
   >
     <form on:submit|preventDefault={() => results[0] && open(results[0])}>

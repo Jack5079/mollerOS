@@ -1,23 +1,23 @@
 <script lang="ts">
-  export let contextfile: string = "";
-  export let files: Promise<string[]> = Promise.resolve([]);
-  import fs from "../../fs";
-  export let context: HTMLMenuElement;
+  export let contextfile: string = ''
+  export let files: Promise<string[]> = Promise.resolve([])
+  import fs from '../../fs'
+  export let context: HTMLMenuElement
 </script>
 
 <menu
   class:hidden={!contextfile}
   bind:this={context}
-  on:blur={() => (contextfile = "")}
+  on:blur={() => (contextfile = '')}
   on:contextmenu|preventDefault
 >
   <button
     on:click={async () => {
-      await fs.promises.unlink(contextfile);
+      await fs.promises.unlink(contextfile)
       files = Promise.resolve(
-        (await files).filter((file) => file !== contextfile.split("/").pop())
-      );
-      contextfile = "";
+        (await files).filter((file) => file !== contextfile.split('/').pop())
+      )
+      contextfile = ''
     }}>Delete</button
   >
 </menu>
