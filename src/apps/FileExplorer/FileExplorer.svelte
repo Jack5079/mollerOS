@@ -1,32 +1,16 @@
 <script lang="ts">
   import fs from "../../fs";
   import Row from "./Row.svelte";
-
+  import Nav from "./Nav.svelte";
   let directory: string = "/";
   let context: HTMLMenuElement;
   let contextfile = "";
 
   $: files = fs.promises.readdir(directory);
-
-  function revert_to(index: number) {
-    directory = directory
-      .split("/")
-      .filter((_, i) => i <= index)
-      .join("/");
-  }
-
-  //const refresh = () => (directory = directory);
 </script>
 
 <div class="root">
-  <nav on:click={() => (contextfile = "")}>
-    <button on:click={() => (directory = "/")}>/</button>
-    {#each directory.split("/") as folder, index}
-      {#if folder}
-        <button on:click={() => revert_to(index)}>{folder}</button>
-      {/if}
-    {/each}
-  </nav>
+  <Nav bind:contextfile bind:directory />
   <main on:click={() => (contextfile = "")}>
     {#await files}
       Loading...
@@ -85,16 +69,6 @@
   button {
     margin: 0;
   }
-  nav > button {
-    background: none;
-    padding: 0;
-    color: white;
-    border: 0;
-  }
-  button:not(menu > button):hover,
-  button:not(menu > button):focus {
-    background: rgba(255, 255, 255, 0.3);
-  }
   tr:hover {
     background: rgba(255, 255, 255, 0.3);
   }
@@ -121,29 +95,14 @@
     main {
       background: rgba(128, 128, 128, 0.1);
     }
-    nav > button {
-      color: black;
-    }
     .root {
       background: rgb(255, 255, 255);
       color: black;
     }
-
-    button:not(menu > button):hover,
-    button:not(menu > button):focus {
-      background: rgba(0, 0, 0, 0.3);
-    }
+    
     tr:hover {
       background: rgba(0, 0, 0, 0.3);
     }
-  }
-  nav {
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
-  }
-  nav > button:not(:first-child)::after {
-    content: "/";
   }
   menu {
     position: fixed;
