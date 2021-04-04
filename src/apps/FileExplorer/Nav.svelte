@@ -1,6 +1,6 @@
 <script lang="ts">
-  export let directory = "/";
-  export let contextfile = "";
+  export let directory: string = "/";
+  export let contextfile: string = "";
 
   function revert_to(index: number) {
     directory = directory
