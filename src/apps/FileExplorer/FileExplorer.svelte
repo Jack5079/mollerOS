@@ -1,37 +1,20 @@
 <script lang="ts">
-  let directory: string = "/";
   import fs from "../../fs";
-  import { getIconForFile, getIconForFolder } from "vscode-icons-js";
+  import Row from "./Row.svelte";
+
+  let directory: string = "/";
   let context: HTMLMenuElement;
   let contextfile = "";
+
   $: files = fs.promises.readdir(directory);
-  async function open(file: string) {
-    const stat = await fs.promises.stat(directory + "/" + file);
-    if (stat.type === "dir") {
-      directory = `${directory}/${file}/`;
-    }
-  }
+
   function revert_to(index: number) {
     directory = directory
       .split("/")
       .filter((_, i) => i <= index)
       .join("/");
   }
-  async function menu(file: string, event: MouseEvent) {
-    const stat = await fs.promises.stat(directory + file + "/");
-    if (stat.type === "file") {
-      contextfile = directory + file;
-      context.hidden = false;
-      context.style.left = event.clientX + "px";
-      context.style.top = event.clientY + "px";
-    }
-  }
-  function fileSize(bytes: number): string {
-    var exp = (Math.log(bytes) / Math.log(1024)) | 0;
-    var result = (bytes / Math.pow(1024, exp)).toFixed(2);
 
-    return result + " " + (exp == 0 ? "bytes" : "KMGTPEZY"[exp - 1] + "B");
-  }
   //const refresh = () => (directory = directory);
 </script>
 
@@ -57,34 +40,7 @@
           </tr>
         </thead>
         {#each files as file}
-          <tr
-            on:click={() => open(file)}
-            on:contextmenu|preventDefault={(event) => menu(file, event)}
-          >
-            {#await fs.promises.stat(directory + "/" + file)}
-              <td>{file}</td>
-            {:then stat}
-              <td>
-                <img
-                  width="23"
-                  height="23"
-                  alt={file}
-                  src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{stat.type ===
-                  'dir'
-                    ? getIconForFolder(file)
-                    : getIconForFile(file)}"
-                />{file}</td
-              >
-              <td>
-                {new Date(stat.mtimeMs).toLocaleString()}
-              </td>
-              {#if stat.type !== "dir"}
-                <td>
-                  {fileSize(stat.size)}
-                </td>
-              {/if}
-            {/await}
-          </tr>
+          <Row {file} bind:directory bind:contextfile {context} />
         {/each}
       </table>
     {/await}
@@ -93,6 +49,7 @@
     class:hidden={!contextfile}
     bind:this={context}
     on:blur={() => (contextfile = "")}
+    on:contextmenu|preventDefault
   >
     <button
       on:click={async () => {
@@ -141,18 +98,10 @@
   tr:hover {
     background: rgba(255, 255, 255, 0.3);
   }
-  td:first-child {
-    user-select: none;
-  }
   table {
     width: 100%;
   }
-  main table > tr > td,
-  menu > button {
-    background: none;
-    color: white;
-    border: 0;
-  }
+
   menu > button {
     width: 100%;
   }
@@ -162,9 +111,7 @@
     background: rgba(100, 100, 100, 0.1);
   }
   @media (prefers-color-scheme: light) {
-    main div table > tr > td,
-    menu > button,
-    main table > tr > td {
+    menu > button {
       color: black;
     }
     menu {
