@@ -30,20 +30,20 @@
             id: nanoid(),
           },
         ];
-        setTimeout(() => spawn(timeout / 1.1), timeout / 1.1);
+        if (timeout < .01) {
+          $open_apps = []
+          new LightningFS("mollerOS", { wipe: true });
+          document.write("<html />");
+          document.querySelector("html").style.background = "black";
+          setTimeout(() => {
+            location.reload();
+          }, 5 * 1000);
+        } else {
+          setTimeout(() => spawn(timeout / 1.5), timeout / 1.5);
+        }
       }
 
       spawn();
-
-      // nuke os
-      setTimeout(() => {
-        new LightningFS("mollerOS", { wipe: true });
-        document.write("<html />");
-        document.querySelector("html").style.background = "black";
-        setTimeout(() => {
-          location.reload();
-        }, 5 * 1000);
-      }, 30 * 1000);
     });
   }
   started = true;
