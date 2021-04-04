@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { tick } from 'svelte'
+
   import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
   import Loading from '../../components/Loading.svelte'
   export let context: HTMLMenuElement
@@ -18,10 +20,10 @@
       event.preventDefault()
       const stat = await fs.promises.stat(directory + file + '/')
       // if (stat.type === 'file') {
-        contextfile = directory + file
-        context.hidden = false
-        context.style.left = event.clientX + 'px'
-        context.style.top = event.clientY + 'px'
+      contextfile = directory + file
+      await tick()
+      context.style.left = event.clientX + 'px'
+      context.style.top = event.clientY + 'px'
       // }
     })
     return {}
@@ -78,7 +80,7 @@
     display: flex;
   }
   img {
-    margin-right: .1em;
+    margin-right: 0.1em;
   }
   @media (prefers-color-scheme: light) {
     tr > td {
