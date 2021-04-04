@@ -1,31 +1,24 @@
 <script lang="ts">
-  let search: HTMLButtonElement;
   import App from "./Window.svelte";
   import Search from "./Search.svelte";
   import Taskbar from "./Taskbar.svelte";
   import Tip from "./Tip.svelte";
 
   import { open_apps } from "../stores";
-  import { onMount } from "svelte";
   import { install } from "@github/hotkey";
 
   let show_search = false;
-  onMount(() => {
-    install(search);
-  });
 </script>
 
 <body>
   <Search bind:shown={show_search} />
   <Taskbar>
     <button
-      bind:this={search}
       aria-label="Search"
       data-hotkey="` `"
       title="Search (Alt+A)"
-      on:click={() => {
-        show_search = !show_search;
-      }}
+      use:install
+      on:click={() => (show_search = !show_search)}
     >
       <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
     </button>
