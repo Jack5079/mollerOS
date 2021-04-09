@@ -32,7 +32,7 @@
     z-index: 1000;
     overflow-x: auto;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     overflow-y: hidden;
     background: rgba(50, 50, 60, 0.7);

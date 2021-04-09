@@ -47,10 +47,4 @@
   button:focus {
     background: #3e3e3e;
   }
-  @media (min-width: 376px) {
-    button {
-      position: absolute;
-      left: 0;
-    }
-  }
 </style>
