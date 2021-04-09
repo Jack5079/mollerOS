@@ -113,7 +113,7 @@
     background: #e81123;
   }
 
-  :global(.slot > *) {
+  .slot > :global(*) {
     margin: 0;
     padding: 0;
     position: absolute;
