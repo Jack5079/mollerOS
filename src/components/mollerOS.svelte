@@ -16,9 +16,8 @@
   {/if}
   <Taskbar>
     <button
-      use:hotkey
+      use:hotkey={"` `"}
       aria-label="Search"
-      data-hotkey="` `"
       title="Search (Alt+A)"
       on:click={() => (show_search = !show_search)}
     >
