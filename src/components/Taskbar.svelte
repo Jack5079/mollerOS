@@ -35,6 +35,7 @@
     backdrop-filter: blur(10px);
     width: 100%;
     left: 0;
+    max-height: 75vh;
     bottom: 0;
     position: fixed;
   }
