@@ -34,7 +34,7 @@
       <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
     </button>
     <nav slot="tray">
-      <span> {@html time.split(',').reverse().join('<br>')} </span>
+      <span>{time}</span>
     </nav>
   </Taskbar>
   {#each $open_apps as session (session.id)}

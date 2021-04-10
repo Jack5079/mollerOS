@@ -89,7 +89,7 @@
     z-index: 999;
     width: 300px;
     height: calc(max(75vh, 40px));
-    bottom: 40px;
+    bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.5);
   }

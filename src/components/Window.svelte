@@ -84,7 +84,7 @@
     resize: both;
   }
   .maximized {
-    height: calc(100% - 40px);
+    height: 100%;
     resize: none;
     animation: maximize 0s forwards;
   }
@@ -177,7 +177,7 @@
   @media (max-width: 375px) {
     article {
       position: static;
-      height: calc(100vh - 40px);
+      height: calc(100vh - 30px);
     }
     .resizable {
       resize: none;

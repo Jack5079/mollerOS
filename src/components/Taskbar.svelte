@@ -31,17 +31,11 @@
   }
   .taskbar {
     z-index: 1000;
-    overflow-x: auto;
-    /* display: flex;
-    justify-content: left;
-    align-items: center; */
-    overflow-y: hidden;
     background: rgba(50, 50, 60, 0.7);
     backdrop-filter: blur(10px);
     width: 100%;
     left: 0;
     bottom: 0;
-    height: 40px;
     position: fixed;
   }
 
