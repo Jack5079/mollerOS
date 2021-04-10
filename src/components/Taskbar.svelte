@@ -5,7 +5,7 @@
 </script>
 
 <nav class="taskbar">
-  <slot />
+  <slot name="start" />
   {#each $open_apps as session (session.id)}
     <button
       in:fly={{ duration: 300, y: 10 }}
@@ -22,6 +22,7 @@
       <img src={session.app.icon} alt={session.app.name} height="30" />
     </button>
   {/each}
+  <slot name="tray" />
 </nav>
 
 <style>
@@ -31,9 +32,9 @@
   .taskbar {
     z-index: 1000;
     overflow-x: auto;
-    display: flex;
+    /* display: flex;
     justify-content: left;
-    align-items: center;
+    align-items: center; */
     overflow-y: hidden;
     background: rgba(50, 50, 60, 0.7);
     backdrop-filter: blur(10px);
@@ -64,9 +65,12 @@
   }
   @media (max-width: 375px) {
     .taskbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       position: static;
     }
-    .taskbar > *:not(:first-child) {
+    .taskbar > :global(*:not(:first-child)) {
       display: none;
     }
   }

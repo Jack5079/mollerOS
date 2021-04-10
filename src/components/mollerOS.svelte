@@ -6,8 +6,17 @@
 
   import { open_apps } from '../stores'
   import { install as hotkey } from '@github/hotkey'
+  import { onMount } from 'svelte'
 
   let show_search = false
+  let time = new Date().toLocaleString()
+
+  onMount(() => {
+    const id = setInterval(() => {
+      time = new Date().toLocaleString()
+    }, 1000)
+    return () => clearInterval(id)
+  })
 </script>
 
 <body>
@@ -16,13 +25,17 @@
   {/if}
   <Taskbar>
     <button
-      use:hotkey={"` `"}
+      slot="start"
+      use:hotkey={'` `'}
       aria-label="Search"
       title="Search (Alt+A)"
       on:click={() => (show_search = !show_search)}
     >
       <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
     </button>
+    <nav slot="tray">
+      <span> {@html time.split(',').reverse().join('<br>')} </span>
+    </nav>
   </Taskbar>
   {#each $open_apps as session (session.id)}
     <App {session}>
@@ -34,6 +47,15 @@
 </body>
 
 <style>
+  nav {
+    padding-right: 1em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    color: white;
+  }
   button {
     background: none;
     border: none;
