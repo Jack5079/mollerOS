@@ -3,20 +3,12 @@
   import Search from './Search.svelte'
   import Taskbar from './Taskbar.svelte'
   import Tip from './Tip.svelte'
-
+  import Tray from './Tray.svelte'
+  
   import { open_apps } from '../stores'
   import { install as hotkey } from '@github/hotkey'
-  import { onMount } from 'svelte'
 
   let show_search = false
-  let time = new Date().toLocaleString()
-
-  onMount(() => {
-    const id = setInterval(() => {
-      time = new Date().toLocaleString()
-    }, 1000)
-    return () => clearInterval(id)
-  })
 </script>
 
 <body class="molla">
@@ -33,9 +25,7 @@
     >
       <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
     </button>
-    <nav slot="tray">
-      <span>{time}</span>
-    </nav>
+    <Tray slot="tray" />
   </Taskbar>
   {#each $open_apps as session (session.id)}
     <App {session}>
@@ -47,15 +37,6 @@
 </body>
 
 <style>
-  nav {
-    padding-right: 1em;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    float: right;
-    color: white;
-  }
   button {
     background: none;
     border: none;
