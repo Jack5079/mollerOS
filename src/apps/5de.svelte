@@ -16,4 +16,9 @@
     align-items: center;
     background: black;
   }
+  @media (prefers-color-scheme: light) {
+    main {
+      filter: invert(1);
+    }
+  }
 </style>

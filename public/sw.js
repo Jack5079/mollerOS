@@ -1,6 +1,8 @@
 /// <reference lib="WebWorker" />
 
-importScripts('https://unpkg.com/@isomorphic-git/lightning-fs@4.4.1/dist/lightning-fs.min.js')
+importScripts(
+  'https://unpkg.com/@isomorphic-git/lightning-fs@4.4.1/dist/lightning-fs.min.js'
+)
 
 /** @type {import('@jkearl/lightning-fs').default} */
 // @ts-ignore
@@ -11,7 +13,7 @@ const fs = new LightningFS('mollerOS')
  */
 // @ts-ignore
 const worker = self
-console.log(worker)
+//console.log(worker)
 /**
  * @param {FetchEvent} event
  */

@@ -1,26 +1,17 @@
 <script lang="ts">
-  import { open_apps } from "../stores";
-  import { fade, fly } from "svelte/transition";
-  import { flip } from "svelte/animate";
-  import apps from "../apps";
-  let closes: import("../types").Session[] = [];
-  function close() {
-    $open_apps = $open_apps.filter(
-      (session) =>
-        !closes.map((closedsession) => closedsession.id).includes(session.id)
-    );
-    closes = [];
-  }
+  import { open_apps } from '../stores'
+  import { close } from '../util'
+  import { slide, fly } from 'svelte/transition'
+  import { flip } from 'svelte/animate'
+  import apps from '../apps'
+  let selected_sessions: string[] = []
+  // amount of apps that are open + amount of sessions that are open = size of select
+  $: size =
+    $open_apps.length + new Set($open_apps.map((session) => session.app)).size
 </script>
 
 <main>
-  <select
-    multiple
-    bind:value={closes}
-    size={$open_apps.length +
-      apps.filter((app) => $open_apps.some((session) => session.app === app))
-        .length}
-  >
+  <select multiple bind:value={selected_sessions} {size}>
     {#each apps as app}
       {#if $open_apps.find((session) => session.app === app)}
         <optgroup
@@ -34,23 +25,24 @@
             <option
               animate:flip={{ duration: 300 }}
               transition:fly={{ x: -10, duration: 300 }}
-              value={session}>Session {session.id}</option
+              value={session.id}>Session {session.id}</option
             >
           {/each}
         </optgroup>
       {/if}
     {/each}
   </select>
-  {#if closes.length}
-    <button on:click={close} transition:fade
-      >End {closes.length === 1 ? "session" : "sessions"}</button
+  {#if selected_sessions.length}
+    <button on:click={() => close(...selected_sessions)} transition:slide
+      >End {selected_sessions.length === 1 ? 'session' : 'sessions'}</button
     >
   {/if}
 </main>
 
 <style>
   select {
-    scrollbar-width: none;
+    scrollbar-width: none !important;
+    overflow: visible;
     background: transparent;
     border: 0;
     background: transparent;
