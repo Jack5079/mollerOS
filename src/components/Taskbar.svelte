@@ -36,6 +36,7 @@
     width: 100%;
     left: 0;
     max-height: 75vh;
+    overflow-y: auto;
     bottom: 0;
     position: fixed;
   }
