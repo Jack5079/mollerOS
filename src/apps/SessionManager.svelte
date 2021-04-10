@@ -15,6 +15,16 @@
     {#each apps as app}
       {#if $open_apps.find((session) => session.app === app)}
         <optgroup
+          on:click|self={() => {
+            selected_sessions = [
+              ...new Set([
+                ...selected_sessions,
+                ...$open_apps
+                  .filter((session) => session.app === app)
+                  .map((session) => session.id)
+              ])
+            ]
+          }}
           transition:fly={{ x: -10, duration: 300 }}
           label={app.name}
           style="background-image: url({JSON.stringify(
