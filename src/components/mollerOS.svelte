@@ -19,7 +19,7 @@
   })
 </script>
 
-<body>
+<body class="molla">
   {#if show_search}
     <Search bind:shown={show_search} />
   {/if}

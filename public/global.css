@@ -10,7 +10,12 @@ body {
   padding: 0;
   margin: 0;
 }
-
+body:not(.molla) {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color: white;
+}
 body {
   color: #333;
   background-image: url(bliss.avif), url(bliss.jpg),
