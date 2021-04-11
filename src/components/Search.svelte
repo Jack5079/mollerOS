@@ -35,9 +35,11 @@
     ]
   }
   function close(e: Event) {
-    if (search && !search.parentElement.contains(e.target as Node)) shown = false
+    if (search && !search.parentElement.contains(e.target as Node))
+      shown = false
   }
 </script>
+
 <svelte:body on:mousedown={close} on:touchend={close} on:keyup={close} />
 <section
   transition:slide
@@ -93,6 +95,7 @@
     transform: translateX(-50%);
     width: calc(min(600px, 100vw));
   }
+
   input {
     outline: none;
     background: #2f363d;
@@ -103,14 +106,28 @@
   input:focus {
     border: solid 2px #104f96;
   }
+
+  article:hover {
+    background: #282e34;
+  }
+  @media (prefers-color-scheme: light) {
+    section,
+    input {
+      color: black;
+      background: white;
+    }
+    input:focus {
+      border: solid 2px #298cff;
+    }
+    article:hover {
+      background: #ebf0f4;
+    }
+  }
   img {
     width: 20px;
     margin-right: 0.1em;
   }
   article {
     height: max-content;
-  }
-  article:hover {
-    background: #282e34;
   }
 </style>
