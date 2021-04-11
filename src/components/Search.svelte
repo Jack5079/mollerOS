@@ -24,6 +24,10 @@
         .search(query)
         .map((item) => item.item)
     : apps
+
+  let index = 0
+  $: query && (index = 0) // changes index to 0 whenever query changes
+  
   function open(app: App) {
     shown = false
     $open_apps = [
@@ -53,11 +57,24 @@
       placeholder="Search for an app.."
       bind:this={search}
       bind:value={query}
+      on:keydown={(e) => {
+        if (e.key === 'ArrowUp') {
+          e.preventDefault()
+          if (index === 0) {
+            index = results.length - 1
+          } else {
+            index -= 1
+          }
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault()
+          index = (index + 1) % results.length
+        }
+      }}
     />
   </form>
   <div>
-    {#each results as result (result.name)}
-      <article on:click={() => open(result)}>
+    {#each results as result, i (result.name)}
+      <article on:click={() => open(result)} class:index={i === index}>
         <img alt={result.name} src={result.icon} width="50" />
         {result.name}
       </article>
@@ -107,8 +124,11 @@
     border: solid 2px #104f96;
   }
 
-  article:hover {
+  article:not(.index):hover {
     background: #282e34;
+  }
+  .index {
+    background: #044289;
   }
   @media (prefers-color-scheme: light) {
     section,
