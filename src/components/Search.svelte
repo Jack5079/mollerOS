@@ -42,7 +42,9 @@
     if (
       search &&
       !search.parentElement.contains(e.target as Node) &&
-      !(e.target as HTMLElement).matches('nav > button:first-child, nav > button:first-child > img')
+      !(e.target as HTMLElement).matches(
+        'nav > button:first-child, nav > button:first-child > img'
+      )
     )
       shown = false
   }
@@ -85,6 +87,8 @@
         <img alt={result.name} src={result.icon} width="50" />
         {result.name}
       </article>
+    {:else}
+      <article class:index={true}>No matching apps</article>
     {/each}
   </div>
 </section>
