@@ -1,19 +1,22 @@
 <script lang="ts">
   import Tray from './Tray.svelte'
 
-  import { fly } from 'svelte/transition'
+  import { fly, slide } from 'svelte/transition'
   import { open_apps, minimized } from '../stores'
   import { flip } from 'svelte/animate'
   let height: number
 </script>
 
-<nav class="taskbar" transition:fly={{ duration: 300, y: height, opacity: 1 }} bind:offsetHeight={height}>
+<nav
+  class="taskbar"
+  transition:fly={{ duration: 300, y: height, opacity: 1 }}
+  bind:offsetHeight={height}
+>
   <slot />
   {#each $open_apps as session (session.id)}
     <button
-      in:fly={{ duration: 300, y: 10 }}
+      transition:slide={{ duration: 300 }}
       animate:flip={{ duration: 300 }}
-      out:fly={{ duration: 300, y: -10 }}
       class:open={!$minimized.has(session.id)}
       title={session.app.name}
       on:click={() => {
