@@ -90,8 +90,11 @@
 </section>
 
 <style>
-  article img {
-    margin-right: 1em;
+  img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 0.1em;
   }
   article {
     width: 100%;
@@ -149,10 +152,6 @@
     article:hover {
       background: #ebf0f4;
     }
-  }
-  img {
-    width: 20px;
-    margin-right: 0.1em;
   }
   article {
     height: max-content;
