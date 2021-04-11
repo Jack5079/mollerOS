@@ -1,11 +1,13 @@
 <script lang="ts">
+  import Tray from './Tray.svelte'
+
   import { fly } from 'svelte/transition'
   import { open_apps, minimized } from '../stores'
   import { flip } from 'svelte/animate'
 </script>
 
 <nav class="taskbar">
-  <slot name="start" />
+  <slot />
   {#each $open_apps as session (session.id)}
     <button
       in:fly={{ duration: 300, y: 10 }}
@@ -22,7 +24,7 @@
       <img src={session.app.icon} alt={session.app.name} height="30" />
     </button>
   {/each}
-  <slot name="tray" />
+  <Tray />
 </nav>
 
 <style>

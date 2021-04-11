@@ -39,7 +39,12 @@
     ]
   }
   function close(e: Event) {
-    if (search && !search.parentElement.contains(e.target as Node))
+    if (
+      search &&
+      !search.parentElement.contains(e.target as Node) &&
+      e.target.src !== 'https://5079.ml/5079mlicon.svg' &&
+      !e.target.parentNode.matches('nav')
+    )
       shown = false
   }
 </script>
@@ -58,6 +63,9 @@
       bind:this={search}
       bind:value={query}
       on:keydown={(e) => {
+        if (query.endsWith('`') && e.key === '`') {
+          shown = false
+        }
         if (e.key === 'ArrowUp') {
           e.preventDefault()
           if (index === 0) {

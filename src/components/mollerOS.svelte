@@ -3,8 +3,7 @@
   import Search from './Search.svelte'
   import Taskbar from './Taskbar.svelte'
   import Tip from './Tip.svelte'
-  import Tray from './Tray.svelte'
-  
+
   import { open_apps } from '../stores'
   import { install as hotkey } from '@github/hotkey'
 
@@ -17,7 +16,6 @@
   {/if}
   <Taskbar>
     <button
-      slot="start"
       use:hotkey={'` `'}
       aria-label="Search"
       title="Search (Alt+A)"
@@ -25,7 +23,6 @@
     >
       <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
     </button>
-    <Tray slot="tray" />
   </Taskbar>
   {#each $open_apps as session (session.id)}
     <App {session}>
