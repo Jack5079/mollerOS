@@ -27,7 +27,7 @@
 
   let index = 0
   $: query && (index = 0) // changes index to 0 whenever query changes
-  
+
   function open(app: App) {
     shown = false
     $open_apps = [
@@ -51,7 +51,7 @@
     if (e.key === 'Escape') shown = false
   }}
 >
-  <form on:submit|preventDefault={() => results[0] && open(results[0])}>
+  <form on:submit|preventDefault={() => results[index] && open(results[index])}>
     <input
       type="search"
       placeholder="Search for an app.."
