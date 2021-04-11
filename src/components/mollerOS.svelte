@@ -4,13 +4,13 @@
   import Taskbar from './Taskbar.svelte'
   import Tip from './Tip.svelte'
 
-  import { open_apps } from '../stores'
+  import { open_apps, wallpaper } from '../stores'
   import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
 </script>
 
-<body class="molla">
+<body class={"molla " + $wallpaper}>
   {#if show_search}
     <Search bind:shown={show_search} />
   {/if}
@@ -34,6 +34,13 @@
 </body>
 
 <style>
+  .bliss {
+    background-image: url(../bliss.jpg)
+  }
+  .mollersuite {
+    background-image: url(../mollersuite.png);
+    background-size: cover;
+  }
   button {
     background: none;
     border: none;

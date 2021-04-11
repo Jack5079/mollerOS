@@ -1,5 +1,5 @@
-import Hello from './apps/Notepad.svelte'
-import fivede from './apps/5de.svelte'
+import Notepad from './apps/Notepad.svelte'
+import Settings from './apps/Settings.svelte'
 import type { App } from './types'
 import Terminal from './apps/Terminal.svelte'
 import Dog from './apps/dog.svelte'
@@ -12,13 +12,13 @@ import Trollface from './apps/Trollface.svelte'
 const apps: App[] = [
   {
     name: 'Notepad',
-    component: Hello,
+    component: Notepad,
     icon:
       'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
   },
   {
-    name: '5de',
-    component: fivede,
+    name: 'Settings',
+    component: Settings,
     icon: 'https://5079.ml/5079mlicon.svg'
   },
   {

@@ -3,3 +3,4 @@ import type { Session } from './types'
 
 export const open_apps: Writable<Session[]> = writable([])
 export const minimized: Writable<Set<string>> = writable(new Set())
+export const wallpaper: Writable<string> = writable(localStorage.getItem('wallpaper') || 'bliss')
