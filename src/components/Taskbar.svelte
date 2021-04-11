@@ -4,9 +4,10 @@
   import { fly } from 'svelte/transition'
   import { open_apps, minimized } from '../stores'
   import { flip } from 'svelte/animate'
+  let height: number
 </script>
 
-<nav class="taskbar">
+<nav class="taskbar" transition:fly={{ duration: 300, y: height, opacity: 1 }} bind:offsetHeight={height}>
   <slot />
   {#each $open_apps as session (session.id)}
     <button
