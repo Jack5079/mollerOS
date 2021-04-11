@@ -38,12 +38,11 @@
       }
     ]
   }
-  function close(e: Event) {
+  function close(e: KeyboardEvent | MouseEvent | TouchEvent) {
     if (
       search &&
       !search.parentElement.contains(e.target as Node) &&
-      e.target.src !== 'https://5079.ml/5079mlicon.svg' &&
-      !e.target.parentNode.matches('nav')
+      !(e.target as HTMLElement).matches('nav > button:first-child, nav > button:first-child > img')
     )
       shown = false
   }
