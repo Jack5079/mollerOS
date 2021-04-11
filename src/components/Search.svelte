@@ -1,14 +1,16 @@
 <script lang="ts">
   export let shown: boolean = false
-  import { fly } from 'svelte/transition'
-  import { flip } from 'svelte/animate'
   import apps from '../apps'
   import Fuse from 'fuse.js'
+
+  import { slide } from 'svelte/transition'
   import { open_apps } from '../stores'
   import { nanoid } from '../util'
   import type { App } from '../types'
+
   let search: HTMLInputElement
   let query: string = ''
+
   $: {
     if (shown && search) {
       search.focus()
@@ -32,14 +34,13 @@
       }
     ]
   }
+  function close(e: Event) {
+    if (search && !search.parentElement.contains(e.target as Node)) shown = false
+  }
 </script>
-
+<svelte:body on:mousedown={close} on:touchend={close} on:keyup={close} />
 <section
-  transition:fly={{
-    duration: 500,
-    y: window.innerHeight,
-    opacity: 1
-  }}
+  transition:slide
   on:keydown={(e) => {
     if (e.key === 'Escape') shown = false
   }}
@@ -54,11 +55,7 @@
   </form>
   <div>
     {#each results as result (result.name)}
-      <article
-        on:click={() => open(result)}
-        in:fly={{ y: -100, duration: 700 }}
-        animate:flip={{ duration: 700 }}
-      >
+      <article on:click={() => open(result)}>
         <img alt={result.name} src={result.icon} width="50" />
         {result.name}
       </article>
@@ -87,17 +84,33 @@
     margin: 0;
     position: fixed;
     z-index: 999;
-    width: 300px;
-    height: calc(max(75vh, 40px));
-    bottom: 0;
-    left: 0;
     background: rgba(0, 0, 0, 0.5);
+    background: #24292e;
+    left: 50%;
+    top: 50px;
+    max-height: 70vh;
+    height: max-content;
+    transform: translateX(-50%);
+    width: calc(min(600px, 100vw));
   }
-  @media (max-width: 375px) {
-    section {
-      bottom: 0;
-      width: 100%;
-      height: calc(100vh - 40px);
-    }
+  input {
+    outline: none;
+    background: #2f363d;
+    color: white;
+    border: none;
+    width: 100%;
+  }
+  input:focus {
+    border: solid 2px #104f96;
+  }
+  img {
+    width: 20px;
+    margin-right: 0.1em;
+  }
+  article {
+    height: max-content;
+  }
+  article:hover {
+    background: #282e34;
   }
 </style>
