@@ -77,7 +77,11 @@ button:not(:disabled):active {
 button:focus {
   border-color: #666;
 }
-
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: white;
+  }
+}
 @media (max-width: 375px) {
   html,
   body {
