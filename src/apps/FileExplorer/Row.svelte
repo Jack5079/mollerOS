@@ -1,4 +1,6 @@
 <script lang="ts">
+  import path from '@jkearl/lightning-fs/src/path'
+
   import { tick } from 'svelte'
 
   import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
@@ -9,7 +11,7 @@
   export let file: string = ''
   import fs from '../../fs'
   async function open(file: string) {
-    const stat = await fs.promises.stat(directory + '/' + file)
+    const stat = await fs.promises.stat(path.resolve(directory, file))
     if (stat.type === 'dir') {
       directory = `${directory}/${file}/`
     }
@@ -18,13 +20,10 @@
   function rightclick(node: HTMLElement, file: string) {
     node.addEventListener('contextmenu', async (event) => {
       event.preventDefault()
-      const stat = await fs.promises.stat(directory + file + '/')
-      // if (stat.type === 'file') {
-      contextfile = directory + file
+      contextfile = path.resolve(directory,file)
       await tick()
       context.style.left = event.clientX + 'px'
       context.style.top = event.clientY + 'px'
-      // }
     })
     return {}
   }
@@ -37,7 +36,7 @@
 </script>
 
 <tr on:click={() => open(file)} use:rightclick={file}>
-  {#await fs.promises.stat(directory + '/' + file)}
+  {#await fs.promises.stat(path.resolve(directory, file))}
     <td><Loading size={23} />{file}</td>
   {:then stat}
     <td>

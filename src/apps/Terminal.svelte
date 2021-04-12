@@ -8,7 +8,6 @@
   import { tick } from 'svelte'
   import { open_apps } from '../stores'
   import { nanoid, close as stop } from '../util'
-  import type FS from '@jkearl/lightning-fs'
 
   export let session: string
   let text: HTMLInputElement
@@ -117,6 +116,8 @@
       messages = [...messages, `Couldn't find that app.`]
     }
   }
+  const resolve = (dir?: string) =>
+    dir ? (dir.startsWith('/') ? dir : path.resolve(directory, dir)) : directory
   const commands: {
     [key: string]: (
       args: string[]
@@ -155,7 +156,10 @@
                 }
               },
               opts,
-              gitauth
+              gitauth,
+              {
+                dir: resolve(opts.dir)
+              }
             )
           )
           if (result === undefined) return
@@ -173,14 +177,7 @@
       isogit(parsed)
     },
     async cd(args) {
-      const joinedargs = args.join(' ')
-      if (args.join(' ').startsWith('/')) {
-        directory = '/'
-        return
-      }
-      const dir = joinedargs.startsWith('/')
-        ? joinedargs
-        : path.resolve(directory, joinedargs)
+      const dir = resolve(args.join(' '))
       const stat = await fs.promises.stat(dir)
       if (stat.type === 'dir') {
         directory = dir
@@ -202,10 +199,10 @@
     },
     async cat(args) {
       try {
-        const stat = await fs.promises.stat(`${directory}/${args.join(' ')}`)
+        const stat = await fs.promises.stat(resolve(args.join(' ')))
         if (stat.type === 'file') {
           return (fs.promises.readFile(
-            `${directory}/${args.join(' ')}`,
+            resolve(args.join(' ')),
             'utf8'
           ) as Promise<unknown>) as Promise<string>
         } else {
@@ -222,9 +219,7 @@
           id: nanoid(),
           app: apps.find((app) => app.name === 'File Explorer'),
           props: {
-            directory: args.length
-              ? path.resolve(directory, ...args)
-              : directory
+            directory: resolve(args.join(' '))
           }
         }
       ]
