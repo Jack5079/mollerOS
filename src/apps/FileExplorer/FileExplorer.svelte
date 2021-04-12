@@ -2,21 +2,33 @@
   import Row from './Row.svelte'
   import Nav from './Nav.svelte'
   import Menu from './Menu.svelte'
+  import Git from './Git.svelte'
   import Loading from '../../components/Loading.svelte'
   import fs from '../../fs'
-
+  import path from '@jkearl/lightning-fs/src/path'
   export let directory: string = '/'
   let context: HTMLMenuElement
   let contextfile = ''
 
   $: files = fs.promises.readdir(directory)
+  $: gitdir = git.findRoot({
+    filepath: directory,
+    fs
+  })
 </script>
 
 <div class="root">
   <Nav bind:contextfile bind:directory>
     <button on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
   </Nav>
-  <main on:click={() => (contextfile = '')}>
+  <main>
+    {#await gitdir}
+      {''}
+    {:then gitdir}
+      <Git bind:dir={directory} gitdir={path.resolve(gitdir, '.git')} />
+    {:catch}
+      {''}
+    {/await}
     <table>
       <thead>
         <tr>
@@ -61,7 +73,6 @@
     height: calc(100% - 21px);
     background: rgba(100, 100, 100, 0.1);
   }
-
   button {
     background: none;
     padding: 0;
