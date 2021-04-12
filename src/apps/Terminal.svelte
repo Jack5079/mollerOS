@@ -311,11 +311,13 @@
   label {
     font-family: 'Cascadia Mono', 'Consolas', monospace;
     white-space: pre;
+    font-size: 13px;
   }
   main input {
     width: 100%;
     padding: 0;
     margin: 0;
+    font-size: 13px;
     background: transparent;
     color: white;
     border: 0;
