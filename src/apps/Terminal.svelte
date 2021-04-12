@@ -141,23 +141,17 @@
       isogit(parsed)
     },
     async cd(args) {
-      try {
-        if (args.join(' ') === '/') {
-          directory = '/'
-          return
-        }
-        const stat = await fs.promises.stat(
-          directory + `${directory === '/' ? '' : '/'}${args.join(' ')}`
-        )
-        if (stat.type === 'dir') {
-          if (directory === '/') {
-            directory += args.join(' ')
-          } else {
-            directory += `/${args.join(' ')}`
-          }
-        }
-      } catch (err) {
-        messages = [...messages, err + '']
+      const joinedargs = args.join(' ')
+      if (args.join(' ').startsWith('/')) {
+        directory = '/'
+        return
+      }
+      const dir = joinedargs.startsWith('/')
+        ? joinedargs
+        : path.resolve(directory, joinedargs)
+      const stat = await fs.promises.stat(dir)
+      if (stat.type === 'dir') {
+        directory = dir
       }
     },
     async overwrite(args) {
@@ -277,7 +271,7 @@
     <code>{index === 0 || !message ? '' : '\n'}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
-    <label for="terminal">{path.resolve(directory)}&gt;</label><input
+    <label for="terminal">{directory}&gt;</label><input
       name="terminal"
       type="text"
       bind:this={text}
