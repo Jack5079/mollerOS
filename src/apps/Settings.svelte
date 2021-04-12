@@ -12,7 +12,7 @@
     <select bind:value={$wallpaper}>
       <option>bliss</option>
       <option>upleft</option>
-      <option value="">gradient</option>
+      <option>gradient</option>
       <option value="mollersuite">mollersuite (WARNING: THIS IS 8K)</option>
     </select>
   </label>
