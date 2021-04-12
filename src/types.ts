@@ -3,9 +3,13 @@ export interface App {
   name: string
   component: any
 }
+
 export interface Session {
   id: string
   app: App
+  props?: {
+    [key: string]: any
+  }
 }
 
 export type EventHandler<

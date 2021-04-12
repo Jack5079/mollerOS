@@ -3,6 +3,7 @@
   import apps from '../apps'
   import fs from '../fs'
   import Window from '../components/Window.svelte'
+  import path from '@jkearl/lightning-fs/src/path'
 
   import { tick } from 'svelte'
   import { open_apps } from '../stores'
@@ -206,6 +207,20 @@
           }
         ]
       }
+    },
+    explorer: (args) => {
+      $open_apps = [
+        ...$open_apps,
+        {
+          id: nanoid(),
+          app: apps.find((app) => app.name === 'File Explorer'),
+          props: {
+            directory: args.length
+              ? path.resolve(directory, ...args)
+              : directory
+          }
+        }
+      ]
     }
   }
 
@@ -262,7 +277,7 @@
     <code>{index === 0 || !message ? '' : '\n'}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
-    <label for="terminal">{directory}&gt;</label><input
+    <label for="terminal">{path.resolve(directory)}&gt;</label><input
       name="terminal"
       type="text"
       bind:this={text}

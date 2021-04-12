@@ -5,7 +5,7 @@
   import Loading from '../../components/Loading.svelte'
   import fs from '../../fs'
 
-  let directory: string = '/'
+  export let directory: string = '/'
   let context: HTMLMenuElement
   let contextfile = ''
 

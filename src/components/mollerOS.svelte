@@ -26,7 +26,7 @@
   </Taskbar>
   {#each $open_apps as session (session.id)}
     <App {session}>
-      <svelte:component this={session.app.component} session={session.id} />
+      <svelte:component this={session.app.component} session={session.id} {...session.props} />
     </App>
   {:else}
     <Tip />
