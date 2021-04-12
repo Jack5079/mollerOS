@@ -93,6 +93,30 @@
   }
   const close = stop.bind(undefined, session)
   const clear = () => void (messages = [])
+  const del = async (args: string[]) => {
+    const stat = await fs.promises.stat(`${directory}/${args.join(' ')}`)
+    if (stat.type === 'file') {
+      return await fs.promises.unlink(`${directory}/${args.join(' ')}`)
+    }
+  }
+  function kill(args: string[]) {
+    const [app] = apps.filter((app) =>
+      app.name.toLowerCase().includes(args.join(' ').toLowerCase())
+    )
+    const apps_killed = $open_apps.filter((session) => session.app === app)
+      .length
+    if (app) {
+      $open_apps = $open_apps.filter((session) => session.app !== app)
+      messages = [
+        ...messages,
+        `Killed ${apps_killed} session${apps_killed === 1 ? '' : 's'} of ${
+          app.name
+        }`
+      ]
+    } else {
+      messages = [...messages, `Couldn't find that app.`]
+    }
+  }
   const commands: {
     [key: string]: (
       args: string[]
@@ -100,10 +124,18 @@
   } = {
     close,
     clear,
+    del,
+    kill,
     exit: close,
     stop: close,
     cls: clear,
     clr: clear,
+    unlink: del,
+    delete: del,
+    remove: del,
+    rm: del,
+    taskkill: kill,
+    taskill: kill,
     touch: (args) =>
       fs.promises.writeFile(`${directory}/${args.join('')}`, '', 'utf8'),
     mkdir: (args) => fs.promises.mkdir(args.join(' ')),
@@ -224,45 +256,13 @@
   async function run() {
     messages = [...messages, `${directory}>${command}`]
     const [cmd, ...args] = command.split(' ')
+    command = ''
     if (commands[cmd]) {
       const output = await commands[cmd](args)
       if (output) {
         messages = [...messages, output]
       }
-    } else {
-      let stat: FS.Stats
-      switch (cmd) {
-        case 'rm':
-        case 'remove':
-        case 'delete':
-        case 'unlink':
-          stat = await fs.promises.stat(`${directory}/${args.join(' ')}`)
-          if (stat.type === 'file') {
-            return await fs.promises.unlink(`${directory}/${args.join(' ')}`)
-          }
-          break
-      }
     }
-
-    if (cmd === 'kill' || cmd === 'taskkill' || cmd === 'taskill') {
-      const app = apps.filter((app) =>
-        app.name.toLowerCase().includes(args.join(' ').toLowerCase())
-      )[0]
-      const apps_killed = $open_apps.filter((session) => session.app === app)
-        .length
-      if (app) {
-        $open_apps = $open_apps.filter((session) => session.app !== app)
-        messages = [
-          ...messages,
-          `Killed ${apps_killed} session${apps_killed === 1 ? '' : 's'} of ${
-            app.name
-          }`
-        ]
-      } else {
-        messages = [...messages, `Couldn't find that app.`]
-      }
-    }
-    command = ''
   }
 </script>
 
