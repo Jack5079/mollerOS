@@ -10,7 +10,7 @@
   let show_search = false
 </script>
 
-<body class={"molla " + $wallpaper}>
+<body class={'molla ' + $wallpaper}>
   {#if show_search}
     <Search bind:shown={show_search} />
   {/if}
@@ -35,11 +35,17 @@
 
 <style>
   .bliss {
-    background-image: url(../bliss.jpg)
+    background-image: url(../bliss.jpg);
+  }
+  .mollersuite,
+  .upleft {
+    background-size: cover;
   }
   .mollersuite {
     background-image: url(../mollersuite.png);
-    background-size: cover;
+  }
+  .upleft {
+    background-image: url(https://5079.ml/branding/jack5079/pfp.jpg);
   }
   button {
     background: none;
