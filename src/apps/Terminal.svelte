@@ -215,25 +215,6 @@
         return err + ''
       }
     },
-    open(args) {
-      const app_name = args.join(' ')
-      const app = apps.find(
-        (app) =>
-          app.name.toUpperCase() === app_name.toUpperCase() ||
-          app.name.toUpperCase().includes(app_name.toUpperCase())
-      )
-      if (!app) {
-        messages = [...messages, 'App not found!']
-      } else {
-        $open_apps = [
-          ...$open_apps,
-          {
-            id: nanoid(),
-            app: app
-          }
-        ]
-      }
-    },
     explorer: (args) => {
       $open_apps = [
         ...$open_apps,
