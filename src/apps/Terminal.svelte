@@ -139,8 +139,9 @@
     taskill: kill,
     touch: (args) =>
       fs.promises.writeFile(`${directory}/${args.join('')}`, '', 'utf8'),
-    mkdir: (args) => fs.promises.mkdir(args.join(' ')),
-    ls: async () => (await fs.promises.readdir(directory)).join('\n'),
+    mkdir: (args) => fs.promises.mkdir(resolve(args.join(' '))),
+    ls: async (args) =>
+      (await fs.promises.readdir(resolve(args.join(' ')))).join('\n'),
     git(args: string[]) {
       async function isogit({ _: [command], ...opts }: minimist.ParsedArgs) {
         try {
@@ -150,6 +151,7 @@
                 fs,
                 dir: directory,
                 http,
+                onMessage: (str: string)=>(messages = [...messages, str]),
                 corsProxy: 'https://cors.isomorphic-git.org',
                 headers: {
                   'User-Agent': `git/mollerOS/isogit-${git.version()}`
