@@ -6,7 +6,8 @@
   import Loading from '../../components/Loading.svelte'
   import fs from '../../fs'
   import path from '@jkearl/lightning-fs/src/path'
-  export let directory: string = '/'
+  export let startingdir: string = '/'
+  let directory = startingdir
   let context: HTMLMenuElement
   let contextfile = ''
 

@@ -219,7 +219,7 @@
           id: nanoid(),
           app: apps.find((app) => app.name === 'File Explorer'),
           props: {
-            directory: resolve(args.join(' '))
+            startingdir: resolve(args.join(' '))
           }
         }
       ]
