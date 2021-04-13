@@ -1,4 +1,3 @@
-import Notepad from './apps/Notepad.svelte'
 import Settings from './apps/Settings.svelte'
 import type { App } from './types'
 import Terminal from './apps/Terminal.svelte'
@@ -10,12 +9,6 @@ import SessionManager from './apps/SessionManager.svelte'
 import FileExplorer from './apps/FileExplorer/FileExplorer.svelte'
 import Trollface from './apps/Trollface.svelte'
 const apps: App[] = [
-  {
-    name: 'Notepad',
-    component: Notepad,
-    icon:
-      'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
-  },
   {
     name: 'Settings',
     component: Settings,
