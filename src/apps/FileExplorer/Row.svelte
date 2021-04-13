@@ -13,7 +13,12 @@
   export let contextfile: string
   export let directory: string = '/'
   export let file: string = ''
-
+  const editor = {
+    name: 'Editor',
+    component: Editor,
+    icon:
+      'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+  }
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
     if (stat.type === 'dir') {
@@ -23,12 +28,7 @@
         ...$open_apps,
         {
           id: nanoid(),
-          app: {
-            name: 'Editor',
-            component: Editor,
-            icon:
-              'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
-          },
+          app: editor,
           props: {
             file: path.resolve(directory, file)
           }

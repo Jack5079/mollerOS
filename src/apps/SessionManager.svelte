@@ -12,34 +12,32 @@
 
 <main>
   <select multiple bind:value={selected_sessions} {size}>
-    {#each apps as app}
-      {#if $open_apps.find((session) => session.app === app)}
-        <optgroup
-          on:click|self={() => {
-            selected_sessions = [
-              ...new Set([
-                ...selected_sessions,
-                ...$open_apps
-                  .filter((session) => session.app === app)
-                  .map((session) => session.id)
-              ])
-            ]
-          }}
-          transition:fly={{ x: -10, duration: 300 }}
-          label={app.name}
-          style="background-image: url({JSON.stringify(
-            app.icon
-          )}); background-repeat: no-repeat; background-position: top right; background-size: 25px 25px;"
-        >
-          {#each $open_apps.filter((session) => session.app === app) as session (session.id)}
-            <option
-              animate:flip={{ duration: 300 }}
-              transition:fly={{ x: -10, duration: 300 }}
-              value={session.id}>Session {session.id}</option
-            >
-          {/each}
-        </optgroup>
-      {/if}
+    {#each [...new Set($open_apps.map((session) => session.app))] as app}
+      <optgroup
+        on:click|self={() => {
+          selected_sessions = [
+            ...new Set([
+              ...selected_sessions,
+              ...$open_apps
+                .filter((session) => session.app === app)
+                .map((session) => session.id)
+            ])
+          ]
+        }}
+        transition:fly={{ x: -10, duration: 300 }}
+        label={app.name}
+        style="background-image: url({JSON.stringify(
+          app.icon
+        )}); background-repeat: no-repeat; background-position: top right; background-size: 25px 25px;"
+      >
+        {#each $open_apps.filter((session) => session.app === app) as session (session.id)}
+          <option
+            animate:flip={{ duration: 300 }}
+            transition:fly={{ x: -10, duration: 300 }}
+            value={session.id}>Session {session.id}</option
+          >
+        {/each}
+      </optgroup>
     {/each}
   </select>
   {#if selected_sessions.length}
