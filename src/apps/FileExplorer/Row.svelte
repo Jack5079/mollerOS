@@ -1,26 +1,46 @@
 <script lang="ts">
   import path from '@jkearl/lightning-fs/src/path'
-
-  import { tick } from 'svelte'
-
-  import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
   import Loading from '../../components/Loading.svelte'
+  import Editor from './Editor.svelte'
+  import fs from '../../fs'
+
+  import { open_apps } from '../../stores'
+  import { nanoid } from '../../util'
+  import { tick } from 'svelte'
+  import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
+
   export let context: HTMLMenuElement
   export let contextfile: string
   export let directory: string = '/'
   export let file: string = ''
-  import fs from '../../fs'
+
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
     if (stat.type === 'dir') {
       directory = `${directory}/${file}/`
+    } else {
+      $open_apps = [
+        ...$open_apps,
+        {
+          id: nanoid(),
+          app: {
+            name: 'Editor',
+            component: Editor,
+            icon:
+              'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+          },
+          props: {
+            file: path.resolve(directory, file)
+          }
+        }
+      ]
     }
   }
 
   function rightclick(node: HTMLElement, file: string) {
     node.addEventListener('contextmenu', async (event) => {
       event.preventDefault()
-      contextfile = path.resolve(directory,file)
+      contextfile = path.resolve(directory, file)
       await tick()
       context.style.left = event.clientX + 'px'
       context.style.top = event.clientY + 'px'

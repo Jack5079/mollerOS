@@ -174,7 +174,7 @@
         }
       }
       const parsed = minimist(args)
-      isogit(parsed)
+      return isogit(parsed)
     },
     async cd(args) {
       const dir = resolve(args.join(' '))
