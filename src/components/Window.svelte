@@ -84,7 +84,6 @@
     resize: both;
   }
   .maximized {
-    height: 100vh;
     resize: none;
     animation: maximize 0s forwards;
   }
@@ -92,6 +91,7 @@
     to {
       top: 0;
       left: 0;
+    height: 100vh;
       width: 100%;
     }
   }
