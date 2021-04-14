@@ -9,16 +9,17 @@
 
 <!-- svelte-ignore a11y-media-has-caption -->
 <main>
-<audio src={url} controls autoplay />
+  <audio on:canplaythrough={() => URL.revokeObjectURL(url)} src={url} controls autoplay />
 </main>
+
 <style>
   main {
     width: 100%;
     background: black;
     color: white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   audio {
     width: 100%;
