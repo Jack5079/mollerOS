@@ -146,6 +146,7 @@
   }
   header div img {
     pointer-events: all;
+    margin-right: .5em;
   }
   header {
     position: sticky;

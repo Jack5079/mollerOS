@@ -4,7 +4,8 @@
   import Editor from './Editor.svelte'
   import fs from '../../fs'
   import ImageViewer from './ImageViewer.svelte'
-  
+  import VideoViewer from './VideoViewer.svelte'
+
   import { open_apps } from '../../stores'
   import { nanoid } from '../../util'
   import { tick } from 'svelte'
@@ -29,8 +30,18 @@
       name: 'Image Viewer',
       component: ImageViewer,
       icon:
-        'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+        'https://winaero.com/blog/wp-content/uploads/2019/09/Photos-app-icon-256-colorful.png'
+    },
+    video: {
+      name: 'Video Viewer',
+      component: VideoViewer,
+      icon:
+        'https://winaero.com/blog/wp-content/uploads/2019/09/Movies-and-TV-icon.png'
     }
+  }
+  const openwith = {
+    'file_type_video.svg': viewers.video,
+    'file_type_image.svg': viewers.image
   }
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
@@ -41,10 +52,7 @@
         ...$open_apps,
         {
           id: nanoid(),
-          app:
-            getIconForFile(file) === 'file_type_image.svg'
-              ? viewers.image
-              : viewers.editor,
+          app: openwith[getIconForFile(file)] || viewers.editor,
           props: {
             file: path.resolve(directory, file)
           }
