@@ -5,6 +5,7 @@
   import fs from '../../fs'
   import ImageViewer from './ImageViewer.svelte'
   import VideoViewer from './VideoViewer.svelte'
+  import AudioPlayer from './AudioPlayer.svelte'
 
   import { open_apps } from '../../stores'
   import { nanoid } from '../../util'
@@ -33,15 +34,22 @@
         'https://winaero.com/blog/wp-content/uploads/2019/09/Photos-app-icon-256-colorful.png'
     },
     video: {
-      name: 'Video Viewer',
+      name: 'Video Player',
       component: VideoViewer,
       icon:
         'https://winaero.com/blog/wp-content/uploads/2019/09/Movies-and-TV-icon.png'
+    },
+    audio: {
+      name: 'Audio Player',
+      component: AudioPlayer,
+      icon:
+        'https://winaero.com/blog/wp-content/uploads/2019/09/Groove-Music-fluent-design-icon.png'
     }
   }
   const openwith = {
     'file_type_video.svg': viewers.video,
-    'file_type_image.svg': viewers.image
+    'file_type_image.svg': viewers.image,
+    'file_type_audio.svg': viewers.audio
   }
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
