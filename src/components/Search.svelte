@@ -144,6 +144,9 @@
   .index {
     background: #044289;
   }
+  form::before {
+    content: 'Search'
+  }
   @media (prefers-color-scheme: light) {
     section,
     input {

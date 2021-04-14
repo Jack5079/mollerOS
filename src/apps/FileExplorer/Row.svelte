@@ -3,21 +3,34 @@
   import Loading from '../../components/Loading.svelte'
   import Editor from './Editor.svelte'
   import fs from '../../fs'
-
+  import ImageViewer from './ImageViewer.svelte'
+  
   import { open_apps } from '../../stores'
   import { nanoid } from '../../util'
   import { tick } from 'svelte'
   import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
 
+  import type { App } from '../../types'
+
   export let context: HTMLMenuElement
   export let contextfile: string
   export let directory: string = '/'
   export let file: string = ''
-  const editor = {
-    name: 'Editor',
-    component: Editor,
-    icon:
-      'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+  const viewers: {
+    [key: string]: App
+  } = {
+    editor: {
+      name: 'Editor',
+      component: Editor,
+      icon:
+        'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+    },
+    image: {
+      name: 'Image Viewer',
+      component: ImageViewer,
+      icon:
+        'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+    }
   }
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
@@ -28,7 +41,10 @@
         ...$open_apps,
         {
           id: nanoid(),
-          app: editor,
+          app:
+            getIconForFile(file) === 'file_type_image.svg'
+              ? viewers.image
+              : viewers.editor,
           props: {
             file: path.resolve(directory, file)
           }
