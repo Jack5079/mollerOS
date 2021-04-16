@@ -47,8 +47,7 @@ export default {
       preprocess: sveltePreprocess({ sourceMap: !production }),
       compilerOptions: {
         // enable run-time checks when not in production
-        dev: !production,
-        cssHash: ({ filename }) => 'moller-' + filename
+        dev: !production
       }
     }),
     // we'll extract any component CSS out into
