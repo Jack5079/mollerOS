@@ -3,8 +3,6 @@
   export let facts: string[] = [
     'you can press backtick twice to toggle search',
     'the DaBaby app will destroy your filesystem',
-    'you can stop the hydra virus by opening session manager and closing all sessions (click the first session and then shift click the last session)',
-    "5de probably won't return soon",
     'the terminal has git support (isogit cli)'
   ]
 </script>
