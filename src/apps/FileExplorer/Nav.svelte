@@ -1,6 +1,6 @@
 <script lang="ts">
   import { fly } from 'svelte/transition'
-
+  import { getIconForOpenFolder } from 'vscode-icons-js'
   export let directory: string = '/'
   export let contextfile: string = ''
 
@@ -10,10 +10,18 @@
       .filter((_, i) => i <= index)
       .join('/')
   }
+  $: folder = directory.split('/')[directory.split('/').length - 2]
 </script>
 
 <nav on:click={() => (contextfile = '')}>
   <slot />
+  <img
+    height="20"
+    src="https://raw.githubusercontent.com/vscode-icons/vscode-icons/master/icons/{getIconForOpenFolder(
+      folder
+    )}"
+    alt={folder}
+  />
   <button on:click={() => (directory = '/')}> / </button>
   {#each directory.split('/') as folder, index}
     {#if folder}

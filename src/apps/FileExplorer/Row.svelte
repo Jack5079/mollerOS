@@ -1,23 +1,9 @@
-<script lang="ts">
-  import path from '@jkearl/lightning-fs/src/path'
-  import Loading from '../../components/Loading.svelte'
-  import Editor from './Editor.svelte'
-  import fs from '../../fs'
+<script context="module" lang="ts">
   import ImageViewer from './ImageViewer.svelte'
   import VideoViewer from './VideoViewer.svelte'
   import AudioPlayer from './AudioPlayer.svelte'
+  import Editor from './Editor.svelte'
 
-  import { open_apps } from '../../stores'
-  import { nanoid } from '../../util'
-  import { tick } from 'svelte'
-  import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
-
-  import type { App } from '../../types'
-
-  export let context: HTMLMenuElement
-  export let contextfile: string
-  export let directory: string = '/'
-  export let file: string = ''
   const viewers: {
     [key: string]: App
   } = {
@@ -46,11 +32,29 @@
         'https://winaero.com/blog/wp-content/uploads/2019/09/Groove-Music-fluent-design-icon.png'
     }
   }
+
   const openwith = {
     'file_type_video.svg': viewers.video,
     'file_type_image.svg': viewers.image,
     'file_type_audio.svg': viewers.audio
   }
+</script>
+
+<script lang="ts">
+  import path from '@jkearl/lightning-fs/src/path'
+  import Loading from '../../components/Loading.svelte'
+  import fs from '../../fs'
+  import { open_apps } from '../../stores'
+  import { nanoid } from '../../util'
+  import { tick } from 'svelte'
+  import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
+
+  import type { App } from '../../types'
+
+  export let context: HTMLMenuElement
+  export let contextfile: string
+  export let directory: string = '/'
+  export let file: string = ''
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
     if (stat.type === 'dir') {
