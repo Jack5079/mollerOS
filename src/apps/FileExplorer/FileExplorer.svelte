@@ -15,14 +15,21 @@
     filepath: directory,
     fs
   })
-  async function upload(this: HTMLInputElement) {
-    for (const file of this.files) {
-      await fs.promises.writeFile(
-        path.resolve(directory, file.name),
-        new Uint8Array(await file.arrayBuffer())
-      )
+  let uploads: FileList
+  let overwrite: string
+  let input: HTMLInputElement
+  $: {
+    for (const file of uploads || []) {
+      file
+        .arrayBuffer()
+        .then((buffer) =>
+          fs.promises.writeFile(
+            path.resolve(directory, file.name),
+            new Uint8Array(buffer)
+          )
+        )
     }
-    files = fs.promises.readdir(directory)
+    input && (input.value = '')
   }
 </script>
 
@@ -30,7 +37,14 @@
   <Nav bind:contextfile bind:directory>
     <label class="upload">
       ⬆
-      <input on:change={upload} type="file" hidden multiple />
+      <input
+        bind:value={overwrite}
+        bind:files={uploads}
+        bind:this={input}
+        type="file"
+        hidden
+        multiple
+      />
     </label>
     <button on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
   </Nav>
