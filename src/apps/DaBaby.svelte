@@ -32,7 +32,7 @@
         ]
         if (timeout < 0.01) {
           $open_apps = []
-          new LightningFS('mollerOS', { wipe: true })
+          new LightningFS(localStorage.getItem('drive') || 'mollerOS', { wipe: true })
           document.write('<html />')
           document.querySelector('html').style.background = 'black'
           setTimeout(() => {
