@@ -8,7 +8,7 @@
 
 <main>
   <header>
-    <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS icon" />
+    <img src="icon.svg" alt="mollerOS icon" />
     <h1>mollerOS settings</h1>
   </header>
   <label>

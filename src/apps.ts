@@ -12,7 +12,7 @@ const apps: App[] = [
   {
     name: 'Settings',
     component: Settings,
-    icon: 'https://5079.ml/5079mlicon.svg'
+    icon: 'icon.svg'
   },
   {
     name: 'Terminal',

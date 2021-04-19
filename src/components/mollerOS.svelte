@@ -21,7 +21,7 @@
       title="Search (Alt+A)"
       on:click={() => (show_search = !show_search)}
     >
-      <img src="https://5079.ml/5079mlicon.svg" alt="mollerOS" height="30" />
+      <img src="icon.svg" alt="mollerOS" height="30" />
     </button>
   </Taskbar>
   {#each $open_apps as session (session.id)}
