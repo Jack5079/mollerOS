@@ -6,8 +6,6 @@
     url = URL.createObjectURL(new Blob([uint]))
   })
   let playbackrate: number = 1
-  let audio: HTMLAudioElement
-  $: audio && (audio.playbackRate = playbackrate)
 </script>
 
 <!-- svelte-ignore a11y-media-has-caption -->
@@ -15,7 +13,7 @@
   <audio
     on:canplaythrough={() => URL.revokeObjectURL(url)}
     src={url}
-    bind:this={audio}
+    bind:playbackRate={playbackrate}
     controls
     autoplay
   />
