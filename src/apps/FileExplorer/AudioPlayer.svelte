@@ -5,11 +5,30 @@
   fs.promises.readFile(file).then((uint) => {
     url = URL.createObjectURL(new Blob([uint]))
   })
+  let playbackrate: number = 1
+  let audio: HTMLAudioElement
+  $: audio && (audio.playbackRate = playbackrate)
 </script>
 
 <!-- svelte-ignore a11y-media-has-caption -->
 <main>
-  <audio on:canplaythrough={() => URL.revokeObjectURL(url)} src={url} controls autoplay />
+  <audio
+    on:canplaythrough={() => URL.revokeObjectURL(url)}
+    src={url}
+    bind:this={audio}
+    controls
+    autoplay
+  />
+  <label>
+    speed: {playbackrate}x
+    <input
+      type="range"
+      bind:value={playbackrate}
+      min={0.25}
+      max={4}
+      step={0.25}
+    />
+  </label>
 </main>
 
 <style>
