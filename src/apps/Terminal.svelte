@@ -57,7 +57,9 @@
         )
       })
     },
-    onAuthFailure: () => {
+    onAuthFailure: async () => {
+      needsauth = true
+      await tick()
       return new Promise(async (resolve) => {
         form.addEventListener(
           'submit',
