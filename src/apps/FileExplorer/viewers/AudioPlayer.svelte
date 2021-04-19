@@ -1,5 +1,5 @@
 <script lang="ts">
-  import fs from '../../fs'
+  import fs from '../../../fs'
   export let file: string
   let url: string
   fs.promises.readFile(file).then((uint) => {

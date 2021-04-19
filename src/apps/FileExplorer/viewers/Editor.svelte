@@ -1,6 +1,6 @@
 <script lang="ts">
   export let file: string
-  import fs from '../../fs'
+  import fs from '../../../fs'
   let value: string
   fs.promises
     .readFile(file, {

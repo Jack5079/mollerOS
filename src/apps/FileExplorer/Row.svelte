@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
-  import ImageViewer from './ImageViewer.svelte'
-  import VideoViewer from './VideoViewer.svelte'
-  import AudioPlayer from './AudioPlayer.svelte'
-  import Editor from './Editor.svelte'
+  import ImageViewer from './viewers/ImageViewer.svelte'
+  import VideoViewer from './viewers/VideoViewer.svelte'
+  import AudioPlayer from './viewers/AudioPlayer.svelte'
+  import Editor from './viewers/Editor.svelte'
 
   const viewers: {
     [key: string]: App
