@@ -42,7 +42,6 @@
 
 <script lang="ts">
   import path from '@jkearl/lightning-fs/src/path'
-  import Loading from '../../components/Loading.svelte'
   import fs from '../../fs'
   import { open_apps } from '../../stores'
   import { nanoid } from '../../util'
@@ -92,9 +91,7 @@
 </script>
 
 <tr on:click={() => open(file)} use:rightclick={file}>
-  {#await fs.promises.stat(path.resolve(directory, file))}
-    <td><Loading size={23} />{file}</td>
-  {:then stat}
+  {#await fs.promises.stat(path.resolve(directory, file)) then stat}
     <td>
       <img
         width="23"

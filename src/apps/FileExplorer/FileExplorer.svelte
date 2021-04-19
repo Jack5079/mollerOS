@@ -3,7 +3,6 @@
   import Nav from './Nav.svelte'
   import Menu from './Menu.svelte'
   import Git from './Git.svelte'
-  import Loading from '../../components/Loading.svelte'
   import fs from '../../fs'
   import path from '@jkearl/lightning-fs/src/path'
   export let startingdir: string = '/'
@@ -47,10 +46,7 @@
           <th>Size</th>
         </tr>
       </thead>
-      {#await files}
-        Loading...
-        <Loading />
-      {:then files}
+      {#await files then files}
         {#each files as file}
           <Row {file} bind:directory bind:contextfile {context} />
         {:else}
@@ -63,6 +59,9 @@
 </div>
 
 <style>
+  div:not(.root) {
+    display: contents;
+  }
   .upload {
     text-decoration: overline;
   }
