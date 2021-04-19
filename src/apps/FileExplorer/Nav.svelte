@@ -13,8 +13,8 @@
 
 <nav on:click={() => (contextfile = '')}>
   <slot />
-  <button on:click={() => (directory = '/')}> / </button>
-  {#each directory.split('/') as folder, index}
+  <button on:click={() => (directory = '/')}>/</button>
+  {#each (directory?.split('/')) ?? [] as folder, index}
     {#if folder}
       <button
         class="dir"
