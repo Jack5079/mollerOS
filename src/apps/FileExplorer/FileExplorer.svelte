@@ -35,8 +35,12 @@
     <button on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
   </Nav>
   <main>
-    {#await gitdir then gitdir}
+    {#await gitdir}
+      {''}
+    {:then gitdir}
       <Git bind:dir={directory} gitdir={path.resolve(gitdir, '.git')} />
+    {:catch}
+      {''}
     {/await}
     <table>
       <thead>

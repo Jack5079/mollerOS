@@ -1,5 +1,5 @@
 <script>
-  import { wallpaper } from '../stores'
+  import { author, wallpaper } from '../stores'
   import { slide } from 'svelte/transition'
   let showsave = false
   function savenotif() {
@@ -8,6 +8,7 @@
   }
   $: {
     localStorage.setItem('wallpaper', $wallpaper)
+    localStorage.setItem('gitauthor', JSON.stringify($author))
     savenotif()
   }
 </script>
@@ -25,6 +26,14 @@
       <option>gradient</option>
       <option value="mollersuite">mollersuite (WARNING: THIS IS 8K)</option>
     </select>
+  </label>
+  <label>
+    Git author
+    <input type="text" bind:value={$author.name} />
+  </label>
+  <label>
+    Git email
+    <input type="email" bind:value={$author.email} />
   </label>
   {#if showsave}
     <strong transition:slide> Changes saved. </strong>
