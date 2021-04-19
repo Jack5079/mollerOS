@@ -6,7 +6,7 @@
   import path from '@jkearl/lightning-fs/src/path'
 
   import { tick } from 'svelte'
-  import { open_apps } from '../stores'
+  import { author, open_apps } from '../stores'
   import { nanoid, close as stop } from '../util'
 
   export let session: string
@@ -155,7 +155,8 @@
                 corsProxy: 'https://cors.isomorphic-git.org',
                 headers: {
                   'User-Agent': `git/mollerOS/isogit-${git.version()}`
-                }
+                },
+                author: $author
               },
               opts,
               gitauth,
