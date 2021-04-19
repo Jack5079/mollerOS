@@ -1,8 +1,12 @@
-<script>
+<script lang="ts">
   import { author, wallpaper } from '../stores'
+  import fs from '../fs'
+  let drive: string = localStorage.getItem('drive') || 'mollerOS'
   $: {
     localStorage.setItem('wallpaper', $wallpaper)
     localStorage.setItem('gitauthor', JSON.stringify($author))
+    localStorage.setItem('drive', drive)
+    fs.init(drive)
   }
 </script>
 
@@ -27,6 +31,10 @@
   <label>
     Git email
     <input type="email" bind:value={$author.email} />
+  </label>
+  <label>
+    FS drive
+    <input type="text" bind:value={drive} />
   </label>
 </main>
 
