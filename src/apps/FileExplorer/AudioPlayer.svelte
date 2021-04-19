@@ -12,8 +12,8 @@
 <main>
   <audio
     on:canplaythrough={() => URL.revokeObjectURL(url)}
-    src={url}
     bind:playbackRate={playbackrate}
+    src={url}
     controls
     autoplay
   />
