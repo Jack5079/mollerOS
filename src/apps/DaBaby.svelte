@@ -9,8 +9,8 @@
   import { onMount } from 'svelte'
   import { open_apps } from '../stores'
   import { nanoid } from '../util'
-
-  const self = apps.find((app) => app.name === 'DaBaby')
+  export let session: string
+  const self = $open_apps.find((sess) => sess.id === session).app
   const words = ['DaBaby', 'SmallInfant', 'real da baby', 'actual babey!']
   if (!started) {
     onMount(() => {
