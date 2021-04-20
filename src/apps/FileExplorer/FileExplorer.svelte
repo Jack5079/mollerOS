@@ -35,7 +35,7 @@
 
 <div class="root">
   <Nav bind:contextfile bind:directory>
-    <label class="upload">
+    <label class="upload" title="Upload" aria-label="Upload">
       ⬆
       <input
         bind:value={overwrite}
@@ -46,7 +46,7 @@
         multiple
       />
     </label>
-    <button on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
+    <button title="Refresh" aria-label="Refresh" on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
   </Nav>
   <main>
     {#await gitdir}
