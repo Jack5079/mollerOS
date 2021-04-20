@@ -8,15 +8,23 @@
   import { tick } from 'svelte'
   import { author, open_apps } from '../stores'
   import { nanoid, close as stop } from '../util'
+  import {fly} from 'svelte/transition'
 
   export let session: string
   let text: HTMLInputElement
   let command: string
   let needsauth = false
   let form: HTMLFormElement
-  let messages = []
   let directory = '/'
-
+  let tab = 0
+  let tabs = [
+    {
+      name: 'terminal',
+      messages: []
+    }
+  ]
+  $: tab > tabs.length - 1 && (tab = tabs.length - 1)
+  $: tabs.length === 0 && stop(session)
   // //====================================================\\
   //                    COMMANDS
   // \\====================================================//
@@ -93,7 +101,7 @@
     }
   }
   const close = stop.bind(undefined, session)
-  const clear = () => void (messages = [])
+  const clear = () => void (tabs[tab].messages = [])
   const del = async (args: string[]) => {
     const stat = await fs.promises.stat(`${directory}/${args.join(' ')}`)
     if (stat.type === 'file') {
@@ -108,14 +116,14 @@
       .length
     if (app) {
       $open_apps = $open_apps.filter((session) => session.app !== app)
-      messages = [
-        ...messages,
+      tabs[tab].messages = [
+        ...tabs[tab].messages,
         `Killed ${apps_killed} session${apps_killed === 1 ? '' : 's'} of ${
           app.name
         }`
       ]
     } else {
-      messages = [...messages, `Couldn't find that app.`]
+      tabs[tab].messages = [...tabs[tab].messages, `Couldn't find that app.`]
     }
   }
   const resolve = (dir?: string) =>
@@ -153,7 +161,8 @@
                 fs,
                 dir: directory,
                 http,
-                onMessage: (str: string)=>(messages = [...messages, str]),
+                onMessage: (str: string) =>
+                  (tabs[tab].messages = [...tabs[tab].messages, str]),
                 corsProxy: 'https://cors.isomorphic-git.org',
                 headers: {
                   'User-Agent': `git/mollerOS/isogit-${git.version()}`
@@ -235,20 +244,43 @@
     text.focus()
   }
   async function run() {
-    messages = [...messages, `${directory}>${command}`]
+    tabs[tab].messages = [...tabs[tab].messages, `${directory}>${command}`]
     const [cmd, ...args] = command.split(' ')
     command = ''
     if (commands[cmd]) {
       const output = await commands[cmd](args)
       if (output) {
-        messages = [...messages, output]
+        tabs[tab].messages = [...tabs[tab].messages, output]
       }
     }
   }
 </script>
 
-<main on:click={focus}>
-  {#each messages as message, index}
+<main on:click|self={focus}>
+  <nav>
+    {#each tabs as tabb, i (tabb.name + i)}
+      <article on:click={() => (tab = i)} class:active={i===tab} transition:fly={{y: -50}}>
+        <input
+          type="text"
+          placeholder="New Tab"
+          bind:value={tabb.name}
+        /><button on:click={() => (tabs = tabs.filter((tab) => tab !== tabb))}
+          >🗙︎</button
+        >
+      </article>
+    {/each}
+    <button
+      on:click={() =>
+        (tabs = [
+          ...tabs,
+          {
+            name: 'New Tab',
+            messages: []
+          }
+        ])}>+</button
+    >
+  </nav>
+  {#each tabs[tab]?.messages ?? [] as message, index}
     <code>{index === 0 || !message ? '' : '\n'}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
@@ -283,6 +315,24 @@
 {/if}
 
 <style>
+  .active {
+    border: solid 1px blue
+  }
+  nav button {
+    padding: 0;
+    background: none;
+    border: 0;
+    padding-left: 1em;
+    padding-right: .1em;
+    color: white;
+  }
+  nav article {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.3);
+  }
   code {
     white-space: pre-wrap;
   }
@@ -294,8 +344,13 @@
     white-space: pre;
     font-size: 13px;
   }
-  main input {
+  main > form input {
     width: 100%;
+  }
+  nav input {
+    width: max-content;
+  }
+  main input {
     padding: 0;
     margin: 0;
     font-size: 13px;
@@ -318,5 +373,13 @@
     main {
       background: white;
     }
+    nav button {
+      color: black;
+    }
+    nav article {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
   }
 </style>

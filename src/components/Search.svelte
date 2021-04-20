@@ -159,6 +159,9 @@
     article:hover {
       background: #ebf0f4;
     }
+    .index {
+      color: white
+    }
   }
   article {
     height: max-content;
