@@ -73,22 +73,21 @@
     height: calc(100% - 21px);
     background: rgba(100, 100, 100, 0.1);
   }
-  button,
-  label {
+  button {
     background: none;
     padding: 0;
     color: white;
     border: 0;
     margin: 0;
   }
-  :is(button, label):hover,
-  :is(button, label):focus {
+  button:hover,
+  button:focus {
     background: rgba(255, 255, 255, 0.3);
   }
 
   @media (prefers-color-scheme: light) {
-    :is(button, label):hover,
-    :is(button, label):focus {
+    button:hover,
+    button:focus {
       background: rgba(0, 0, 0, 0.3);
     }
 
@@ -96,8 +95,7 @@
       background: rgba(128, 128, 128, 0.1);
     }
 
-    button,
-    label {
+    button {
       color: black;
     }
 
