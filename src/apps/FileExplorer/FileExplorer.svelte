@@ -15,37 +15,10 @@
     filepath: directory,
     fs
   })
-  let uploads: FileList
-  let overwrite: string
-  let input: HTMLInputElement
-  $: {
-    for (const file of uploads || []) {
-      file
-        .arrayBuffer()
-        .then((buffer) =>
-          fs.promises.writeFile(
-            path.resolve(directory, file.name),
-            new Uint8Array(buffer)
-          )
-        )
-    }
-    input && (input.value = '')
-  }
 </script>
 
 <div class="root">
   <Nav bind:contextfile bind:directory>
-    <label class="upload" title="Upload" aria-label="Upload">
-      ⬆
-      <input
-        bind:value={overwrite}
-        bind:files={uploads}
-        bind:this={input}
-        type="file"
-        hidden
-        multiple
-      />
-    </label>
     <button title="Refresh" aria-label="Refresh" on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
   </Nav>
   <main>
@@ -79,9 +52,6 @@
 <style>
   div:not(.root) {
     display: contents;
-  }
-  .upload {
-    text-decoration: overline;
   }
   thead th {
     text-align: left;

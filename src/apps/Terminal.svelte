@@ -10,12 +10,13 @@
   import { nanoid, close as stop } from '../util'
   import {fly} from 'svelte/transition'
 
+  export let startingdirectory = '/'
   export let session: string
   let text: HTMLInputElement
   let command: string
   let needsauth = false
   let form: HTMLFormElement
-  let directory = '/'
+  let directory = startingdirectory
   let tab = 0
   let tabs = [
     {
