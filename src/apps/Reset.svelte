@@ -11,7 +11,7 @@
 <!-- svelte-ignore a11y-media-has-caption -->
 <main>
   <article>
-    Are you sure you want to reset mollerOS? All data, including settings and files, will be lost.<br>
+    Are you sure you want to reset mollerOS? All settings, and files on your current drive will be lost.<br>
     <button on:click={reset}>RESET</button>
   </article>
 </main>
