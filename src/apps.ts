@@ -8,6 +8,10 @@ import Hydra from './apps/Hydra.svelte'
 import SessionManager from './apps/SessionManager.svelte'
 import FileExplorer from './apps/FileExplorer/FileExplorer.svelte'
 import Trollface from './apps/Trollface.svelte'
+import Reset from './apps/Reset.svelte'
+
+const emoji = (char: string) => `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${char}</text></svg>`
+
 const apps: App[] = [
   {
     name: 'Settings',
@@ -57,6 +61,10 @@ const apps: App[] = [
     name: 'trollface',
     icon: 'https://pngimg.com/uploads/trollface/trollface_PNG15.png',
     component: Trollface
+  }, {
+    name: 'Factory Reset',
+    icon: emoji('💾'),
+    component: Reset
   }
 ].sort((a, b) => a.name.localeCompare(b.name))
 export default apps
