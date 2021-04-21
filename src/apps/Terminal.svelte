@@ -20,7 +20,6 @@
   let tab = 0
   let tabs = [
     {
-      name: 'terminal',
       messages: []
     }
   ]
@@ -259,12 +258,11 @@
 
 <main on:click|self={focus}>
   <nav>
-    {#each tabs as tabb, i (tabb.name + i)}
+    {#each tabs as tabb, i}
       <article on:click={() => (tab = i)} class:active={i===tab} transition:fly={{y: -50}}>
         <input
           type="text"
           placeholder="New Tab"
-          bind:value={tabb.name}
         /><button on:click={() => (tabs = tabs.filter((tab) => tab !== tabb))}
           >🗙︎</button
         >
@@ -275,7 +273,6 @@
         (tabs = [
           ...tabs,
           {
-            name: 'New Tab',
             messages: []
           }
         ])}>+</button
