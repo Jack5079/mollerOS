@@ -53,8 +53,7 @@ const apps: App[] = [
   },
   {
     name: 'File Explorer',
-    icon:
-      'https://winaero.com/blog/wp-content/uploads/2019/09/File-Explorer-fluent-icon.png',
+    icon: emoji('📂'),
     component: FileExplorer
   },
   {
