@@ -4,7 +4,7 @@
   import fs from '../fs'
   import Window from '../components/Window.svelte'
   import path from '@jkearl/lightning-fs/src/path'
-
+  import http from 'isomorphic-git/http/web/index.js'
   import { tick } from 'svelte'
   import { author, open_apps } from '../stores'
   import { nanoid, close as stop } from '../util'
