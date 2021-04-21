@@ -17,7 +17,7 @@ const emoji = (char: string) => `data:image/svg+xml,<svg xmlns=%22http://www.w3.
 const app = (component: SvelteComponentDev, icon: string = 'icon.svg'): App => ({
   name: component.name,
   component,
-  icon: icon.length < 6 ? emoji(icon) : icon // Shortest possible link is "//a.ml" so anything shorter
+  icon: icon.length < 6 ? emoji(icon) : icon // Shortest possible link is "//a.ml" so anything shorter is an emoji
 })
 
 const apps: App[] = [
