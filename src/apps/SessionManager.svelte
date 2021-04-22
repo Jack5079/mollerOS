@@ -3,7 +3,6 @@
   import { close } from '../util'
   import { slide, fly } from 'svelte/transition'
   import { flip } from 'svelte/animate'
-  import apps from '../apps'
   let selected_sessions: string[] = []
   // amount of apps that are open + amount of sessions that are open = size of select
   $: size =
@@ -12,7 +11,9 @@
 
 <main>
   <select multiple bind:value={selected_sessions} {size}>
-    {#each [...new Set($open_apps.map((session) => session.app))] as app}
+    {#each [...new Set($open_apps.map((session) => session.app))].sort((a, b) =>
+        a.name < b.name ? 1 : -1
+    ) as app}
       <optgroup
         on:click|self={() => {
           selected_sessions = [

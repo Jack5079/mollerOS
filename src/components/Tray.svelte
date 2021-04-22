@@ -11,16 +11,17 @@
 
 <nav>
   <span>{time}</span>
+  <small>mollerOS v{'PKG_VERSION'}</small>
 </nav>
 
 <style>
   nav {
+    line-height: 35px;
     padding-right: 1em;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    text-align: right;
     float: right;
     color: white;
+    gap: 5px;
   }
 </style>
