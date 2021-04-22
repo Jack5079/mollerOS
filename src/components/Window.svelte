@@ -83,9 +83,10 @@
   .resizable {
     resize: both;
   }
-  .maximized {
+
+  article.maximized {
     resize: none;
-    animation: maximize 0s forwards;
+    animation: maximize 0.1s forwards;
   }
   @keyframes maximize {
     to {
@@ -121,7 +122,7 @@
     min-height: calc(100% - 35px);
   }
   article {
-    will-change: left,top;
+    /* will-change: left,top; */
     background: white;
     display: block;
     overflow: auto;
