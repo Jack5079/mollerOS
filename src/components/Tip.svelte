@@ -14,7 +14,7 @@
 
 <style>
   header {
-    height: 50px;
+    min-height: 50px;
     padding-left: 1em;
     padding-right: 1em;
     border-bottom-left-radius: 1em;

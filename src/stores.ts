@@ -10,3 +10,5 @@ export const author: Writable<Parameters<typeof commit>[0]['author']> = writable
   email: 'anon@5079.ml'
 })
 author.subscribe(author => localStorage.setItem('gitauthor', JSON.stringify(author)))
+export const tip: Writable<boolean> = writable(JSON.parse(localStorage.getItem('tip')) || true)
+tip.subscribe(tip => localStorage.setItem('tip', JSON.stringify(tip)))

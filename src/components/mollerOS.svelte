@@ -4,7 +4,7 @@
   import Taskbar from './Taskbar.svelte'
   import Tip from './Tip.svelte'
 
-  import { open_apps, wallpaper } from '../stores'
+  import { open_apps, wallpaper, tip } from '../stores'
   import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
@@ -33,7 +33,9 @@
       />
     </App>
   {:else}
-    <Tip />
+    {#if $tip}
+      <Tip />
+    {/if}
   {/each}
   {#if location.hostname === 'localhost'}
     <div>v{'PKG_VERSION'}</div>

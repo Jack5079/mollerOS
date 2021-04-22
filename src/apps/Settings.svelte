@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { author, wallpaper } from '../stores'
+  import { author, wallpaper, tip } from '../stores'
   import fs from '../fs'
   let drive: string = localStorage.getItem('drive') || 'mollerOS'
   $: {
@@ -34,6 +34,10 @@
   <label>
     FS drive
     <input type="text" bind:value={drive} />
+  </label>
+  <label>
+    Display tip when no windows are open
+    <input type="checkbox" bind:checked={$tip} />
   </label>
 </main>
 
