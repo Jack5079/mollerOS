@@ -3,8 +3,6 @@
   import fs from '../fs'
   let drive: string = localStorage.getItem('drive') || 'mollerOS'
   $: {
-    localStorage.setItem('wallpaper', $wallpaper)
-    localStorage.setItem('gitauthor', JSON.stringify($author))
     localStorage.setItem('drive', drive)
     fs.init(drive)
   }
@@ -18,6 +16,7 @@
   <label>
     Wallpaper
     <select bind:value={$wallpaper}>
+      <option>v3</option>
       <option>bliss</option>
       <option>upleft</option>
       <option>gradient</option>

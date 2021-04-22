@@ -47,6 +47,10 @@
   .upleft {
     background-image: url(https://5079.ml/branding/jack5079/pfp.jpg);
   }
+  .v3 {
+    background-image: url(../v3.png);
+    background-position: center;
+  }
   button {
     background: none;
     border: none;
