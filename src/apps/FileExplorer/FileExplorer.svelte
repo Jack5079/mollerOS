@@ -11,15 +11,19 @@
   let contextfile = ''
 
   $: files = fs.promises.readdir(directory)
-  $: gitdir = git.findRoot({
+  $: gitdir = import('isomorphic-git/index.umd.min.js').then(git=>git.findRoot({
     filepath: directory,
     fs
-  })
+  }))
 </script>
 
 <div class="root">
   <Nav bind:contextfile bind:directory>
-    <button title="Refresh" aria-label="Refresh" on:click={() => (files = fs.promises.readdir(directory))}>↻</button>
+    <button
+      title="Refresh"
+      aria-label="Refresh"
+      on:click={() => (files = fs.promises.readdir(directory))}>↻</button
+    >
   </Nav>
   <main>
     {#await gitdir}

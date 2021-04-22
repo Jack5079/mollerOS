@@ -3,13 +3,19 @@
   import { author } from '../../stores'
   export let dir: string = '/'
   export let gitdir: string = '/'
-  const g = git
+
   const FILE = 0,
     WORKDIR = 2,
     STAGE = 3
 
-  let filenames = g
-    .statusMatrix({ dir: gitdir.replace('/.git', ''), gitdir, fs })
+  let filenames = import('isomorphic-git/index.umd.min.js')
+    .then(({ statusMatrix }) =>
+      statusMatrix({
+        dir: gitdir.replace('/.git', ''),
+        gitdir,
+        fs
+      })
+    )
     .then((files) =>
       files.filter((row) => row[WORKDIR] !== row[STAGE]).map((row) => row[FILE])
     )
@@ -19,30 +25,27 @@
       gitdir,
       fs
     }
-    await g
-      .statusMatrix(repo)
-      .then((status) =>
-        Promise.all(
-          status.map(([filepath, , worktreeStatus]) =>
-            worktreeStatus
-              ? g.add({ ...repo, filepath })
-              : g.remove({ ...repo, filepath })
-          )
+    const { statusMatrix, add, remove } = await import(
+      'isomorphic-git/index.umd.min.js'
+    )
+
+    await statusMatrix(repo).then((status) =>
+      Promise.all(
+        status.map(([filepath, , worktreeStatus]) =>
+          worktreeStatus
+            ? add({ ...repo, filepath })
+            : remove({ ...repo, filepath })
         )
       )
-    filenames = g
-      .statusMatrix({ dir: gitdir.replace('/.git', ''), gitdir, fs })
-      .then((files) =>
-        files
-          .filter((row) => row[WORKDIR] !== row[STAGE])
-          .map((row) => row[FILE])
-      )
+    )
+    filenames = Promise.resolve([])
   }
   let message: string = ''
   let commiting: boolean = false
-  async function commit() {
+  async function submit() {
+    const { commit } = await import('isomorphic-git/index.umd.min.js')
     commiting = true
-    await g.commit({
+    await commit({
       fs,
       gitdir,
       message,
@@ -63,13 +66,12 @@
       fill-rule="evenodd"
       d="M11.75 2.5a.75.75 0 100 1.5.75.75 0 000-1.5zm-2.25.75a2.25 2.25 0 113 2.122V6A2.5 2.5 0 0110 8.5H6a1 1 0 00-1 1v1.128a2.251 2.251 0 11-1.5 0V5.372a2.25 2.25 0 111.5 0v1.836A2.492 2.492 0 016 7h4a1 1 0 001-1v-.628A2.25 2.25 0 019.5 3.25zM4.25 12a.75.75 0 100 1.5.75.75 0 000-1.5zM3.5 3.25a.75.75 0 111.5 0 .75.75 0 01-1.5 0z"
     /></svg
-  >{#await g.currentBranch({
-    fs,
-    dir,
-    gitdir,
-    test: true
-  }) then branch}{branch || '?'}{/await}
-  {#await g.listRemotes({ fs, dir, gitdir }) then [remote]}
+  >{#await import('isomorphic-git/index.umd.min.js').then((git) =>
+    git.currentBranch({ fs, dir, gitdir, test: true })
+  ) then branch}{branch || '?'}{/await}
+  {#await import('isomorphic-git/index.umd.min.js').then((git) =>
+    git.listRemotes({ fs, dir, gitdir })
+  ) then [remote]}
     {#if remote}
       <a
         title="clone {remote.remote} in vscode"
@@ -91,7 +93,7 @@
       ><span>{unstages.length} files unstaged</span></button
     >
     {#if !unstages.length}
-      <form on:submit|preventDefault={commit}>
+      <form on:submit|preventDefault={submit}>
         <input
           type="text"
           disabled={commiting}
