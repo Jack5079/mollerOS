@@ -41,6 +41,7 @@ export default {
     sourcemap: true,
     format: 'esm',
     name: 'app',
+    preserveEntrySignatures: false,
     dir: 'public/build',
     // file: 'public/build/bundle.js'
   },
@@ -103,5 +104,5 @@ export default {
   ],
   watch: {
     clearScreen: false
-  }
+  },
 }
