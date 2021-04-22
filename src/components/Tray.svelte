@@ -11,7 +11,6 @@
 
 <nav>
   <span>{time}</span>
-  <small>mollerOS v{'PKG_VERSION'}</small>
 </nav>
 
 <style>
