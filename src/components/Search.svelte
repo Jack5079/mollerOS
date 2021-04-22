@@ -1,7 +1,6 @@
 <script lang="ts">
   export let shown: boolean = false
   import apps from '../apps'
-  import Fuse from 'fuse.js'
 
   import { slide } from 'svelte/transition'
   import { open_apps } from '../stores'
@@ -17,14 +16,21 @@
     }
   }
 
-  $: results = query.trim()
-    ? new Fuse(apps, {
-        keys: ['name']
-      })
-        .search(query)
-        .map((item) => item.item)
-    : apps
+  let results = apps
 
+  $: {
+    const q = query.trim()
+    if (q) {
+      import('fuse.js').then((fuse) => {
+        results = new fuse.default(apps, {
+          keys: ['name']
+        })
+          .search(q)
+          .map((item) => item.item)
+      })
+    } else results = apps
+  }
+  
   let index = 0
   $: query && (index = 0) // changes index to 0 whenever query changes
 
@@ -117,7 +123,7 @@
     margin: 0;
     position: fixed;
     z-index: 999;
-    background: rgba(36, 41, 46, .9);
+    background: rgba(36, 41, 46, 0.9);
     backdrop-filter: blur(10px);
     left: 50%;
     top: 50px;
@@ -139,17 +145,17 @@
   }
 
   article:not(.index):hover {
-    background: rgb(40, 46, 52, .5);
+    background: rgb(40, 46, 52, 0.5);
   }
   .index {
-    background: rgb(4, 66, 137, .5);
+    background: rgb(4, 66, 137, 0.5);
   }
   form::before {
-    content: 'Search'
+    content: 'Search';
   }
   @media (prefers-color-scheme: light) {
     section {
-      background: rgba(255,255,255,.9);
+      background: rgba(255, 255, 255, 0.9);
       color: black;
     }
     input {
@@ -160,10 +166,10 @@
       border: solid 2px rgb(41, 140, 255);
     }
     article:hover {
-      background: rgb(235, 240, 244, .9);
+      background: rgb(235, 240, 244, 0.9);
     }
     .index {
-      color: white
+      color: white;
     }
   }
   article {

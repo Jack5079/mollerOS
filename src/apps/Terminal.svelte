@@ -8,7 +8,7 @@
   import { tick } from 'svelte'
   import { author, open_apps } from '../stores'
   import { nanoid, close as stop } from '../util'
-  import {fly} from 'svelte/transition'
+  import { fly } from 'svelte/transition'
 
   export let startingdirectory = '/'
   export let session: string
@@ -259,11 +259,13 @@
 <main on:click|self={focus}>
   <nav>
     {#each tabs as tabb, i}
-      <article on:click={() => (tab = i)} class:active={i===tab} transition:fly={{y: -50}}>
-        <input
-          type="text"
-          placeholder="New Tab"
-        /><button on:click={() => (tabs = tabs.filter((tab) => tab !== tabb))}
+      <article
+        on:click={() => (tab = i)}
+        class:active={i === tab}
+        transition:fly={{ y: -50 }}
+      >
+        <input type="text" placeholder="New Tab" /><button
+          on:click={() => (tabs = tabs.filter((tab) => tab !== tabb))}
           >🗙︎</button
         >
       </article>
@@ -314,20 +316,20 @@
 
 <style>
   .active {
-    border: solid 1px blue
+    border: solid 1px blue;
   }
   nav button {
     padding: 0;
     background: none;
     border: 0;
     padding-left: 1em;
-    padding-right: .1em;
+    padding-right: 0.1em;
     color: white;
   }
   nav article {
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     display: inline-block;
     background: rgba(255, 255, 255, 0.3);
   }
@@ -378,6 +380,5 @@
       display: inline-block;
       background: rgba(0, 0, 0, 0.1);
     }
-
   }
 </style>
