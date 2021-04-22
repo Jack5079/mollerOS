@@ -34,12 +34,11 @@
 </body>
 
 <style>
+  body {
+    background-size: cover;
+  }
   .bliss {
     background-image: url(../bliss.jpg);
-  }
-  .mollersuite,
-  .upleft {
-    background-size: cover;
   }
   .mollersuite {
     background-image: url(../mollersuite.png);
@@ -54,7 +53,7 @@
   button {
     background: none;
     border: none;
-    height: 100%;
+    /* height: 100%; */
     padding: 0 0.5em;
     margin: 0;
   }
