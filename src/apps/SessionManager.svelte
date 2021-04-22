@@ -5,15 +5,15 @@
   import { flip } from 'svelte/animate'
   let selected_sessions: string[] = []
   // amount of apps that are open + amount of sessions that are open = size of select
+  $: apps = new Set($open_apps.map((session) => session.app))
+
   $: size =
     $open_apps.length + new Set($open_apps.map((session) => session.app)).size
 </script>
 
 <main>
   <select multiple bind:value={selected_sessions} {size}>
-    {#each [...new Set($open_apps.map((session) => session.app))].sort((a, b) =>
-        a.name < b.name ? 1 : -1
-    ) as app}
+    {#each [...apps].sort((a, b) => a.name.localeCompare(b.name)) as app}
       <optgroup
         on:click|self={() => {
           selected_sessions = [
