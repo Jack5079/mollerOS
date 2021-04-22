@@ -121,6 +121,7 @@
     min-height: calc(100% - 35px);
   }
   article {
+    will-change: left,top;
     background: white;
     display: block;
     overflow: auto;

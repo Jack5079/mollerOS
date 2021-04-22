@@ -37,11 +37,11 @@ function serve() {
 /** @type {import('rollup').RollupOptions} */
 export default {
   input: 'src/main.ts',
+  preserveEntrySignatures: false,
   output: {
     sourcemap: true,
     format: 'esm',
     name: 'app',
-    preserveEntrySignatures: false,
     dir: 'public/build',
     // file: 'public/build/bundle.js'
   },
