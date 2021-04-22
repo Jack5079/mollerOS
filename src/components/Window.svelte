@@ -86,7 +86,7 @@
 
   article.maximized {
     resize: none;
-    animation: maximize 0.1s forwards;
+    animation: maximize .2s forwards ease-out;
   }
   @keyframes maximize {
     to {
