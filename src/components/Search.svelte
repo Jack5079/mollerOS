@@ -117,8 +117,8 @@
     margin: 0;
     position: fixed;
     z-index: 999;
-    background: rgba(0, 0, 0, 0.5);
-    background: #24292e;
+    background: rgba(36, 41, 46, .9);
+    backdrop-filter: blur(10px);
     left: 50%;
     top: 50px;
     max-height: 70vh;
@@ -139,25 +139,28 @@
   }
 
   article:not(.index):hover {
-    background: #282e34;
+    background: rgb(40, 46, 52, .5);
   }
   .index {
-    background: #044289;
+    background: rgb(4, 66, 137, .5);
   }
   form::before {
     content: 'Search'
   }
   @media (prefers-color-scheme: light) {
-    section,
+    section {
+      background: rgba(255,255,255,.9);
+      color: black;
+    }
     input {
       color: black;
       background: white;
     }
     input:focus {
-      border: solid 2px #298cff;
+      border: solid 2px rgb(41, 140, 255);
     }
     article:hover {
-      background: #ebf0f4;
+      background: rgb(235, 240, 244, .9);
     }
     .index {
       color: white
