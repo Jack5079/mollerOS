@@ -13,7 +13,9 @@
         "kind": "build",
         "isDefault": true
       },
-      "problemMatcher": [],
+      "problemMatcher": [
+        "$tsc-watch"
+      ],
       "isBackground": true
     }
   ]
