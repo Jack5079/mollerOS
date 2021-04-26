@@ -3,11 +3,19 @@
   import Search from './Search.svelte'
   import Taskbar from './Taskbar.svelte'
   import Tip from './Tip.svelte'
+  import Loading from './Loading.svelte'
 
   import { open_apps, wallpaper, tip } from '../stores'
   import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
+  $: {
+    $open_apps.forEach((session) => {
+      if (typeof session.app.component == 'function') {
+        session.app.component = session.app.component()
+      }
+    })
+  }
 </script>
 
 <body class={'molla ' + $wallpaper}>
@@ -26,11 +34,17 @@
   </Taskbar>
   {#each $open_apps as session (session.id)}
     <App {session}>
-      <svelte:component
-        this={session.app.component}
-        session={session.id}
-        {...session.props}
-      />
+      {#await session.app.component}
+        <article>
+          <Loading />
+        </article>
+      {:then component}
+        <svelte:component
+          this={component.default}
+          session={session.id}
+          {...session.props}
+        />
+      {/await}
     </App>
   {:else}
     {#if $tip}
@@ -43,6 +57,22 @@
 </body>
 
 <style>
+  article {
+    width: 100%;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+  }
+  @media (prefers-color-scheme: light) {
+    article {
+      background: white;
+      color: black;
+    }
+  }
   body {
     background-size: cover;
   }

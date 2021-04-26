@@ -19,7 +19,7 @@
           app.name = words[i % words.length] + '\u200B'.repeat(i + 1)
           app.icon =
             'https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg'
-          app.component = self.component
+          app.component = Promise.resolve(self.component)
         }
       })
       function spawn(timeout: number = 5000) {

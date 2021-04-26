@@ -6,7 +6,7 @@ importScripts(
 
 /** @type {import('@jkearl/lightning-fs').default} */
 // @ts-ignore
-const fs = new LightningFS(localStorage.getItem('drive') || 'mollerOS')
+const fs = new LightningFS('mollerOS')
 
 /**
  * @type {ServiceWorkerGlobalScope}
