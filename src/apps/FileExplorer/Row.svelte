@@ -1,33 +1,29 @@
 <script context="module" lang="ts">
-  import ImageViewer from './viewers/ImageViewer.svelte'
-  import VideoViewer from './viewers/VideoViewer.svelte'
-  import AudioPlayer from './viewers/AudioPlayer.svelte'
-  import Editor from './viewers/Editor.svelte'
 
   const viewers: {
     [key: string]: App
   } = {
     editor: {
       name: 'Editor',
-      component: Editor,
+      component: () => import('./viewers/Editor.svelte'),
       icon:
         'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
     },
     image: {
       name: 'Image Viewer',
-      component: ImageViewer,
+      component: () => import('./viewers/ImageViewer.svelte'),
       icon:
         'https://winaero.com/blog/wp-content/uploads/2019/09/Photos-app-icon-256-colorful.png'
     },
     video: {
       name: 'Video Player',
-      component: VideoViewer,
+      component: ()=>import('./viewers/VideoViewer.svelte'),
       icon:
         'https://winaero.com/blog/wp-content/uploads/2019/09/Movies-and-TV-icon.png'
     },
     audio: {
       name: 'Audio Player',
-      component: AudioPlayer,
+      component: ()=>import('./viewers/AudioPlayer.svelte'),
       icon:
         'https://winaero.com/blog/wp-content/uploads/2019/09/Groove-Music-fluent-design-icon.png'
     }
