@@ -11,10 +11,12 @@
   let contextfile = ''
 
   $: files = fs.promises.readdir(directory)
-  $: gitdir = import('isomorphic-git/index.umd.min.js').then(git=>git.findRoot({
-    filepath: directory,
-    fs
-  }))
+  $: gitdir = import('isomorphic-git/index.umd.min.js').then((git) =>
+    git.findRoot({
+      filepath: directory,
+      fs
+    })
+  )
 </script>
 
 <div class="root">

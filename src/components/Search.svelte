@@ -30,7 +30,7 @@
       })
     } else results = apps
   }
-  
+
   let index = 0
   $: query && (index = 0) // changes index to 0 whenever query changes
 

@@ -86,13 +86,13 @@
 
   article.maximized {
     resize: none;
-    animation: maximize .2s forwards ease-out;
+    animation: maximize 0.2s forwards ease-out;
   }
   @keyframes maximize {
     to {
       top: 0;
       left: 0;
-    height: 100vh;
+      height: 100vh;
       width: 100%;
     }
   }
@@ -148,7 +148,7 @@
   }
   header div img {
     pointer-events: all;
-    margin-right: .5em;
+    margin-right: 0.5em;
   }
   header {
     position: sticky;

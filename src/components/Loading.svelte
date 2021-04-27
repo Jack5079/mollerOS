@@ -8,7 +8,6 @@
 <div
   class="circle"
   style="--size: {size}{unit}; --color: {color}; --duration: {duration}"
-  
 />
 
 <style>

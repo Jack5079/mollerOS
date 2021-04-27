@@ -8,7 +8,12 @@
 </script>
 
 <!-- svelte-ignore a11y-media-has-caption -->
-<video on:canplaythrough={() => URL.revokeObjectURL(url)} src={url} controls autoplay />
+<video
+  on:canplaythrough={() => URL.revokeObjectURL(url)}
+  src={url}
+  controls
+  autoplay
+/>
 
 <style>
   video {

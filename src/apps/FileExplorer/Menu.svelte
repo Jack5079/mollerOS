@@ -19,6 +19,7 @@
     if (context && !context.contains(e.target as Node)) contextfile = ''
   }
 </script>
+
 <svelte:body on:mousedown={close} on:touchend={close} on:keyup={close} />
 {#if contextfile}
   <menu

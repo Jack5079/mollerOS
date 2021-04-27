@@ -1,5 +1,4 @@
 <script context="module" lang="ts">
-
   const viewers: {
     [key: string]: App
   } = {
@@ -17,13 +16,13 @@
     },
     video: {
       name: 'Video Player',
-      component: ()=>import('./viewers/VideoViewer.svelte'),
+      component: () => import('./viewers/VideoViewer.svelte'),
       icon:
         'https://winaero.com/blog/wp-content/uploads/2019/09/Movies-and-TV-icon.png'
     },
     audio: {
       name: 'Audio Player',
-      component: ()=>import('./viewers/AudioPlayer.svelte'),
+      component: () => import('./viewers/AudioPlayer.svelte'),
       icon:
         'https://winaero.com/blog/wp-content/uploads/2019/09/Groove-Music-fluent-design-icon.png'
     }

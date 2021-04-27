@@ -14,6 +14,12 @@
         "isDefault": true
       },
       "isBackground": true
+    },
+    {
+      "label": "prettier",
+      "command": "npm run format",
+      "type": "shell",
+      "problemMatcher": []
     }
   ]
 }

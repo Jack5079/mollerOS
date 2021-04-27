@@ -5,10 +5,11 @@ new mollerOS({
   intro: true
 })
 
-if (location.hostname !== 'localhost') new Audio('https://5079.ml/Windows%207%20Startup.mp3').play()
+if (location.hostname !== 'localhost')
+  new Audio('https://5079.ml/Windows%207%20Startup.mp3').play()
 console.log(
   `%c   mollerOS${location.hostname === 'localhost' ? ' dev' : ''}`,
   'background: url(icon.svg);background-repeat: no-repeat;background-size:contain;font-size:50px;font-family:Inter,sans-serif'
 )
 
-export { }
+export {}
