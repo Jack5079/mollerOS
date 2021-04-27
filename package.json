@@ -24,12 +24,12 @@
     "rollup-plugin-livereload": "^2.0.0",
     "rollup-plugin-svelte": "^7.0.0",
     "rollup-plugin-terser": "^7.0.0",
+    "sirv-cli": "^1.0.0",
     "svelte": "^3.35.0",
     "svelte-check": "^1.0.0",
     "svelte-preprocess": "^4.0.0",
     "tslib": "^2.0.0",
-    "typescript": "^4.0.0",
-    "sirv-cli": "^1.0.0"
+    "typescript": "^4.0.0"
   },
   "dependencies": {
     "@github/hotkey": "^1.4.2",
@@ -37,6 +37,7 @@
     "fuse.js": "^6.4.6",
     "isomorphic-git": "^1.8.2",
     "minimist": "^1.2.5",
+    "monaco-editor": "^0.23.0",
     "vscode-icons-js": "^11.1.0"
   }
 }
