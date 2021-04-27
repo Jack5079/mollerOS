@@ -43,6 +43,7 @@
     border: 0;
     background: black;
     color: white;
+    overflow: hidden;
   }
   @media (prefers-color-scheme: light) {
     div {
