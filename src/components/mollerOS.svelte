@@ -28,10 +28,12 @@
     )
   }
   window.addEventListener('popstate', ({ state }) => {
-    $open_apps = state.map((session) => ({
-      ...session,
-      app: apps[session.app]
-    }))
+    if (state) {
+      $open_apps = state.map((session) => ({
+        ...session,
+        app: apps[session.app]
+      }))
+    }
   })
 </script>
 
