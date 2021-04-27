@@ -16,11 +16,11 @@
   let command: string
   let needsauth = false
   let form: HTMLFormElement
-  let directory = startingdirectory
   let tab = 0
   let tabs = [
     {
-      messages: []
+      messages: [],
+      directory: startingdirectory
     }
   ]
   $: tab > tabs.length - 1 && (tab = tabs.length - 1)
@@ -103,9 +103,9 @@
   const close = stop.bind(undefined, session)
   const clear = () => void (tabs[tab].messages = [])
   const del = async (args: string[]) => {
-    const stat = await fs.promises.stat(`${directory}/${args.join(' ')}`)
+    const stat = await fs.promises.stat(`${tabs[tab].directory}/${args.join(' ')}`)
     if (stat.type === 'file') {
-      return await fs.promises.unlink(`${directory}/${args.join(' ')}`)
+      return await fs.promises.unlink(`${tabs[tab].directory}/${args.join(' ')}`)
     }
   }
   function kill(args: string[]) {
@@ -127,7 +127,7 @@
     }
   }
   const resolve = (dir?: string) =>
-    dir ? (dir.startsWith('/') ? dir : path.resolve(directory, dir)) : directory
+    dir ? (dir.startsWith('/') ? dir : path.resolve(tabs[tab].directory, dir)) : tabs[tab].directory
   const commands: {
     [key: string]: (
       args: string[]
@@ -148,7 +148,7 @@
     taskkill: kill,
     taskill: kill,
     touch: (args) =>
-      fs.promises.writeFile(`${directory}/${args.join('')}`, '', 'utf8'),
+      fs.promises.writeFile(`${tabs[tab].directory}/${args.join('')}`, '', 'utf8'),
     mkdir: (args) => fs.promises.mkdir(resolve(args.join(' '))),
     ls: async (args) =>
       (await fs.promises.readdir(resolve(args.join(' ')))).join('\n'),
@@ -160,7 +160,7 @@
             Object.assign(
               {
                 fs,
-                dir: directory,
+                dir: tabs[tab].directory,
                 http,
                 onMessage: (str: string) =>
                   (tabs[tab].messages = [...tabs[tab].messages, str]),
@@ -195,15 +195,15 @@
       const dir = resolve(args.join(' '))
       const stat = await fs.promises.stat(dir)
       if (stat.type === 'dir') {
-        directory = dir
+        tabs[tab].directory = dir
       }
     },
     async overwrite(args) {
       const [name, ...content] = args
-      const stat = await fs.promises.stat(`${directory}/${name}`)
+      const stat = await fs.promises.stat(`${tabs[tab].directory}/${name}`)
       if (stat.type === 'file') {
         await fs.promises.writeFile(
-          `${directory}/${name}`,
+          `${tabs[tab].directory}/${name}`,
           content.join(' '),
           'utf8'
         )
@@ -245,7 +245,7 @@
     text.focus()
   }
   async function run() {
-    tabs[tab].messages = [...tabs[tab].messages, `${directory}>${command}`]
+    tabs[tab].messages = [...tabs[tab].messages, `${tabs[tab].directory}>${command}`]
     const [cmd, ...args] = command.split(' ')
     command = ''
     if (commands[cmd]) {
@@ -276,7 +276,8 @@
         (tabs = [
           ...tabs,
           {
-            messages: []
+            messages: [],
+            directory: tabs[tab].directory
           }
         ])}>+</button
     >
@@ -285,7 +286,7 @@
     <code>{index === 0 || !message ? '' : '\n'}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
-    <label for="terminal">{directory}&gt;</label><input
+    <label for="terminal">{tabs[tab].directory}&gt;</label><input
       name="terminal"
       type="text"
       bind:this={text}
