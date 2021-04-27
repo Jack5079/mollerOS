@@ -24,7 +24,9 @@
       value: (value as unknown) as string,
       theme: matchMedia('(prefers-color-scheme: light)').matches
         ? 'vs'
-        : 'vs-dark'
+        : 'vs-dark',
+      smoothScrolling: true,
+      cursorSmoothCaretAnimation: true
     })
     monaco.onDidChangeModelContent(() => {
       fs.promises.writeFile(file, monaco.getValue())
