@@ -286,7 +286,7 @@
     <code>{index === 0 || !message ? '' : '\n'}{message}</code>
   {/each}
   <form on:submit|preventDefault={run}>
-    <label for="terminal">{tabs[tab].directory}&gt;</label><input
+    <label for="terminal">{tabs[tab].directory} &gt;</label><input
       name="terminal"
       type="text"
       bind:this={text}
@@ -342,7 +342,7 @@
     display: flex;
   }
   label {
-    font-family: 'Cascadia Mono', 'Consolas', monospace;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
     white-space: pre;
     font-size: 13px;
   }
@@ -362,7 +362,7 @@
     font-family: 'Cascadia Code', 'Consolas',monospace;
   }
   main {
-    font-family: 'Cascadia Code', 'Consolas',monospace;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
     width: 100%;
     background: black;
     color: white;
