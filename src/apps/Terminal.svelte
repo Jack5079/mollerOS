@@ -13,14 +13,14 @@
   export let startingdirectory = '/'
   export let session: string
   let text: HTMLInputElement
-  let command: string
   let needsauth = false
   let form: HTMLFormElement
   let tab = 0
   let tabs = [
     {
       messages: [],
-      directory: startingdirectory
+      directory: startingdirectory,
+      command: ''
     }
   ]
   $: tab > tabs.length - 1 && (tab = tabs.length - 1)
@@ -259,10 +259,10 @@
   async function run() {
     tabs[tab].messages = [
       ...tabs[tab].messages,
-      `${tabs[tab].directory} >${command}`
+      `${tabs[tab].directory} >${tabs[tab].command}`
     ]
-    const [cmd, ...args] = command?.split(' ') || []
-    command = ''
+    const [cmd, ...args] = tabs[tab].command.split(' ') || []
+    tabs[tab].command = ''
     if (commands[cmd]) {
       const output = await commands[cmd](args)
       if (output) {
@@ -292,7 +292,8 @@
           ...tabs,
           {
             messages: [],
-            directory: tabs[tab].directory
+            directory: tabs[tab].directory,
+            command: ''
           }
         ])}>+</button
     >
@@ -306,7 +307,7 @@
       type="text"
       bind:this={text}
       placeholder="# mollerscript moment"
-      bind:value={command}
+      bind:value={tabs[tab].command}
     />
   </form>
 </main>
