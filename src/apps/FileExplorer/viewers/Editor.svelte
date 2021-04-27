@@ -26,7 +26,8 @@
         ? 'vs'
         : 'vs-dark',
       smoothScrolling: true,
-      cursorSmoothCaretAnimation: true
+      cursorSmoothCaretAnimation: true,
+      cursorBlinking: 'smooth'
     })
     monaco.onDidChangeModelContent(() => {
       fs.promises.writeFile(file, monaco.getValue())
