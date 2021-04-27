@@ -261,7 +261,7 @@
       ...tabs[tab].messages,
       `${tabs[tab].directory} >${command}`
     ]
-    const [cmd, ...args] = command.split(' ')
+    const [cmd, ...args] = command?.split(' ') || []
     command = ''
     if (commands[cmd]) {
       const output = await commands[cmd](args)
