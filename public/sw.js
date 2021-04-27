@@ -1,13 +1,5 @@
 /// <reference lib="WebWorker" />
 
-importScripts(
-  'https://unpkg.com/@isomorphic-git/lightning-fs@4.4.1/dist/lightning-fs.min.js'
-)
-
-/** @type {import('@jkearl/lightning-fs').default} */
-// @ts-ignore
-const fs = new LightningFS('mollerOS')
-
 /**
  * @type {ServiceWorkerGlobalScope}
  */
@@ -21,6 +13,11 @@ async function onfetch(event) {
   const path = event.request.url.replace(location.href.replace('sw.js', ''), '')
   if (path.startsWith('fs/')) {
     try {
+      /** @type {import('@jkearl/lightning-fs').default} */
+      // @ts-ignore
+      const fs = (await import('https://cdn.skypack.dev/@jkearl/lightning-fs'))
+        .default
+      
       const uint8 = await fs.promises.readFile(path.replace('fs', ''))
       return new Response(uint8, {
         status: 200
