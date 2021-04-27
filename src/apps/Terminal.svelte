@@ -359,10 +359,10 @@
     background: transparent;
     color: white;
     border: 0;
-    font-family: 'Cascadia Code', monospace;
+    font-family: 'Cascadia Code', 'Consolas',monospace;
   }
   main {
-    font-family: 'Cascadia Code', monospace;
+    font-family: 'Cascadia Code', 'Consolas',monospace;
     width: 100%;
     background: black;
     color: white;
