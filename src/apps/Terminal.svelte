@@ -103,9 +103,13 @@
   const close = stop.bind(undefined, session)
   const clear = () => void (tabs[tab].messages = [])
   const del = async (args: string[]) => {
-    const stat = await fs.promises.stat(`${tabs[tab].directory}/${args.join(' ')}`)
+    const stat = await fs.promises.stat(
+      `${tabs[tab].directory}/${args.join(' ')}`
+    )
     if (stat.type === 'file') {
-      return await fs.promises.unlink(`${tabs[tab].directory}/${args.join(' ')}`)
+      return await fs.promises.unlink(
+        `${tabs[tab].directory}/${args.join(' ')}`
+      )
     }
   }
   function kill(args: string[]) {
@@ -127,7 +131,11 @@
     }
   }
   const resolve = (dir?: string) =>
-    dir ? (dir.startsWith('/') ? dir : path.resolve(tabs[tab].directory, dir)) : tabs[tab].directory
+    dir
+      ? dir.startsWith('/')
+        ? dir
+        : path.resolve(tabs[tab].directory, dir)
+      : tabs[tab].directory
   const commands: {
     [key: string]: (
       args: string[]
@@ -148,7 +156,11 @@
     taskkill: kill,
     taskill: kill,
     touch: (args) =>
-      fs.promises.writeFile(`${tabs[tab].directory}/${args.join('')}`, '', 'utf8'),
+      fs.promises.writeFile(
+        `${tabs[tab].directory}/${args.join('')}`,
+        '',
+        'utf8'
+      ),
     mkdir: (args) => fs.promises.mkdir(resolve(args.join(' '))),
     ls: async (args) =>
       (await fs.promises.readdir(resolve(args.join(' ')))).join('\n'),
@@ -245,7 +257,10 @@
     text.focus()
   }
   async function run() {
-    tabs[tab].messages = [...tabs[tab].messages, `${tabs[tab].directory}>${command}`]
+    tabs[tab].messages = [
+      ...tabs[tab].messages,
+      `${tabs[tab].directory} >${command}`
+    ]
     const [cmd, ...args] = command.split(' ')
     command = ''
     if (commands[cmd]) {
@@ -341,7 +356,8 @@
   main form {
     display: flex;
   }
-  label {
+  label,
+  code {
     font-family: 'Cascadia Code', 'Consolas', monospace;
     white-space: pre;
     font-size: 13px;
@@ -359,7 +375,7 @@
     background: transparent;
     color: white;
     border: 0;
-    font-family: 'Cascadia Code', 'Consolas',monospace;
+    font-family: 'Cascadia Code', 'Consolas', monospace;
   }
   main {
     font-family: 'Cascadia Code', 'Consolas', monospace;
