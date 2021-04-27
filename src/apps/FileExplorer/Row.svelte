@@ -77,11 +77,17 @@
     })
     return {}
   }
-  function fileSize(bytes: number): string {
-    var exp = (Math.log(bytes) / Math.log(1024)) | 0
-    var result = (bytes / Math.pow(1024, exp)).toFixed(2)
-
-    return result + ' ' + (exp == 0 ? 'bytes' : 'KMGTPEZY'[exp - 1] + 'B')
+  const fileSize = (num: number, precision = 3, addSpace = true): string => {
+    const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+    if (Math.abs(num) < 1) return num + (addSpace ? ' ' : '') + UNITS[0]
+    const exponent = Math.min(
+      Math.floor(Math.log10(num < 0 ? -num : num) / 3),
+      UNITS.length - 1
+    )
+    const n = Number(
+      ((num < 0 ? -num : num) / 1000 ** exponent).toPrecision(precision)
+    )
+    return (num < 0 ? '-' : '') + n + (addSpace ? ' ' : '') + UNITS[exponent]
   }
 </script>
 
