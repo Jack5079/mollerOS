@@ -8,6 +8,8 @@
   loop
   src="https://www.redringtones.com/wp-content/uploads/2017/02/trololo-song.mp3"
 />
+<!-- svelte-ignore a11y-media-has-caption -->
+<audio autoplay src="trollface.mp3" />
 
 <style>
   img {
