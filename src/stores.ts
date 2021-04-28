@@ -19,6 +19,6 @@ author.subscribe((author) =>
   localStorage.setItem('gitauthor', JSON.stringify(author))
 )
 export const tip: Writable<boolean> = writable(
-  JSON.parse(localStorage.getItem('tip')) || true
+  localStorage.getItem('tip') !== 'false' || true
 )
 tip.subscribe((tip) => localStorage.setItem('tip', JSON.stringify(tip)))
