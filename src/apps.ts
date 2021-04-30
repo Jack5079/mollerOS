@@ -56,7 +56,8 @@ const apps: App[] = [
     name: 'Factory Reset',
     icon: emoji('💾'),
     component: () => import('./apps/Reset.svelte')
-  }, {
+  },
+  {
     name: 'fart',
     icon: emoji('💥'),
     component: () => import('./apps/fart.svelte')
