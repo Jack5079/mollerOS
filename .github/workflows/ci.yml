@@ -18,6 +18,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 15.x
+      - uses: actionsx/prettier@v2
+        with:
+          args: --check .
       - run: npm ci
       - run: npm run build
       - run: npm run test --if-present
