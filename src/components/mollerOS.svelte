@@ -7,7 +7,6 @@
 
   import { open_apps, wallpaper, tip } from '../stores'
   import { install as hotkey } from '@github/hotkey'
-  import apps from '../apps'
 
   let show_search = false
   $: {
