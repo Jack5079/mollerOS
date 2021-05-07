@@ -17,24 +17,6 @@
       }
     })
   }
-
-  $: if ($open_apps.length > (history.state || []).length) {
-    history.pushState(
-      $open_apps.map((session) => ({
-        ...session,
-        app: apps.indexOf(session.app)
-      })),
-      'mollerOS'
-    )
-  }
-  window.addEventListener('popstate', ({ state }) => {
-    if (state) {
-      $open_apps = state.map((session) => ({
-        ...session,
-        app: apps[session.app]
-      }))
-    }
-  })
 </script>
 
 <body class={'molla ' + $wallpaper}>
