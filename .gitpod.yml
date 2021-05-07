@@ -1,0 +1,8 @@
+# Command to start on workspace startup (optional)
+tasks:
+  - init: npm install
+    command: npm run dev
+# Ports to expose on workspace startup (optional)
+ports:
+  - port: 5000
+    onOpen: open-browser
