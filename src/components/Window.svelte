@@ -88,6 +88,9 @@
     resize: none;
     animation: maximize 0.2s forwards ease-out;
   }
+  article:not(.maximized) {
+    border-radius: .5em;
+  }
   @keyframes maximize {
     to {
       top: 0;
