@@ -45,6 +45,14 @@
   }
 </script>
 
+<!--
+@component
+The mollerOS window.
+
+Requires a `session` (see ../types.ts)
+
+Takes a slot which is the content of the window
+-->
 <article
   on:mousedown={move_to_top}
   bind:this={win}

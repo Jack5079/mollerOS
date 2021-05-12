@@ -57,6 +57,10 @@
 </script>
 
 <svelte:body on:mousedown={close} on:touchend={close} on:keyup={close} />
+<!--
+@component
+mollerOS search, powered by fuse.js
+-->
 <section
   transition:slide
   on:keydown={(e) => {

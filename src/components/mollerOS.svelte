@@ -18,6 +18,10 @@
   }
 </script>
 
+<!--
+@component
+The mollerOS desktop.
+-->
 <body class={'molla ' + $wallpaper}>
   {#if show_search}
     <Search bind:shown={show_search} />
