@@ -51,7 +51,7 @@ The mollerOS desktop.
       {/await}
     </App>
   {:else}
-    {#if $tip}
+    {#if $tip === 'true'}
       <Tip />
     {/if}
   {/each}

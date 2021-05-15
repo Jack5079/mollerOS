@@ -6,6 +6,8 @@
     localStorage.setItem('drive', drive)
     fs.init(drive)
   }
+  let checked: boolean = $tip === 'true'
+  $: $tip = checked.toString()
 </script>
 
 <main>
@@ -37,7 +39,7 @@
   </label>
   <label>
     Display tip when no windows are open
-    <input type="checkbox" bind:checked={$tip} />
+    <input type="checkbox" bind:checked />
   </label>
 </main>
 
