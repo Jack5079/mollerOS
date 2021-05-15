@@ -55,9 +55,6 @@ The mollerOS desktop.
       <Tip />
     {/if}
   {/each}
-  {#if location.hostname === 'localhost'}
-    <div>v{'PKG_VERSION'}</div>
-  {/if}
 </body>
 
 <style>
@@ -104,16 +101,5 @@ The mollerOS desktop.
   button:hover,
   button:focus {
     background: #3e3e3e;
-  }
-  div {
-    float: right;
-    text-align: right;
-    color: white;
-    font-family: monospace;
-  }
-  @media (prefers-color-scheme: light) {
-    div {
-      color: black;
-    }
   }
 </style>
