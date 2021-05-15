@@ -6,7 +6,13 @@ module.exports = {
   },
   plugins: ['@snowpack/plugin-svelte', '@snowpack/plugin-typescript'],
   buildOptions: {
-    metaUrlPath: 'snowpack'
+    metaUrlPath: 'snowpack',
+    sourcemap: 'inline'
+  },
+  optimize: {
+    bundle: false,
+    minify: true,
+    target: 'es2020'
   },
   devOptions: {
     port: 5000,
