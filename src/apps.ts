@@ -61,6 +61,11 @@ const apps: App[] = [
     name: 'fart',
     icon: emoji('💥'),
     component: () => import('./apps/fart.svelte')
+  },
+  {
+    name: 'Update Notes',
+    icon: emoji('📗'),
+    component: () => import('./apps/UpdateNotes.svelte')
   }
 ].sort((a, b) => a.name.localeCompare(b.name))
 export default apps

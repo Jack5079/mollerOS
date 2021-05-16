@@ -4,9 +4,30 @@
   import Taskbar from './Taskbar.svelte'
   import Tip from './Tip.svelte'
   import Loading from './Loading.svelte'
+  import { install as hotkey } from '@github/hotkey'
+  import { nanoid } from '../util'
+  import { version as current } from '../constants'
+
+  const showupdates =
+    (() => {
+      if (localStorage.getItem('version'))
+        return localStorage.getItem('version')
+      if (localStorage.getItem('drive')) return 'v3'
+      localStorage.setItem('version', current)
+      return current
+    })() === current
 
   import { open_apps, wallpaper, tip } from '../stores'
-  import { install as hotkey } from '@github/hotkey'
+  import apps from '../apps'
+
+  if (showupdates && location.hostname !== 'localhost') {
+    $open_apps = [
+      {
+        id: nanoid(),
+        app: apps.find((app) => app.name === 'Update Notes')
+      }
+    ]
+  }
 
   let show_search = false
   $: {
