@@ -61,6 +61,21 @@
       color: black;
     }
   }
+  @media (prefers-color-scheme: dark) {
+    input, select {
+      background: black;
+      color: white;
+      outline: solid 2px #2c2c2c;
+      border: 0;
+      transition: outline-color .5s;
+    }
+    input:focus, select:focus {
+      background: black;
+      color: white;
+      outline-color: blue;
+      border: 0;
+    }
+  }
   img {
     width: min(100%, 200px);
   }
