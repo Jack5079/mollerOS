@@ -6,18 +6,17 @@
     localStorage.setItem('drive', drive)
     fs.init(drive)
   }
-  let checked: boolean = $tip === 'true'
-  $: $tip = checked.toString()
 </script>
 
 <main>
   <header>
-    <img src="icon.svg" alt="mollerOS icon" />
+    <img src="icon.svg" alt="mollerOS icon" width="200" />
     <h1>mollerOS settings</h1>
   </header>
   <label>
     Wallpaper
     <select bind:value={$wallpaper}>
+      <option>vortex</option>
       <option>v3</option>
       <option>bliss</option>
       <option>upleft</option>
@@ -39,7 +38,7 @@
   </label>
   <label>
     Display tip when no windows are open
-    <input type="checkbox" bind:checked />
+    <input type="checkbox" bind:checked={$tip} />
   </label>
 </main>
 

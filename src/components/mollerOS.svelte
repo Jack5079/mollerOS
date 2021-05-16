@@ -51,7 +51,7 @@ The mollerOS desktop.
       {/await}
     </App>
   {:else}
-    {#if $tip === 'true'}
+    {#if $tip}
       <Tip />
     {/if}
   {/each}
@@ -78,16 +78,21 @@ The mollerOS desktop.
     background-size: cover;
   }
   .bliss {
-    background-image: url(../bliss.jpg);
+    background-image: url(../wallpapers/bliss.jpg);
   }
   .mollersuite {
-    background-image: url(../mollersuite.png);
+    background-image: url(../wallpapers/mollersuite.png);
   }
   .upleft {
     background-image: url(https://5079.ml/branding/jack5079/pfp.jpg);
   }
   .v3 {
-    background-image: url(../v3.png);
+    background-image: url(../wallpapers/v3.png);
+    background-position: center;
+  }
+
+  .vortex {
+    background-image: url(../wallpapers/vortex.png);
     background-position: center;
   }
   button {
