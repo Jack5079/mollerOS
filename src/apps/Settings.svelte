@@ -10,7 +10,7 @@
 
 <main>
   <header>
-    <img src="icon.svg" alt="mollerOS icon" width="200" />
+    <img src="icon.svg" alt="mollerOS icon" />
     <h1>mollerOS settings</h1>
   </header>
   <label>
@@ -43,6 +43,9 @@
 </main>
 
 <style>
+  input,select {
+    max-width: 100%;
+  }
   header {
     text-align: center;
   }
@@ -56,5 +59,8 @@
       background: white;
       color: black;
     }
+  }
+  img {
+    width: min(100%, 200px);
   }
 </style>
