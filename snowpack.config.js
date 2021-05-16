@@ -6,8 +6,7 @@ module.exports = {
   },
   plugins: ['@snowpack/plugin-svelte', '@snowpack/plugin-typescript'],
   buildOptions: {
-    metaUrlPath: 'snowpack',
-    sourcemap: 'inline'
+    metaUrlPath: 'snowpack'
   },
   optimize: {
     bundle: false,
