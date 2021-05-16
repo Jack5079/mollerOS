@@ -43,7 +43,8 @@
 </main>
 
 <style>
-  input,select {
+  input,
+  select {
     max-width: 100%;
   }
   header {

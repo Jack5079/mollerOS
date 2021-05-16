@@ -97,7 +97,7 @@ Takes a slot which is the content of the window
     animation: maximize 0.2s forwards ease-out;
   }
   article:not(.maximized) {
-    border-radius: .5em;
+    border-radius: 0.5em;
   }
   @keyframes maximize {
     to {
