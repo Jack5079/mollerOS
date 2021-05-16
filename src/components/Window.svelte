@@ -1,7 +1,6 @@
 <script lang="ts">
   import Header from './Header.svelte'
   import { minimized, open_apps } from '../stores'
-  import { close } from '../util'
   import type { Session, MouseEventHandler } from '../types'
   import { slide } from 'svelte/transition'
   export let session: Session
@@ -40,9 +39,6 @@
     ) {
       $open_apps = [...$open_apps.filter((sess) => session !== sess), session]
     }
-  }
-  function minimize() {
-    $minimized = $minimized.add(session.id)
   }
 </script>
 
