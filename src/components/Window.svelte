@@ -87,18 +87,7 @@ Takes a slot which is the content of the window
   </div>
 </article>
 
-<style>
-  .resizable {
-    resize: both;
-  }
-
-  article.maximized {
-    resize: none;
-    animation: maximize 0.2s forwards ease-out;
-  }
-  article:not(.maximized) {
-    border-radius: .5em;
-  }
+<style lang="scss">
   @keyframes maximize {
     to {
       top: 0;
@@ -112,17 +101,18 @@ Takes a slot which is the content of the window
   }
   nav {
     float: right;
-  }
-  nav button {
-    background: transparent;
-    color: white;
-    display: inline-block;
-    border-radius: 0;
-    border: 0;
-  }
-  nav button:focus,
-  nav button:hover {
-    background: #e81123;
+    button {
+      background: transparent;
+      color: white;
+      display: inline-block;
+      border-radius: 0;
+      border: 0;
+    }
+
+    button:focus,
+    button:hover {
+      background: #e81123;
+    }
   }
 
   :global(.slot > *) {
@@ -149,18 +139,20 @@ Takes a slot which is the content of the window
 
     position: fixed;
     box-shadow: 5px 5px 50px black;
+
+    &.maximized {
+      resize: none;
+      animation: maximize 0.2s forwards ease-out;
+    }
+
+    &:not(.maximized) {
+      border-radius: 0.5em;
+    }
   }
-  header div {
-    pointer-events: none;
-    height: 35px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
+  .resizable {
+    resize: both;
   }
-  header div img {
-    pointer-events: all;
-    margin-right: 0.5em;
-  }
+
   header {
     position: sticky;
     top: 0;
@@ -170,14 +162,25 @@ Takes a slot which is the content of the window
     height: 35px;
     color: white;
     background: darkslategray;
+    div {
+      pointer-events: none;
+      height: 35px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        pointer-events: all;
+        margin-right: 0.5em;
+      }
+    }
   }
   @media (prefers-color-scheme: light) {
     nav button {
       color: black;
-    }
-    nav button:focus,
-    nav button:hover {
-      color: white;
+      &:focus,
+      &:hover {
+        color: white;
+      }
     }
 
     article {
