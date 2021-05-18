@@ -58,6 +58,9 @@
   div:not(.root) {
     display: contents;
   }
+  thead th:not(:last-of-type) {
+    border-right: solid 1px gray;
+  }
   thead th {
     text-align: left;
   }
@@ -66,15 +69,6 @@
     color: white;
     min-height: calc(100% - 35px);
     min-width: 100%;
-  }
-  tr:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  table {
-    width: 100%;
-  }
-  main {
-    background: rgba(100, 100, 100, 0.1);
   }
   button {
     background: none;
@@ -94,10 +88,6 @@
       background: rgba(0, 0, 0, 0.3);
     }
 
-    main {
-      background: rgba(128, 128, 128, 0.1);
-    }
-
     button {
       color: black;
     }
@@ -105,10 +95,6 @@
     .root {
       background: rgb(255, 255, 255);
       color: black;
-    }
-
-    tr:hover {
-      background: rgba(0, 0, 0, 0.3);
     }
   }
 </style>
