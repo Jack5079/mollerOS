@@ -28,7 +28,7 @@ const apps: App[] = [
   },
   {
     name: 'Session Manager',
-    component: () => import('./apps/SessionManager.svelte'),
+    component: () => import('./apps/SessionManager/SessionManager.svelte'),
     icon:
       'https://winaero.com/blog/wp-content/uploads/2019/03/task-manager-taskmgr-icon-big.png'
   },
