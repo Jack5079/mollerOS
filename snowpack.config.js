@@ -16,5 +16,8 @@ module.exports = {
   devOptions: {
     port: 5000,
     open: 'none'
+  },
+  packageOptions: {
+    polyfillNode: true
   }
 }
