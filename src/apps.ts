@@ -11,7 +11,7 @@ const apps: App[] = [
   },
   {
     name: 'Terminal',
-    component: () => import('./apps/Terminal.svelte'),
+    component: () => import('./apps/Terminal/Terminal.svelte'),
     icon:
       'https://upload.wikimedia.org/wikipedia/commons/0/01/Windows_Terminal_Logo_256x256.png'
   },
