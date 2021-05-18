@@ -51,27 +51,16 @@
   started = true
 </script>
 
-<svelte:head>
-  <style>
-    * {
-      background: url('https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg') !important;
-    }
-  </style>
-</svelte:head>
-
 <!-- svelte-ignore a11y-media-has-caption -->
 <audio
   autoplay
   loop
   src="https://api.meowpad.me/v1/download/26762-lets-go-dababy"
 />
-<img
-  src="https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg"
-  alt="DaBaby real!?!?!"
-/>
 
 <style>
-  img {
-    width: 100%;
+  :global(*) {
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg') !important;
+    background-size: 100% 100%;
   }
 </style>
