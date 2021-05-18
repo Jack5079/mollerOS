@@ -63,7 +63,7 @@
   select,
   main {
     color: white;
-    width: 100%;
+    min-width: 100%;
   }
   button {
     width: 100%;

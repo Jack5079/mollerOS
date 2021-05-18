@@ -21,7 +21,7 @@
 
 <style>
   main {
-    width: 100%;
+    min-width: 100%;
     display: grid;
     place-items: center;
     font-family: 'Comic Sans MS';

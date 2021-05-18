@@ -165,7 +165,8 @@
     ls: async (args) =>
       (await fs.promises.readdir(resolve(args.join(' ')))).join('\n'),
     async git(args: string[]) {
-      const git = await import('isomorphic-git/index.umd.min.js')
+      const { default: git } = await import('isomorphic-git/index.umd.min.js')
+      console.log(git)
       async function isogit({ _: [command], ...opts }: minimist.ParsedArgs) {
         try {
           const result = await git[command](
@@ -380,7 +381,7 @@
   }
   main {
     font-family: 'Cascadia Code', 'Consolas', monospace;
-    width: 100%;
+    min-width: 100%;
     background: black;
     color: white;
   }

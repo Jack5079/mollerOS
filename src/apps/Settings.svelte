@@ -51,7 +51,7 @@
     text-align: center;
   }
   main {
-    width: 100%;
+    min-width: 100%;
     background: black;
     color: white;
   }
