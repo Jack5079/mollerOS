@@ -1,17 +1,10 @@
-<script lang="ts">
-  export let size: number = 60
-  export let color = '#FF3E00'
-  export let unit: string = 'px'
-  export let duration: `${number}${'s' | 'ms'}` | '0' = '0.75s'
-</script>
-
-<div
-  class="circle"
-  style="--size: {size}{unit}; --color: {color}; --duration: {duration}"
-/>
+<div aria-label="Loading..." />
 
 <style>
-  .circle {
+  div {
+    --duration: 0.75s;
+    --size: 60px;
+    --color: #ff3e00;
     display: inline-block;
     height: var(--size);
     width: var(--size);
