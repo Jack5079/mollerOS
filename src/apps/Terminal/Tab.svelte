@@ -12,12 +12,11 @@
   export let tab = {
     messages: [],
     directory: '/',
-    command: ''
+    command: '',
+    needsauth: false
   }
-
-  export let session: string
+  
   let text: HTMLInputElement
-  let needsauth = false
   let form: HTMLFormElement
   // //====================================================\\
   //                    COMMANDS
@@ -35,7 +34,7 @@
         }
       }
       return new Promise(async (resolve) => {
-        needsauth = true
+        tab.needsauth = true
         await tick()
         form.addEventListener(
           'submit',
@@ -60,7 +59,7 @@
       })
     },
     onAuthFailure: async () => {
-      needsauth = true
+      tab.needsauth = true
       await tick()
       return new Promise(async (resolve) => {
         form.addEventListener(
@@ -89,12 +88,11 @@
       _url: string,
       auth: { username: string; password: string }
     ) => {
-      needsauth = false
+      tab.needsauth = false
       localStorage.setItem('git_user', auth.username)
       localStorage.setItem('git_password', auth.password)
     }
   }
-  const close = stop.bind(undefined, session)
   const clear = () => void (tab.messages = [])
   const del = async (args: string[]) => {
     const stat = await fs.promises.stat(`${tab.directory}/${args.join(' ')}`)
@@ -135,8 +133,6 @@
     clear,
     del,
     kill,
-    exit: close,
-    stop: close,
     cls: clear,
     clr: clear,
     unlink: del,
@@ -240,9 +236,6 @@
     }
   }
 
-  function focus() {
-    text.focus()
-  }
   async function run() {
     tab.messages = [...tab.messages, `${tab.directory} >${tab.command}`]
     const [cmd, ...args] = tab.command.split(' ') || []
@@ -268,7 +261,7 @@
       bind:value={tab.command}
     />
   </form>
-{#if needsauth}
+{#if tab.needsauth}
   <Window
     x={window.innerWidth - 500}
     session={{
