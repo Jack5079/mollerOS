@@ -70,14 +70,19 @@
   }
 
   function rightclick(node: HTMLElement, file: string) {
-    node.addEventListener('contextmenu', async (event) => {
+    async function showcontext(event: MouseEvent) {
       event.preventDefault()
       contextfile = path.resolve(directory, file)
       await tick()
       context.style.left = event.clientX + 'px'
       context.style.top = event.clientY + 'px'
-    })
-    return {}
+    }
+    node.addEventListener('contextmenu', showcontext)
+    return {
+      destroy() {
+        node.removeEventListener('contextmenu', showcontext)
+      }
+    }
   }
   const fileSize = (num: number, precision = 3, addSpace = true): string => {
     const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
@@ -93,9 +98,13 @@
   }
 </script>
 
-<tr on:click={() => open(file)} use:rightclick={file} in:fade={{
-  delay: index * 100
-}}>
+<tr
+  on:click={() => open(file)}
+  use:rightclick={file}
+  in:fade={{
+    delay: index * 100
+  }}
+>
   {#await fs.promises.stat(path.resolve(directory, file)) then stat}
     <td>
       <img
