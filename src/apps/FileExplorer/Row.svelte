@@ -42,14 +42,12 @@
   import { nanoid } from '../../util'
   import { tick } from 'svelte'
   import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
-  import { fade } from 'svelte/transition'
   import type { App } from '../../types'
 
   export let context: HTMLMenuElement
   export let contextfile: string
   export let directory: string = '/'
   export let file: string = ''
-  export let index: number = 0
 
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
@@ -101,9 +99,6 @@
 <tr
   on:click={() => open(file)}
   use:rightclick={file}
-  in:fade={{
-    delay: index * 100
-  }}
 >
   {#await fs.promises.stat(path.resolve(directory, file)) then stat}
     <td>

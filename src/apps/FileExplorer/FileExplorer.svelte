@@ -43,8 +43,8 @@
         </tr>
       </thead>
       {#await files then files}
-        {#each files as file, index}
-          <Row {file} {index} bind:directory bind:contextfile {context} />
+        {#each files as file}
+          <Row {file} bind:directory bind:contextfile {context} />
         {:else}
           No files found!
         {/each}
