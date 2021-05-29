@@ -99,6 +99,16 @@
     background: rgba(255, 255, 255, 0.3);
   }
 
+
+  nav {
+    overflow-x: auto;
+    display: flex;
+    position: sticky;
+    top: 35px;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+  }
+
   @media (prefers-color-scheme: light) {
     :is(button, label):hover,
     :is(button, label):focus {
@@ -108,12 +118,10 @@
     label {
       color: black;
     }
-  }
-
-  nav {
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
+    nav {
+      
+    background: rgba(255, 255, 255, 0.5);
+    }
   }
   button.dir:not(:first-of-type)::after {
     content: '/';

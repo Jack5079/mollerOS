@@ -5,18 +5,17 @@
   import Git from './Git.svelte'
   import fs from '../../fs'
   import path from '@jkearl/lightning-fs/src/path'
+  import { findRoot } from 'isomorphic-git'
   export let startingdir: string = '/'
   let directory = startingdir
   let context: HTMLMenuElement
   let contextfile = ''
 
   $: files = fs.promises.readdir(directory)
-  $: gitdir = import('isomorphic-git/index.umd.min.js').then((git) =>
-    git.findRoot({
-      filepath: directory,
-      fs
-    })
-  )
+  $: gitdir = findRoot({
+    filepath: directory,
+    fs
+  })
 </script>
 
 <div class="root">
@@ -59,25 +58,17 @@
   div:not(.root) {
     display: contents;
   }
+  thead th:not(:last-of-type) {
+    border-right: solid 1px gray;
+  }
   thead th {
     text-align: left;
   }
   .root {
     background: black;
     color: white;
-    height: calc(100% - 35px);
-    width: 100%;
-  }
-  tr:hover {
-    background: rgba(255, 255, 255, 0.3);
-  }
-  table {
-    width: 100%;
-  }
-  main {
-    overflow: auto;
-    height: calc(100% - 21px);
-    background: rgba(100, 100, 100, 0.1);
+    min-height: calc(100% - 35px);
+    min-width: 100%;
   }
   button {
     background: none;
@@ -97,10 +88,6 @@
       background: rgba(0, 0, 0, 0.3);
     }
 
-    main {
-      background: rgba(128, 128, 128, 0.1);
-    }
-
     button {
       color: black;
     }
@@ -108,10 +95,6 @@
     .root {
       background: rgb(255, 255, 255);
       color: black;
-    }
-
-    tr:hover {
-      background: rgba(0, 0, 0, 0.3);
     }
   }
 </style>

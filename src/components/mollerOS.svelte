@@ -55,9 +55,6 @@ The mollerOS desktop.
       <Tip />
     {/if}
   {/each}
-  {#if location.hostname === 'localhost'}
-    <div>v{'PKG_VERSION'}</div>
-  {/if}
 </body>
 
 <style>
@@ -81,16 +78,21 @@ The mollerOS desktop.
     background-size: cover;
   }
   .bliss {
-    background-image: url(../bliss.jpg);
+    background-image: url(../wallpapers/bliss.jpg);
   }
   .mollersuite {
-    background-image: url(../mollersuite.png);
+    background-image: url(../wallpapers/mollersuite.png);
   }
   .upleft {
     background-image: url(https://5079.ml/branding/jack5079/pfp.jpg);
   }
   .v3 {
-    background-image: url(../v3.png);
+    background-image: url(../wallpapers/v3.png);
+    background-position: center;
+  }
+
+  .vortex {
+    background-image: url(../wallpapers/vortex.png);
     background-position: center;
   }
   button {
@@ -104,16 +106,5 @@ The mollerOS desktop.
   button:hover,
   button:focus {
     background: #3e3e3e;
-  }
-  div {
-    float: right;
-    text-align: right;
-    color: white;
-    font-family: monospace;
-  }
-  @media (prefers-color-scheme: light) {
-    div {
-      color: black;
-    }
   }
 </style>

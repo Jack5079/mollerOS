@@ -3,12 +3,8 @@
   export let facts: string[] = [
     'you can press backtick twice to toggle search',
     'the DaBaby app will destroy your filesystem',
-    'the terminal has git support (isogit cli)',
-    'you are using mollerOS v' +
-      'PKG_VERSION'
-        .split('.')
-        .filter((number) => number !== '0')
-        .join('.')
+    'I have put a concerning amount of effort into this',
+    'mollerOS really used to use Rollup lmao like 10 minute build time'
   ]
 </script>
 

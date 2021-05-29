@@ -1,63 +1,75 @@
-<script context="module">
-  let started = false
-</script>
-
-<script lang="ts">
-  import LightningFS from '@jkearl/lightning-fs'
+<script context="module" lang="ts">
   import apps from '../apps'
-
-  import { onMount } from 'svelte'
+  import LightningFS from '@jkearl/lightning-fs'
   import { open_apps } from '../stores'
   import { nanoid } from '../util'
-  export let session: string
-  const self = $open_apps.find((sess) => sess.id === session).app
-  const words = ['DaBaby', 'SmallInfant', 'real da baby', 'actual babey!']
-  if (!started) {
-    onMount(() => {
-      apps.forEach((app, i) => {
-        if (app !== self) {
-          app.name = words[i % words.length] + '\u200B'.repeat(i + 1)
-          app.icon =
-            'https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg'
-          app.component = Promise.resolve(self.component)
-        }
-      })
-      function spawn(timeout: number = 5000) {
-        $open_apps = [
-          ...$open_apps,
-          {
-            app: self,
-            id: nanoid()
-          }
-        ]
-        if (timeout < 0.01) {
-          $open_apps = []
-          new LightningFS(localStorage.getItem('drive') || 'mollerOS', {
-            wipe: true
-          })
-          document.write('<html />')
-          document.querySelector('html').style.background = 'black'
-          setTimeout(() => {
-            location.reload()
-          }, 5 * 1000)
-        } else {
-          setTimeout(() => spawn(timeout / 1.5), timeout / 1.5)
-        }
-      }
+  
+  const self = apps.find((sess) => sess.name === 'DaBaby')
+  const app_names = ['DaBaby', 'SmallInfant', 'real da baby', 'actual babey!']
+  const characters = [
+    '\u2060', // Word Joiner
+    '\u2061', // FUNCTION APPLICATION
+    '\u2062', // INVISIBLE TIMES
+    '\u2063', // INVISIBLE SEPARATOR
+    '\u2064', // INVISIBLE PLUS
+    '\u2066', // LEFT - TO - RIGHT ISOLATE
+    '\u2067', // RIGHT - TO - LEFT ISOLATE
+    '\u2068', // FIRST STRONG ISOLATE
+    '\u2069', // POP DIRECTIONAL ISOLATE
+    '\u206A', // INHIBIT SYMMETRIC SWAPPING
+    '\u206B', // ACTIVATE SYMMETRIC SWAPPING
+    '\u206C', // INHIBIT ARABIC FORM SHAPING
+    '\u206D', // ACTIVATE ARABIC FORM SHAPING
+    '\u206E', // NATIONAL DIGIT SHAPES
+    '\u206F', // NOMINAL DIGIT SHAPES
+    '\u200B', // Zero-Width Space
+    '\u200C', // Zero Width Non-Joine
+    '\u061C', // Arabic Letter Mark
+    '\uFEFF', // Byte Order Mark
+    '\u180E', // Mongolian Vowel Separator
+    '\u00AD' // soft-hyphen
+  ]
 
-      spawn()
+  export const encode = (a: number): string => {
+    let baseidk = a.toString(characters.length)
+
+    characters.forEach((character, index) => {
+      baseidk = baseidk.replaceAll(index.toString(characters.length), character)
     })
+    return baseidk
   }
-  started = true
-</script>
+  apps.forEach((app, i) => {
+    app.name = app_names[i % app_names.length] + encode(i)
+    app.icon =
+      'https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg'
+    app.component = Promise.resolve(self.component)
+  })
+  function spawn(timeout: number = 5000) {
+    open_apps.update((sessions) => [
+      ...sessions,
+      {
+        app: self,
+        id: nanoid()
+      }
+    ])
 
-<svelte:head>
-  <style>
-    * {
-      background: url('https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg') !important;
+    if (timeout < 0.01) {
+      open_apps.set([])
+      new LightningFS(localStorage.getItem('drive') || 'mollerOS', {
+        wipe: true
+      })
+      document.write('<html />')
+      document.querySelector('html').style.background = 'black'
+      setTimeout(() => {
+        location.reload()
+      }, 5 * 1000)
+    } else {
+      setTimeout(() => spawn(timeout / 1.5), timeout / 1.5)
     }
-  </style>
-</svelte:head>
+  }
+
+  spawn()
+</script>
 
 <!-- svelte-ignore a11y-media-has-caption -->
 <audio
@@ -65,13 +77,10 @@
   loop
   src="https://api.meowpad.me/v1/download/26762-lets-go-dababy"
 />
-<img
-  src="https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg"
-  alt="DaBaby real!?!?!"
-/>
 
 <style>
-  img {
-    width: 100%;
+  :global(*) {
+    background-image: url('https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg') !important;
+    background-size: 100% 100%;
   }
 </style>

@@ -16,6 +16,7 @@
   <label>
     Wallpaper
     <select bind:value={$wallpaper}>
+      <option>vortex</option>
       <option>v3</option>
       <option>bliss</option>
       <option>upleft</option>
@@ -42,11 +43,15 @@
 </main>
 
 <style>
+  input,
+  select {
+    max-width: 100%;
+  }
   header {
     text-align: center;
   }
   main {
-    width: 100%;
+    min-width: 100%;
     background: black;
     color: white;
   }
@@ -55,5 +60,23 @@
       background: white;
       color: black;
     }
+  }
+  @media (prefers-color-scheme: dark) {
+    input, select {
+      background: black;
+      color: white;
+      outline: solid 2px #2c2c2c;
+      border: 0;
+      transition: outline-color .5s;
+    }
+    input:focus, select:focus {
+      background: black;
+      color: white;
+      outline-color: blue;
+      border: 0;
+    }
+  }
+  img {
+    width: min(100%, 200px);
   }
 </style>

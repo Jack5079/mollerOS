@@ -37,7 +37,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    min-width: 100%;
     text-align: center;
   }
   @media (prefers-color-scheme: light) {

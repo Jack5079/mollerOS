@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { open_apps } from '../stores'
-  import { close } from '../util'
+  import { open_apps } from '../../stores'
+  import { close } from '../../util'
   import { slide, fly } from 'svelte/transition'
   import { flip } from 'svelte/animate'
+  import Group from './Group.svelte'
   let selected_sessions: string[] = []
   // amount of apps that are open + amount of sessions that are open = size of select
   $: apps = new Set($open_apps.map((session) => session.app))
@@ -14,31 +15,7 @@
 <main>
   <select multiple bind:value={selected_sessions} {size}>
     {#each [...apps].sort((a, b) => a.name.localeCompare(b.name)) as app}
-      <optgroup
-        on:click|self={() => {
-          selected_sessions = [
-            ...new Set([
-              ...selected_sessions,
-              ...$open_apps
-                .filter((session) => session.app === app)
-                .map((session) => session.id)
-            ])
-          ]
-        }}
-        transition:fly={{ x: -10, duration: 300 }}
-        label={app.name}
-        style="background-image: url({JSON.stringify(
-          app.icon
-        )}); background-repeat: no-repeat; background-position: top right; background-size: 25px 25px;"
-      >
-        {#each $open_apps.filter((session) => session.app === app) as session (session.id)}
-          <option
-            animate:flip={{ duration: 300 }}
-            transition:fly={{ x: -10, duration: 300 }}
-            value={session.id}>Session {session.id}</option
-          >
-        {/each}
-      </optgroup>
+      <Group bind:sessions={selected_sessions} bind:app />
     {/each}
   </select>
   {#if selected_sessions.length}
@@ -63,7 +40,7 @@
   select,
   main {
     color: white;
-    width: 100%;
+    min-width: 100%;
   }
   button {
     width: 100%;

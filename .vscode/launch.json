@@ -13,7 +13,7 @@
       "preLaunchTask": "dev",
       "pathMappings": [
         {
-          "url": "http://localhost:5000/src",
+          "url": "http://localhost:5000/dist",
           "path": "${workspaceFolder}/src"
         }
       ]

@@ -11,7 +11,7 @@ const apps: App[] = [
   },
   {
     name: 'Terminal',
-    component: () => import('./apps/Terminal.svelte'),
+    component: () => import('./apps/Terminal/Terminal.svelte'),
     icon:
       'https://upload.wikimedia.org/wikipedia/commons/0/01/Windows_Terminal_Logo_256x256.png'
   },
@@ -28,7 +28,7 @@ const apps: App[] = [
   },
   {
     name: 'Session Manager',
-    component: () => import('./apps/SessionManager.svelte'),
+    component: () => import('./apps/SessionManager/SessionManager.svelte'),
     icon:
       'https://winaero.com/blog/wp-content/uploads/2019/03/task-manager-taskmgr-icon-big.png'
   },

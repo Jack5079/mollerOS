@@ -42,13 +42,13 @@
   import { nanoid } from '../../util'
   import { tick } from 'svelte'
   import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
-
   import type { App } from '../../types'
 
   export let context: HTMLMenuElement
   export let contextfile: string
   export let directory: string = '/'
   export let file: string = ''
+
   async function open(file: string) {
     const stat = await fs.promises.stat(path.resolve(directory, file))
     if (stat.type === 'dir') {
@@ -68,14 +68,19 @@
   }
 
   function rightclick(node: HTMLElement, file: string) {
-    node.addEventListener('contextmenu', async (event) => {
+    async function showcontext(event: MouseEvent) {
       event.preventDefault()
       contextfile = path.resolve(directory, file)
       await tick()
       context.style.left = event.clientX + 'px'
       context.style.top = event.clientY + 'px'
-    })
-    return {}
+    }
+    node.addEventListener('contextmenu', showcontext)
+    return {
+      destroy() {
+        node.removeEventListener('contextmenu', showcontext)
+      }
+    }
   }
   const fileSize = (num: number, precision = 3, addSpace = true): string => {
     const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
@@ -91,7 +96,10 @@
   }
 </script>
 
-<tr on:click={() => open(file)} use:rightclick={file}>
+<tr
+  on:click={() => open(file)}
+  use:rightclick={file}
+>
   {#await fs.promises.stat(path.resolve(directory, file)) then stat}
     <td>
       <img
