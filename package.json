@@ -1,6 +1,6 @@
 {
   "name": "moller-os",
-  "description": "OS.js but it's all on your browser",
+  "description": "A web desktop, powered by beagles.",
   "version": "4.0.0",
   "scripts": {
     "build": "snowpack build",
