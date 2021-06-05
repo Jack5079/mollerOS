@@ -10,7 +10,7 @@
   }
 </script>
 
-<header on:mousedown|self>
+<header on:mousedown|self tabindex="0" on:keydown|self>
   <div>
     <img
       on:dblclick={() => close(session.id)}
@@ -32,6 +32,9 @@
 <style>
   nav {
     float: right;
+  }
+  header:focus-visible {
+    background: lightslategray;
   }
   nav button {
     background: transparent;
@@ -77,6 +80,9 @@
     header {
       color: black;
       background: rgb(139, 216, 216);
+    }
+    header:focus-visible {
+      background: rgb(172, 230, 230);
     }
   }
   @media (max-width: 375px) {

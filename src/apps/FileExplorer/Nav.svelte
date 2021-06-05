@@ -57,7 +57,7 @@
   >
     >_
   </button>
-  <label class="upload" title="Upload" aria-label="Upload">
+  <label class="upload" title="Upload" aria-label="Upload" tabindex="0">
     ⬆
     <input
       bind:value={overwrite}

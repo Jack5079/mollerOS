@@ -98,7 +98,14 @@
 
 <tr
   on:click={() => open(file)}
+  on:keydown={(event)=>{
+    if (event.key === 'Enter') {
+      open(file)
+    }
+  }}
   use:rightclick={file}
+  tabindex="0"
+  role="button"
 >
   {#await fs.promises.stat(path.resolve(directory, file)) then stat}
     <td>
@@ -124,7 +131,7 @@
 </tr>
 
 <style>
-  tr:hover {
+  tr:hover, tr:focus {
     background: rgba(255, 255, 255, 0.3);
   }
 
@@ -148,7 +155,7 @@
       color: black;
     }
 
-    tr:hover {
+    tr:hover, tr:focus {
       background: rgba(0, 0, 0, 0.3);
     }
   }

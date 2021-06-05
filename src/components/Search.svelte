@@ -67,8 +67,11 @@ mollerOS search, powered by fuse.js
     if (e.key === 'Escape') shown = false
   }}
 >
+  <label for="search">Search</label>
   <form on:submit|preventDefault={() => results[index] && open(results[index])}>
     <input
+      id="search"
+      name="search"
       type="search"
       placeholder="Search for an app.."
       bind:this={search}
@@ -153,9 +156,6 @@ mollerOS search, powered by fuse.js
   }
   .index {
     background: rgb(4, 66, 137, 0.5);
-  }
-  form::before {
-    content: 'Search';
   }
   @media (prefers-color-scheme: light) {
     section {

@@ -62,7 +62,22 @@ Takes a slot which is the content of the window
   class:resizable
   class:maximized
 >
-  <Header on:mousedown={dragstart} {session} bind:maximized />
+  <Header
+    on:mousedown={dragstart}
+    {session}
+    bind:maximized
+    on:keydown={(event) => {
+      if (event.key === 'ArrowUp') {
+        y -= 1
+      } else if (event.key == 'ArrowDown') {
+        y += 1
+      } else if (event.key == 'ArrowRight') {
+        x += 1
+      } else if (event.key == 'ArrowLeft') {
+        x -= 1
+      }
+    }}
+  />
   <div class="slot">
     <slot />
   </div>
