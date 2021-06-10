@@ -3,6 +3,11 @@ import type { App } from './types'
 const emoji = (char: string) =>
   `data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>${char}</text></svg>`
 
+/**
+ * The list of apps in mollerOS.
+ * 
+ * See {@link App} for the structure.
+ */
 const apps: App[] = [
   {
     name: 'Settings',
