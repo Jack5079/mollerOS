@@ -41,7 +41,7 @@
   </menu>
 {/if}
 
-<style>
+<style lang="postcss">
   menu {
     position: fixed;
     width: 200px;
@@ -49,23 +49,22 @@
     color: white;
     background: rgb(50, 50, 50);
   }
-
-  button:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
   button {
     background: none;
     color: white;
     border: 0;
     margin: 0;
     width: 100%;
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
   }
   @media (prefers-color-scheme: light) {
-    button:hover {
-      background: rgba(0, 0, 0, 0.1);
-    }
     button {
       color: black;
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
     }
     menu {
       background: rgb(200, 200, 200);

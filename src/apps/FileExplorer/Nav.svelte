@@ -40,6 +40,7 @@
       {
         app: apps.find((app) => app.name === 'Terminal'),
         id: nanoid(),
+        minimized: false,
         props: {
           startingdirectory: path.resolve(directory)
         }
@@ -80,7 +81,7 @@
   {/each}
 </nav>
 
-<style>
+<style lang="postcss">
   .upload {
     text-decoration: overline;
   }
@@ -94,11 +95,13 @@
     margin: 0;
   }
 
-  :is(button, label):hover,
-  :is(button, label):focus {
-    background: rgba(255, 255, 255, 0.3);
+  button,
+  label {
+    &:hover,
+    &:focus {
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
-
 
   nav {
     overflow-x: auto;
@@ -110,17 +113,19 @@
   }
 
   @media (prefers-color-scheme: light) {
-    :is(button, label):hover,
-    :is(button, label):focus {
-      background: rgba(0, 0, 0, 0.3);
+    button,
+    label {
+      &:hover,
+      &:focus {
+        background: rgba(0, 0, 0, 0.3);
+      }
     }
     button,
     label {
       color: black;
     }
     nav {
-      
-    background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.5);
     }
   }
   button.dir:not(:first-of-type)::after {

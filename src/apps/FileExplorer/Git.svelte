@@ -102,7 +102,7 @@
   {/await}
 </nav>
 
-<style>
+<style lang="postcss">
   a,
   button,
   nav {
@@ -121,8 +121,8 @@
   }
   button {
     cursor: pointer;
-  }
-  button span {
-    text-decoration: underline;
+    & span {
+      text-decoration: underline;
+    }
   }
 </style>

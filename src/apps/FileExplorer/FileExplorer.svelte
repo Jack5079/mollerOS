@@ -54,15 +54,15 @@
   <Menu bind:context bind:contextfile bind:files />
 </div>
 
-<style>
+<style lang="postcss">
   div:not(.root) {
     display: contents;
   }
-  thead th:not(:last-of-type) {
-    border-right: solid 1px gray;
-  }
   thead th {
     text-align: left;
+    &:not(:last-of-type) {
+      border-right: solid 1px gray;
+    }
   }
   .root {
     background: black;
@@ -76,20 +76,20 @@
     color: white;
     border: 0;
     margin: 0;
-  }
-  button:hover,
-  button:focus {
-    background: rgba(255, 255, 255, 0.3);
+    &:hover,
+    &:focus {
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
 
   @media (prefers-color-scheme: light) {
-    button:hover,
-    button:focus {
-      background: rgba(0, 0, 0, 0.3);
-    }
-
     button {
       color: black;
+
+      &:hover,
+      &:focus {
+        background: rgba(0, 0, 0, 0.3);
+      }
     }
 
     .root {

@@ -27,8 +27,7 @@
   </nav>
 </header>
 
-
-<style>
+<style lang="postcss">
   nav {
     float: right;
   }
@@ -41,23 +40,23 @@
     display: inline-block;
     border-radius: 0;
     border: 0;
-  }
-  nav button:focus,
-  nav button:hover {
-    background: #e81123;
-  }
-  header div {
-    pointer-events: none;
-    height: 35px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-  }
-  header div img {
-    pointer-events: all;
-    margin-right: 0.5em;
+    &:focus,
+    &:hover {
+      background: #e81123;
+    }
   }
   header {
+    & div {
+      pointer-events: none;
+      height: 35px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      & img {
+        pointer-events: all;
+        margin-right: 0.5em;
+      }
+    }
     position: sticky;
     top: 0;
     left: 0;
@@ -71,17 +70,17 @@
   @media (prefers-color-scheme: light) {
     nav button {
       color: black;
-    }
-    nav button:focus,
-    nav button:hover {
-      color: white;
+      &:focus,
+      &:hover {
+        color: white;
+      }
     }
     header {
       color: black;
       background: rgb(139, 216, 216);
-    }
-    header:focus-visible {
-      background: rgb(172, 230, 230);
+      &:focus-visible {
+        background: rgb(172, 230, 230);
+      }
     }
   }
   @media (max-width: 375px) {

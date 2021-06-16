@@ -15,7 +15,7 @@
     command: '',
     needsauth: false
   }
-  
+
   let text: HTMLInputElement
   let form: HTMLFormElement
   // //====================================================\\
@@ -228,6 +228,7 @@
         {
           id: nanoid(),
           app: apps.find((app) => app.name === 'File Explorer'),
+          minimized: false,
           props: {
             startingdir: resolve(args.join(' '))
           }
@@ -249,18 +250,18 @@
   }
 </script>
 
-  {#each tab?.messages ?? [] as message, index}
-    <code>{index === 0 || !message ? '' : '\n'}{message}</code>
-  {/each}
-  <form on:submit|preventDefault={run} class="input">
-    <label for="terminal">{tab.directory} &gt;</label><input
-      name="terminal"
-      type="text"
-      bind:this={text}
-      placeholder="# mollerscript moment"
-      bind:value={tab.command}
-    />
-  </form>
+{#each tab?.messages ?? [] as message, index}
+  <code>{index === 0 || !message ? '' : '\n'}{message}</code>
+{/each}
+<form on:submit|preventDefault={run} class="input">
+  <label for="terminal">{tab.directory} &gt;</label><input
+    name="terminal"
+    type="text"
+    bind:this={text}
+    placeholder="# mollerscript moment"
+    bind:value={tab.command}
+  />
+</form>
 {#if tab.needsauth}
   <Window
     x={window.innerWidth - 500}
@@ -271,7 +272,8 @@
           'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/1024px-Git_icon.svg.png',
         name: 'Git Auth'
       },
-      id: nanoid()
+      id: nanoid(),
+      minimized: false
     }}
   >
     <form bind:this={form} on:submit|preventDefault>
@@ -309,7 +311,9 @@
     font-family: 'Cascadia Code', 'Consolas', monospace;
   }
   @media (prefers-color-scheme: light) {
-    input,label,code {
+    input,
+    label,
+    code {
       color: black;
     }
   }

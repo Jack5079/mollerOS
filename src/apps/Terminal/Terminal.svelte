@@ -47,45 +47,51 @@
   <Tab bind:tab={tabs[tab]} />
 </main>
 
-<style>
+<style lang="postcss">
   .active {
     border: solid 1px blue;
   }
-  nav button {
-    padding: 0;
-    background: none;
-    border: 0;
-    padding-left: 1em;
-    padding-right: 0.1em;
-    color: white;
+
+  nav {
+    & button {
+      padding: 0;
+      background: none;
+      border: 0;
+      padding-left: 1em;
+      padding-right: 0.1em;
+      color: white;
+    }
+    & article {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.3);
+    }
+    & input {
+      width: max-content;
+    }
   }
-  nav article {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.3);
-  }
-  main > form input {
-    width: 100%;
-  }
-  nav input {
-    width: max-content;
-  }
-  main input {
-    padding: 0;
-    margin: 0;
-    font-size: 13px;
-    background: transparent;
-    color: white;
-    border: 0;
-    font-family: 'Cascadia Code', 'Consolas', monospace;
-  }
+
   main {
     font-family: 'Cascadia Code', 'Consolas', monospace;
     min-width: 100%;
     background: black;
     color: white;
+
+    input {
+      padding: 0;
+      margin: 0;
+      font-size: 13px;
+      background: transparent;
+      color: white;
+      border: 0;
+      font-family: 'Cascadia Code', 'Consolas', monospace;
+    }
+
+    & > form input {
+      width: 100%;
+    }
   }
   @media (prefers-color-scheme: light) {
     main,
