@@ -59,6 +59,7 @@
         {
           id: nanoid(),
           app: openwith[getIconForFile(file)] || viewers.editor,
+          minimized: false,
           props: {
             file: path.resolve(directory, file)
           }
