@@ -41,7 +41,7 @@
       {
         app: app,
         id: nanoid(),
-        minimized: true
+        minimized: false
       }
     ]
   }
