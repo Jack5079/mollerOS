@@ -1,11 +1,11 @@
-import { open_apps } from './stores'
+import { sessions } from './stores'
 
 /**
  * 
  * @param toclose Session IDs to close (generate session ids with {@link nanoid})}
  */
 export const close = (...toclose: string[]) => {
-  open_apps.update((sessions) =>
+  sessions.update((sessions) =>
     sessions.filter((session) => !toclose.includes(session.id))
   )
 }

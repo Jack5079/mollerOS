@@ -1,6 +1,6 @@
 <script lang="ts">
   import Header from './Header.svelte'
-  import { minimized, open_apps } from '../stores'
+  import { sessions } from '../stores'
   import type { Session, MouseEventHandler } from '../types'
   import { slide } from 'svelte/transition'
   export let session: Session
@@ -34,10 +34,10 @@
   }
   const move_to_top: MouseEventHandler<HTMLElement> = (event) => {
     if (
-      $open_apps.includes(session) &&
+      $sessions.includes(session) &&
       !(event.target as HTMLElement).matches('article > header > nav > button')
     ) {
-      $open_apps = [...$open_apps.filter((sess) => session !== sess), session]
+      $sessions = [...$sessions.filter((sess) => session !== sess), session]
     }
   }
 </script>
@@ -58,13 +58,13 @@ Takes a slot which is the content of the window
   on:outrostart={() => (win.style.pointerEvents = 'none')}
   on:outroend={() => (win.style.pointerEvents = 'auto')}
   transition:slide={{ duration: 500 }}
-  class:hidden={$minimized.has(session.id)}
+  class:hidden={session.minimized}
   class:resizable
   class:maximized
 >
   <Header
     on:mousedown={dragstart}
-    {session}
+    bind:session
     bind:maximized
     on:keydown={(event) => {
       if (event.key === 'ArrowUp') {

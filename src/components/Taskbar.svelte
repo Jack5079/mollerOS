@@ -2,7 +2,7 @@
   import Tray from './Tray.svelte'
 
   import { fly, slide } from 'svelte/transition'
-  import { open_apps, minimized } from '../stores'
+  import { sessions } from '../stores'
   import { flip } from 'svelte/animate'
   let height: number
 </script>
@@ -13,16 +13,15 @@
   bind:offsetHeight={height}
 >
   <slot />
-  {#each $open_apps as session (session.id)}
+  {#each $sessions as session (session.id)}
     <button
       transition:slide={{ duration: 300 }}
       animate:flip={{ duration: 300 }}
-      class:open={!$minimized.has(session.id)}
+      class:open={!session.minimized}
       title={session.app.name}
       on:click={() => {
-        $minimized.delete(session.id)
-        $minimized = $minimized
-        $open_apps = [...$open_apps.filter((sess) => session !== sess), session]
+        session.minimized = false
+        $sessions = [...$sessions.filter((sess) => session !== sess), session]
       }}
     >
       <img src={session.app.icon} alt={session.app.name} height="30" />

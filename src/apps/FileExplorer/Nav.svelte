@@ -4,7 +4,7 @@
   import apps from '../../apps'
 
   import { fly } from 'svelte/transition'
-  import { open_apps } from '../../stores'
+  import { sessions } from '../../stores'
   import { nanoid } from '../../util'
 
   export let directory: string = '/'
@@ -35,8 +35,8 @@
   }
 
   function terminal() {
-    $open_apps = [
-      ...$open_apps,
+    $sessions = [
+      ...$sessions,
       {
         app: apps.find((app) => app.name === 'Terminal'),
         id: nanoid(),

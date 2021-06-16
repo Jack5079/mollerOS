@@ -6,6 +6,7 @@ export interface App {
 
 export interface Session {
   id: string
+  minimized: boolean
   app: App
   props?: {
     [key: string]: any

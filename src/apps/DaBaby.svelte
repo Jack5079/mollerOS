@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
   import apps from '../apps'
   import LightningFS from '@jkearl/lightning-fs'
-  import { open_apps } from '../stores'
+  import { sessions } from '../stores'
   import { nanoid } from '../util'
-  
-  const self = apps.find((sess) => sess.name === 'DaBaby')
+
+  const self = apps.find((sess) => sess.name === 'DaBaby')!
   const app_names = ['DaBaby', 'SmallInfant', 'real da baby', 'actual babey!']
   const characters = [
     '\u2060', // Word Joiner
@@ -45,21 +45,22 @@
     app.component = Promise.resolve(self.component)
   })
   function spawn(timeout: number = 5000) {
-    open_apps.update((sessions) => [
+    sessions.update((sessions) => [
       ...sessions,
       {
         app: self,
+        minimized: false,
         id: nanoid()
       }
     ])
 
     if (timeout < 0.01) {
-      open_apps.set([])
+      sessions.set([])
       new LightningFS(localStorage.getItem('drive') || 'mollerOS', {
         wipe: true
       })
       document.write('<html />')
-      document.querySelector('html').style.background = 'black'
+      document.documentElement.style.background = 'black'
       setTimeout(() => {
         location.reload()
       }, 5 * 1000)

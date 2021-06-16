@@ -3,7 +3,7 @@
   import apps from '../apps'
 
   import { slide } from 'svelte/transition'
-  import { open_apps } from '../stores'
+  import { sessions } from '../stores'
   import { nanoid } from '../util'
   import type { App } from '../types'
 
@@ -36,18 +36,19 @@
 
   function open(app: App) {
     shown = false
-    $open_apps = [
-      ...$open_apps,
+    $sessions = [
+      ...$sessions,
       {
         app: app,
-        id: nanoid()
+        id: nanoid(),
+        minimized: true
       }
     ]
   }
   function close(e: KeyboardEvent | MouseEvent | TouchEvent) {
     if (
       search &&
-      !search.parentElement.contains(e.target as Node) &&
+      !search.parentElement!.contains(e.target as Node) &&
       !(e.target as HTMLElement).matches(
         'nav > button:first-child, nav > button:first-child > img'
       )

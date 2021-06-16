@@ -38,7 +38,7 @@
 <script lang="ts">
   import path from '@jkearl/lightning-fs/src/path'
   import fs from '../../fs'
-  import { open_apps } from '../../stores'
+  import { sessions } from '../../stores'
   import { nanoid } from '../../util'
   import { tick } from 'svelte'
   import { getIconForFile, getIconForFolder } from 'vscode-icons-js'
@@ -54,8 +54,8 @@
     if (stat.type === 'dir') {
       directory = `${directory}/${file}/`
     } else {
-      $open_apps = [
-        ...$open_apps,
+      $sessions = [
+        ...$sessions,
         {
           id: nanoid(),
           app: openwith[getIconForFile(file)] || viewers.editor,

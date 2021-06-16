@@ -9,7 +9,8 @@
     {
       messages: [],
       directory: startingdirectory,
-      command: ''
+      command: '',
+      needsauth: false
     }
   ]
   $: tab > tabs.length - 1 && (tab = tabs.length - 1)
@@ -37,7 +38,8 @@
           {
             messages: [],
             directory: tabs[tab].directory,
-            command: ''
+            command: '',
+            needsauth: false
           }
         ])}>+</button
     >

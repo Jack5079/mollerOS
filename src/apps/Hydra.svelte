@@ -1,19 +1,21 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import { open_apps } from '../stores'
+  import { sessions } from '../stores'
   import { close, nanoid } from '../util'
   export let session: string
-  const self = $open_apps.find((sess) => sess.id === session).app
+  const self = $sessions.find((sess) => sess.id === session)!.app
   onMount(() => () => {
-    $open_apps = [
-      ...$open_apps,
+    $sessions = [
+      ...$sessions,
       {
         app: self,
-        id: nanoid()
+        id: nanoid(),
+        minimized: false,
       },
       {
         app: self,
-        id: nanoid()
+        id: nanoid(),
+        minimized: false,
       }
     ]
   })

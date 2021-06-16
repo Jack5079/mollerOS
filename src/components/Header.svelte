@@ -1,12 +1,11 @@
 <script lang="ts">
   import type { Session } from '../types'
-  import { minimized } from '../stores'
   import { close } from '../util'
 
   export let session: Session
   export let maximized: boolean = false
   function minimize() {
-    $minimized = $minimized.add(session.id)
+    session.minimized = true
   }
 </script>
 

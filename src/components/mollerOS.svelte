@@ -5,12 +5,12 @@
   import Tip from './Tip.svelte'
   import Loading from './Loading.svelte'
 
-  import { open_apps, wallpaper, tip } from '../stores'
+  import { sessions, wallpaper, tip } from '../stores'
   import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
   $: {
-    $open_apps.forEach((session) => {
+    $sessions.forEach((session) => {
       if (typeof session.app.component == 'function') {
         session.app.component = session.app.component()
       }
@@ -36,7 +36,7 @@ The mollerOS desktop.
       <img src="icon.svg" alt="mollerOS" height="30" />
     </button>
   </Taskbar>
-  {#each $open_apps as session (session.id)}
+  {#each $sessions as session (session.id)}
     <App {session}>
       {#await session.app.component}
         <article>

@@ -6,8 +6,8 @@
   import path from '@jkearl/lightning-fs/src/path'
   import http from 'isomorphic-git/http/web/index.js'
   import { tick } from 'svelte'
-  import { author, open_apps } from '../../stores'
-  import { nanoid, close as stop } from '../../util'
+  import { author, sessions } from '../../stores'
+  import { nanoid } from '../../util'
 
   export let tab = {
     messages: [],
@@ -104,10 +104,10 @@
     const [app] = apps.filter((app) =>
       app.name.toLowerCase().includes(args.join(' ').toLowerCase())
     )
-    const apps_killed = $open_apps.filter((session) => session.app === app)
+    const apps_killed = $sessions.filter((session) => session.app === app)
       .length
     if (app) {
-      $open_apps = $open_apps.filter((session) => session.app !== app)
+      $sessions = $sessions.filter((session) => session.app !== app)
       tab.messages = [
         ...tab.messages,
         `Killed ${apps_killed} session${apps_killed === 1 ? '' : 's'} of ${
@@ -223,8 +223,8 @@
       }
     },
     explorer: (args) => {
-      $open_apps = [
-        ...$open_apps,
+      $sessions = [
+        ...$sessions,
         {
           id: nanoid(),
           app: apps.find((app) => app.name === 'File Explorer'),
