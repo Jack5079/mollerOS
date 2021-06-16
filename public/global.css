@@ -2,6 +2,12 @@
   scrollbar-width: thin;
 }
 
+@font-face {
+  font-family: 'Segoe UI Variable';
+  src: url(./fonts/SegoeUIVariable.woff2);
+  font-style: small;
+}
+
 html,
 body {
   position: relative;
@@ -24,8 +30,9 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI Variable', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
+    sans-serif;
 }
 
 a {
