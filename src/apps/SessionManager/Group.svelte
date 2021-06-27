@@ -9,7 +9,7 @@
 
 <optgroup
   on:click|self={() => {
-    sessions = [
+    $sessions = [
       ...new Set([
         ...sessions,
         ...$sessions
