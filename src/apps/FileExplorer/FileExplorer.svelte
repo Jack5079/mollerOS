@@ -5,7 +5,7 @@
   import Git from './Git.svelte'
   import fs from '../../fs'
   import path from '@jkearl/lightning-fs/src/path'
-  import { findRoot } from 'isomorphic-git'
+  import { findRoot } from 'isomorphic-git/index.umd.min.js'
   export let startingdir: string = '/'
   let directory = startingdir
   let context: HTMLMenuElement
