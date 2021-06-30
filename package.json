@@ -19,6 +19,7 @@
     "@tsconfig/svelte": "^1.0.0",
     "@types/minimist": "^1.2.1",
     "@types/node": "^14.14.35",
+    "postcss": "^8.3.5",
     "postcss-nesting": "^8.0.1",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
