@@ -15,7 +15,7 @@
 <main>
   <select multiple bind:value={selected_sessions} {size}>
     {#each [...apps].sort((a, b) => a.name.localeCompare(b.name)) as app}
-      <Group bind:sessions={selected_sessions} bind:app />
+      <Group bind:sessionids={selected_sessions} bind:app />
     {/each}
   </select>
   {#if selected_sessions.length}

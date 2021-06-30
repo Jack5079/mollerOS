@@ -3,15 +3,15 @@
   import { slide, fly } from 'svelte/transition'
   import { flip } from 'svelte/animate'
   import { sessions } from '../../stores'
-  export let sessions: string[]
+  export let sessionids: string[]
   export let app: App
 </script>
 
 <optgroup
   on:click|self={() => {
-    $sessions = [
+    sessionids = [
       ...new Set([
-        ...sessions,
+        ...sessionids,
         ...$sessions
           .filter((session) => session.app === app)
           .map((session) => session.id)

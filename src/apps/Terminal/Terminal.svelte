@@ -79,7 +79,7 @@
     background: black;
     color: white;
 
-    input {
+    & input {
       padding: 0;
       margin: 0;
       font-size: 13px;
