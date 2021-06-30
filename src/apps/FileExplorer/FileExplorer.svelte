@@ -5,7 +5,28 @@
   import Git from './Git.svelte'
   import fs from '../../fs'
   import path from '@jkearl/lightning-fs/src/path'
-  import { findRoot } from 'isomorphic-git/index.umd.min.js'
+  /**
+   * Find the root git directory
+   *
+   * Starting at `filepath`, walks upward until it finds a directory that contains a subdirectory called '.git'.
+   */
+  async function findRoot({
+    fs,
+    filepath
+  }: {
+    fs: any
+    filepath: string
+  }): Promise<string> {
+    if (await fs.exists(path.join(filepath, '.git'))) {
+      return filepath
+    } else {
+      const parent = path.dirname(filepath)
+      if (parent === filepath) {
+        throw new Error(`git root for ${filepath}`)
+      }
+      return findRoot({ fs, filepath: parent })
+    }
+  }
   export let startingdir: string = '/'
   let directory = startingdir
   let context: HTMLMenuElement
