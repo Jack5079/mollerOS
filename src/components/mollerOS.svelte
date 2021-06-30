@@ -2,10 +2,9 @@
   import App from './Window.svelte'
   import Search from './Search.svelte'
   import Taskbar from './Taskbar.svelte'
-  import Tip from './Tip.svelte'
   import Loading from './Loading.svelte'
 
-  import { sessions, wallpaper, tip } from '../stores'
+  import { sessions, wallpaper } from '../stores'
   import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
@@ -50,10 +49,6 @@ The mollerOS desktop.
         />
       {/await}
     </App>
-  {:else}
-    {#if $tip}
-      <Tip />
-    {/if}
   {/each}
 </body>
 
