@@ -10,9 +10,9 @@ const emoji = (char: string) =>
  */
 const apps: App[] = [
   {
-    name: 'Settings',
-    component: () => import('./apps/Settings.svelte'),
-    icon: 'settings'
+    name: 'Files',
+    icon: 'folder',
+    component: () => import('./apps/FileExplorer/FileExplorer.svelte')
   },
   {
     name: 'Terminal',
@@ -20,9 +20,19 @@ const apps: App[] = [
     icon: 'code'
   },
   {
-    name: 'dog',
+    name: 'Settings',
+    component: () => import('./apps/Settings.svelte'),
+    icon: 'settings'
+  },
+  {
+    name: 'Task Manager',
+    component: () => import('./apps/SessionManager/SessionManager.svelte'),
+    icon: 'dvr'
+  },
+  {
+    name: 'Molly',
     component: () => import('./apps/dog.svelte'),
-    icon: 'https://5079.ml/bark-beagle/assets/beg.webp'
+    icon: 'pets'
   },
   {
     name: 'spuchbop',
@@ -31,24 +41,9 @@ const apps: App[] = [
       'https://cdn.discordapp.com/attachments/763177139850969090/823616397283295264/tenor.gif'
   },
   {
-    name: 'Task Manager',
-    component: () => import('./apps/SessionManager/SessionManager.svelte'),
-    icon: 'dvr'
-  },
-  {
     name: 'DaBaby',
     component: () => import('./apps/DaBaby.svelte'),
     icon: 'https://upload.wikimedia.org/wikipedia/en/9/98/Dababy_BabyOnBaby.jpg'
-  },
-  {
-    name: 'Hydra',
-    component: () => import('./apps/Hydra.svelte'),
-    icon: 'https://windows93.net/c/sys/skins/w93/apps/hydra.png'
-  },
-  {
-    name: 'Files',
-    icon: 'folder',
-    component: () => import('./apps/FileExplorer/FileExplorer.svelte')
   },
   {
     name: 'trollface',
@@ -56,14 +51,14 @@ const apps: App[] = [
     component: () => import('./apps/Trollface.svelte')
   },
   {
-    name: 'Factory Reset',
-    icon: 'delete_forever',
-    component: () => import('./apps/Reset.svelte')
-  },
-  {
     name: 'fart',
     icon: emoji('💥'),
     component: () => import('./apps/fart.svelte')
+  },
+  {
+    name: 'Factory Reset',
+    icon: 'delete_forever',
+    component: () => import('./apps/Reset.svelte')
   }
-].sort((a, b) => a.name.localeCompare(b.name))
+]
 export default apps
