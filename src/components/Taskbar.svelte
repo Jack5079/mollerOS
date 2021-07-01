@@ -7,7 +7,6 @@
   let height: number
   let hovering: boolean = true
   let search: boolean = false
-  $: hovering = search || hovering
 </script>
 
 {#if search}
@@ -79,31 +78,33 @@
 
 <style>
   div {
-    min-width: 50%;
-    max-width: 100vw;
-    overflow-y: hidden;
+    width: 100vw;
+    overflow: hidden;
     position: absolute;
     bottom: 0;
-    height: 100px;
+    min-height: 100px;
     z-index: 10000;
-    left: 50%;
-    transform: translate(-50%);
-  }
-
-  .taskbar {
-    overflow-y: hidden;
-    position: relative;
-    top: 0;
-    min-width: 50%;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    color: white;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1ch;
     flex-direction: row;
+  }
+
+  .taskbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1ch; 
+    flex-direction: row;
+    top: 0;
+    min-width: 50vw;
+    max-width: 100vw;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    color: white;
+    min-height: 100px;
+    text-align: center;
     background: darkslategray;
   }
 
@@ -126,6 +127,9 @@
     transition: background 0.3s;
   }
 
+button:focus {
+  border: solid 1px white;
+}
   button:hover,
   .open {
     background: rgba(255, 255, 255, 0.3);
@@ -138,7 +142,7 @@
     animation: zoom 0.3s forwards;
     font-size: small;
   }
-  
+
   button:active {
     background: rgba(255, 255, 255, 0.7);
   }

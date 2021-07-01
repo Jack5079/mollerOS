@@ -2,7 +2,7 @@
   export let shown: boolean = false
   import apps from '../apps'
 
-  import { slide } from 'svelte/transition'
+  import { fly } from 'svelte/transition'
   import { sessions } from '../stores'
   import { nanoid } from '../util'
   import type { App } from '../types'
@@ -63,7 +63,7 @@
 mollerOS search, powered by fuse.js
 -->
 <section
-  transition:slide
+  transition:fly={{y: 150}}
   on:keydown={(e) => {
     if (e.key === 'Escape') shown = false
   }}
@@ -141,7 +141,7 @@ mollerOS search, powered by fuse.js
     background: rgba(36, 41, 46, 0.9);
     backdrop-filter: blur(10px);
     left: 50%;
-    top: 50px;
+    bottom: 150px;
     max-height: 70vh;
     height: max-content;
     transform: translateX(-50%);
