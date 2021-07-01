@@ -47,7 +47,7 @@
       {#each $sessions as session, i (session.id)}
         <button
           aria-label={session.app.name}
-          animate:flip={{duration: 300}}
+          animate:flip={{ duration: 300 }}
           in:fly={{ duration: 300, delay: (i + 2) * 100, opacity: 1, y: 100 }}
           out:fly={{ duration: 300, delay: (i + 1) * 100, opacity: 1, y: 100 }}
           class:open={!session.minimized}
@@ -138,6 +138,11 @@
     animation: zoom 0.3s forwards;
     font-size: small;
   }
+  
+  button:active {
+    background: rgba(255, 255, 255, 0.7);
+  }
+
   @keyframes zoom {
     from {
       font-size: 0;
