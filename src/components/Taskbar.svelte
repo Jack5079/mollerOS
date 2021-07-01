@@ -7,7 +7,7 @@
   let height: number
   let hovering: boolean = true
   let search: boolean = false
-  $: hovering = search
+  $: hovering = search || hovering
 </script>
 
 {#if search}
