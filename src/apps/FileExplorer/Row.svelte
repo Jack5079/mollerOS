@@ -5,26 +5,22 @@
     editor: {
       name: 'Editor',
       component: () => import('./viewers/Editor.svelte'),
-      icon:
-        'https://winaero.com/blog/wp-content/uploads/2020/02/Windows-10X-Colorful-Notepad-Fluent-Icon.png'
+      icon: 'edit'
     },
     image: {
       name: 'Image Viewer',
       component: () => import('./viewers/ImageViewer.svelte'),
-      icon:
-        'https://winaero.com/blog/wp-content/uploads/2019/09/Photos-app-icon-256-colorful.png'
+      icon: 'image'
     },
     video: {
       name: 'Video Player',
       component: () => import('./viewers/VideoViewer.svelte'),
-      icon:
-        'https://winaero.com/blog/wp-content/uploads/2019/09/Movies-and-TV-icon.png'
+      icon: 'ondemand_video'
     },
     audio: {
       name: 'Audio Player',
       component: () => import('./viewers/AudioPlayer.svelte'),
-      icon:
-        'https://winaero.com/blog/wp-content/uploads/2019/09/Groove-Music-fluent-design-icon.png'
+      icon: 'audiotrack'
     }
   }
 
@@ -99,7 +95,7 @@
 
 <tr
   on:click={() => open(file)}
-  on:keydown={(event)=>{
+  on:keydown={(event) => {
     if (event.key === 'Enter') {
       open(file)
     }
@@ -132,7 +128,8 @@
 </tr>
 
 <style>
-  tr:hover, tr:focus {
+  tr:hover,
+  tr:focus {
     background: rgba(255, 255, 255, 0.3);
   }
 
@@ -156,7 +153,8 @@
       color: black;
     }
 
-    tr:hover, tr:focus {
+    tr:hover,
+    tr:focus {
       background: rgba(0, 0, 0, 0.3);
     }
   }
