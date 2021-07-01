@@ -25,11 +25,13 @@
     {/if}{session.app.name}
   </div>
   <nav>
-    <button class="min" on:click={minimize}>🗕︎</button>
-    <button class="min" on:click={() => (maximized = !maximized)}
-      >{maximized ? '🗗︎' : '🗖'}</button
+    <button class="min material-icons" on:click={minimize}>minimize</button>
+    <button class="min material-icons" on:click={() => (maximized = !maximized)}
+      >{maximized ? 'fullscreen_exit' : 'fullscreen'}</button
     >
-    <button class="close" on:click={() => close(session.id)}>🗙︎</button>
+    <button class="close material-icons" on:click={() => close(session.id)}
+      >close</button
+    >
   </nav>
 </header>
 
@@ -46,6 +48,7 @@
     display: inline-block;
     border-radius: 0;
     border: 0;
+    height: 35px;
     &:focus,
     &:hover {
       background: #e81123;
@@ -58,7 +61,8 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      & img, & span {
+      & img,
+      & span {
         pointer-events: all;
         margin-right: 5px;
       }
