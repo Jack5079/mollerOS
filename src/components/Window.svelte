@@ -102,7 +102,7 @@ Takes a slot which is the content of the window
       width: 100%;
     }
   }
-  :global(.slot > *) {
+  .slot > :global(*) {
     margin: 0;
     padding: 0;
     position: absolute;
