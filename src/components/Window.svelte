@@ -7,7 +7,6 @@
   export let x = Math.random() * (window.innerWidth - 500)
   export let y = Math.random() * (window.innerHeight - 500)
   export let resizable = true
-  export let maximized = false
   let win: HTMLDivElement
   $: {
     if (win) {
@@ -40,6 +39,7 @@
       $sessions = [...$sessions.filter((sess) => session !== sess), session]
     }
   }
+  let maximized: boolean = false
 </script>
 
 <!--
@@ -58,7 +58,6 @@ Takes a slot which is the content of the window
   on:outrostart={() => (win.style.pointerEvents = 'none')}
   on:outroend={() => (win.style.pointerEvents = 'auto')}
   transition:slide={{ duration: 500 }}
-  class:hidden={session.minimized}
   class:resizable
   class:maximized
 >
@@ -102,9 +101,6 @@ Takes a slot which is the content of the window
       height: 100vh;
       width: 100%;
     }
-  }
-  .hidden {
-    display: none;
   }
   :global(.slot > *) {
     margin: 0;

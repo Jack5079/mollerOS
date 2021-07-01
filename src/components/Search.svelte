@@ -40,8 +40,7 @@
       ...$sessions,
       {
         app: app,
-        id: nanoid(),
-        minimized: false
+        id: nanoid()
       }
     ]
   }

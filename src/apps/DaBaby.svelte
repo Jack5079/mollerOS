@@ -49,7 +49,7 @@
       ...sessions,
       {
         app: self,
-        minimized: false,
+
         id: nanoid()
       }
     ])

@@ -228,7 +228,7 @@
         {
           id: nanoid(),
           app: apps.find((app) => app.name === 'File Explorer'),
-          minimized: false,
+
           props: {
             startingdir: resolve(args.join(' '))
           }
@@ -272,8 +272,7 @@
           'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Git_icon.svg/1024px-Git_icon.svg.png',
         name: 'Git Auth'
       },
-      id: nanoid(),
-      minimized: false
+      id: nanoid()
     }}
   >
     <form bind:this={form} on:submit|preventDefault>

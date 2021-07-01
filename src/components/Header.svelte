@@ -4,9 +4,6 @@
 
   export let session: Session
   export let maximized: boolean = false
-  function minimize() {
-    session.minimized = true
-  }
 </script>
 
 <header on:mousedown|self tabindex="0" on:keydown|self>
@@ -25,7 +22,6 @@
     {/if}{session.app.name}
   </div>
   <nav>
-    <button class="min material-icons" on:click={minimize}>minimize</button>
     <button class="min material-icons" on:click={() => (maximized = !maximized)}
       >{maximized ? 'fullscreen_exit' : 'fullscreen'}</button
     >

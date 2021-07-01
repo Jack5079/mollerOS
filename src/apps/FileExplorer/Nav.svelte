@@ -40,7 +40,7 @@
       {
         app: apps.find((app) => app.name === 'Terminal'),
         id: nanoid(),
-        minimized: false,
+
         props: {
           startingdirectory: path.resolve(directory)
         }

@@ -49,9 +49,7 @@
           animate:flip={{ duration: 300 }}
           in:fly={{ duration: 300, delay: (i + 2) * 100, opacity: 1, y: 100 }}
           out:fly={{ duration: 300, delay: (i + 1) * 100, opacity: 1, y: 100 }}
-          class:open={!session.minimized}
           on:click={() => {
-            session.minimized = false
             $sessions = [
               ...$sessions.filter((sess) => session !== sess),
               session
@@ -95,7 +93,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1ch; 
+    gap: 1ch;
     flex-direction: row;
     top: 0;
     min-width: 50vw;
@@ -127,11 +125,10 @@
     transition: background 0.3s;
   }
 
-button:focus {
-  border: solid 1px white;
-}
-  button:hover,
-  .open {
+  button:focus {
+    border: solid 1px white;
+  }
+  button:hover {
     background: rgba(255, 255, 255, 0.3);
   }
 
