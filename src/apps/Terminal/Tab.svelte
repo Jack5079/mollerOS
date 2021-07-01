@@ -227,7 +227,7 @@
         ...$sessions,
         {
           id: nanoid(),
-          app: apps.find((app) => app.name === 'File Explorer'),
+          app: apps.find((app) => app.name === 'Files'),
 
           props: {
             startingdir: resolve(args.join(' '))
