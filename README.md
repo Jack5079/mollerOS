@@ -2,6 +2,9 @@
 
 OS.js but worse
 
+https://user-images.githubusercontent.com/29169102/124172796-409e9f00-da78-11eb-8ff0-3454de9715c7.mp4
+
+
 ## Features
 
 - All in your browser, no special server
