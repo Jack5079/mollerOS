@@ -5,20 +5,19 @@ const emoji = (char: string) =>
 
 /**
  * The list of apps in mollerOS.
- * 
+ *
  * See {@link App} for the structure.
  */
 const apps: App[] = [
   {
     name: 'Settings',
     component: () => import('./apps/Settings.svelte'),
-    icon: 'icon.svg'
+    icon: 'settings'
   },
   {
     name: 'Terminal',
     component: () => import('./apps/Terminal/Terminal.svelte'),
-    icon:
-      'https://upload.wikimedia.org/wikipedia/commons/0/01/Windows_Terminal_Logo_256x256.png'
+    icon: 'code'
   },
   {
     name: 'dog',
@@ -32,10 +31,9 @@ const apps: App[] = [
       'https://cdn.discordapp.com/attachments/763177139850969090/823616397283295264/tenor.gif'
   },
   {
-    name: 'Session Manager',
+    name: 'Task Manager',
     component: () => import('./apps/SessionManager/SessionManager.svelte'),
-    icon:
-      'https://winaero.com/blog/wp-content/uploads/2019/03/task-manager-taskmgr-icon-big.png'
+    icon: 'dvr'
   },
   {
     name: 'DaBaby',
@@ -48,8 +46,8 @@ const apps: App[] = [
     icon: 'https://windows93.net/c/sys/skins/w93/apps/hydra.png'
   },
   {
-    name: 'File Explorer',
-    icon: emoji('📂'),
+    name: 'Files',
+    icon: 'folder',
     component: () => import('./apps/FileExplorer/FileExplorer.svelte')
   },
   {
@@ -59,7 +57,7 @@ const apps: App[] = [
   },
   {
     name: 'Factory Reset',
-    icon: emoji('💾'),
+    icon: 'delete_forever',
     component: () => import('./apps/Reset.svelte')
   },
   {

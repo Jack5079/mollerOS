@@ -20,9 +20,6 @@
   }}
   transition:fly={{ x: -10, duration: 300 }}
   label={app.name}
-  style="background-image: url({JSON.stringify(
-    app.icon
-  )}); background-repeat: no-repeat; background-position: top right; background-size: 25px 25px;"
 >
   {#each $sessions.filter((session) => session.app === app) as session (session.id)}
     <option

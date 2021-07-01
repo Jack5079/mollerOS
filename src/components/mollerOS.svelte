@@ -5,7 +5,6 @@
   import Loading from './Loading.svelte'
 
   import { sessions, wallpaper } from '../stores'
-  import { install as hotkey } from '@github/hotkey'
 
   let show_search = false
   $: {
@@ -25,16 +24,7 @@ The mollerOS desktop.
   {#if show_search}
     <Search bind:shown={show_search} />
   {/if}
-  <Taskbar>
-    <button
-      use:hotkey={'` `'}
-      aria-label="Search"
-      title="Search (Alt+A)"
-      on:click={() => (show_search = !show_search)}
-    >
-      <img src="icon.svg" alt="mollerOS" height="30" />
-    </button>
-  </Taskbar>
+  <Taskbar />
   {#each $sessions as session (session.id)}
     <App {session}>
       {#await session.app.component}
@@ -85,21 +75,8 @@ The mollerOS desktop.
     background-image: url(../wallpapers/v3.png);
     background-position: center;
   }
-
   .vortex {
     background-image: url(../wallpapers/vortex.png);
     background-position: center;
-  }
-  button {
-    background: none;
-    border: none;
-    /* height: 100%; */
-    padding: 0 0.5em;
-    margin: 0;
-  }
-
-  button:hover,
-  button:focus {
-    background: #3e3e3e;
   }
 </style>

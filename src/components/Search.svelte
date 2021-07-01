@@ -98,7 +98,13 @@ mollerOS search, powered by fuse.js
   <div>
     {#each results as result, i (result.name)}
       <article on:click={() => open(result)} class:index={i === index}>
-        <img alt={result.name} src={result.icon} width="50" />
+        {#if result.icon.startsWith('https://') || result.icon.startsWith('data:')}
+          <img src={result.icon} alt={result.name} width="50" />
+        {:else}
+          <span class="material-icons">
+            {result.icon}
+          </span>
+        {/if}
         {result.name}
       </article>
     {:else}
@@ -108,11 +114,12 @@ mollerOS search, powered by fuse.js
 </section>
 
 <style>
-  img {
+  img,
+  .material-icons {
     width: 20px;
     height: 20px;
     object-fit: contain;
-    margin-right: 0.1em;
+    margin-right: 10px;
   }
   article {
     width: 100%;

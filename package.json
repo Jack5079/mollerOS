@@ -1,7 +1,7 @@
 {
   "name": "moller-os",
   "description": "A web desktop, powered by beagles.",
-  "version": "4.0.0",
+  "version": "5.0.0",
   "scripts": {
     "build": "snowpack build",
     "dev": "snowpack dev",

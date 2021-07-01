@@ -11,12 +11,18 @@
 
 <header on:mousedown|self tabindex="0" on:keydown|self>
   <div>
-    <img
-      on:dblclick={() => close(session.id)}
-      src={session.app.icon}
-      height="20"
-      alt={session.app.name}
-    />{session.app.name}
+    {#if session.app.icon.startsWith('https://') || session.app.icon.startsWith('data:')}
+      <img
+        on:dblclick={() => close(session.id)}
+        src={session.app.icon}
+        alt={session.app.name}
+        height="20"
+      />
+    {:else}
+      <span class="material-icons">
+        {session.app.icon}
+      </span>
+    {/if}{session.app.name}
   </div>
   <nav>
     <button class="min" on:click={minimize}>🗕︎</button>
@@ -52,9 +58,9 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      & img {
+      & img, & span {
         pointer-events: all;
-        margin-right: 0.5em;
+        margin-right: 5px;
       }
     }
     position: sticky;

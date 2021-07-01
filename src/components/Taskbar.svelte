@@ -1,79 +1,150 @@
 <script lang="ts">
-  import Tray from './Tray.svelte'
-
-  import { fly, slide } from 'svelte/transition'
+  import { fly } from 'svelte/transition'
   import { sessions } from '../stores'
+  import { install as hotkey } from '@github/hotkey'
   import { flip } from 'svelte/animate'
+  import Search from './Search.svelte'
   let height: number
+  let hovering: boolean = true
+  let search: boolean = false
+  $: hovering = search
 </script>
 
-<nav
-  class="taskbar"
-  transition:fly={{ duration: 300, y: height, opacity: 1 }}
-  bind:offsetHeight={height}
+{#if search}
+  <Search bind:shown={search} />
+{/if}
+
+<button
+  hidden
+  on:click={() => {
+    search = true
+  }}
+  use:hotkey={'` `'}
+/>
+<div
+  on:mouseenter={() => (hovering = true)}
+  on:mouseleave={() => (hovering = false)}
 >
-  <slot />
-  {#each $sessions as session (session.id)}
-    <button
-      transition:slide={{ duration: 300 }}
-      animate:flip={{ duration: 300 }}
-      class:open={!session.minimized}
-      title={session.app.name}
-      on:click={() => {
-        session.minimized = false
-        $sessions = [...$sessions.filter((sess) => session !== sess), session]
+  {#if hovering}
+    <nav
+      class="taskbar"
+      in:fly={{ duration: 300, y: height, opacity: 1 }}
+      out:fly={{
+        duration: 300,
+        delay: ($sessions.length + 1) * 100,
+        opacity: 1,
+        y: 100
       }}
+      bind:offsetHeight={height}
     >
-      <img src={session.app.icon} alt={session.app.name} height="30" />
-    </button>
-  {/each}
-  <Tray />
-</nav>
+      <button
+        aria-label="Search"
+        in:fly={{ duration: 300, delay: 100, opacity: 1, y: 100 }}
+        out:fly={{ duration: 300, opacity: 1, y: 100 }}
+        on:click={() => (search = true)}
+        ><span class="material-icons">search</span></button
+      >
+      {#each $sessions as session, i (session.id)}
+        <button
+          aria-label={session.app.name}
+          animate:flip={{duration: 300}}
+          in:fly={{ duration: 300, delay: (i + 2) * 100, opacity: 1, y: 100 }}
+          out:fly={{ duration: 300, delay: (i + 1) * 100, opacity: 1, y: 100 }}
+          class:open={!session.minimized}
+          on:click={() => {
+            session.minimized = false
+            $sessions = [
+              ...$sessions.filter((sess) => session !== sess),
+              session
+            ]
+          }}
+        >
+          {#if session.app.icon.startsWith('https://') || session.app.icon.startsWith('data:')}
+            <img
+              src={session.app.icon}
+              alt={session.app.name}
+              height="24"
+              width="24"
+            />
+          {:else}
+            <span class="material-icons">
+              {session.app.icon}
+            </span>
+          {/if}
+        </button>
+      {/each}
+    </nav>
+  {/if}
+</div>
 
 <style>
-  .open {
-    border-bottom: 2px solid #86e8ff;
-  }
-  .taskbar {
-    z-index: 1000;
-    background: rgba(50, 50, 60, 0.7);
-    backdrop-filter: blur(10px);
-    width: 100%;
-    left: 0;
-    max-height: 75vh;
-    min-height: 36px;
-    overflow-y: auto;
+  div {
+    min-width: 50%;
+    max-width: 100vw;
+    overflow-y: hidden;
+    position: absolute;
     bottom: 0;
-    position: fixed;
+    height: 100px;
+    z-index: 10000;
+    left: 50%;
+    transform: translate(-50%);
+  }
+
+  .taskbar {
+    overflow-y: hidden;
+    position: relative;
+    top: 0;
+    min-width: 50%;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    color: white;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1ch;
+    flex-direction: row;
+    background: darkslategray;
   }
 
   @media (prefers-color-scheme: light) {
     .taskbar {
-      background: rgba(150, 150, 230, 0.7);
+      background: white;
     }
   }
 
   button {
-    height: 100%;
+    text-align: center;
+    position: relative;
     background: none;
     border: none;
-    padding: 0 0.5em;
-    margin: 0;
-    transition: border-bottom 300ms;
+    color: white;
+    display: grid;
+    place-content: center;
+    padding: 1em;
+    border-radius: 1em;
+    transition: background 0.3s;
   }
+
   button:hover,
-  button:focus {
-    background: #3e3e3e;
+  .open {
+    background: rgba(255, 255, 255, 0.3);
   }
-  @media (max-width: 375px) {
-    .taskbar {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: static;
+
+  button:hover::after {
+    font-family: 'Segoe UI';
+    font-weight: bold;
+    content: attr(aria-label);
+    animation: zoom 0.3s forwards;
+    font-size: small;
+  }
+  @keyframes zoom {
+    from {
+      font-size: 0;
     }
-    .taskbar > :global(*:not(:first-child)) {
-      display: none;
+
+    to {
+      font-size: small;
     }
   }
 </style>
