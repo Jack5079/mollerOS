@@ -104,6 +104,7 @@
     justify-content: center;
     align-items: center;
     gap: 1ch;
+    overflow-x: auto;
     flex-direction: row;
     top: 0;
     min-width: 50vw;
