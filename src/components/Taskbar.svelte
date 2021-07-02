@@ -105,6 +105,7 @@
     align-items: center;
     gap: 1ch;
     overflow-x: auto;
+    overflow-y: hidden;
     flex-direction: row;
     top: 0;
     min-width: 50vw;
