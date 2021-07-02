@@ -159,4 +159,18 @@
   button:active {
     background: rgba(255, 255, 255, 0.7);
   }
+
+  @media (prefers-color-scheme: light) {
+    button {
+      color: darkslategray;
+    }
+
+    button:active,button:focus {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
 </style>
