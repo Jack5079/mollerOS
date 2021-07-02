@@ -47,8 +47,18 @@
         <button
           aria-label={session.app.name}
           animate:flip={{ duration: 300 }}
-          in:fly={{ duration: 300, delay: (i + 2) * 100, opacity: 1, y: 100 }}
-          out:fly={{ duration: 300, delay: (i + 1) * 100, opacity: 1, y: 100 }}
+          in:fly={{
+            duration: 300,
+            delay: (i + 2) * 100,
+            opacity: 1,
+            y: 100
+          }}
+          out:fly={{
+            duration: 300,
+            delay: (i + 1) * 100,
+            opacity: 1,
+            y: 100
+          }}
           on:click={() => {
             $sessions = [
               ...$sessions.filter((sess) => session !== sess),
@@ -114,17 +124,19 @@
 
   button {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1ch;
+    flex-direction: row;
     position: relative;
     background: none;
     border: none;
     color: white;
-    display: grid;
-    place-content: center;
     padding: 1em;
     border-radius: 1em;
     transition: background 0.3s;
   }
-
   button:focus {
     border: solid 1px white;
   }
@@ -132,25 +144,19 @@
     background: rgba(255, 255, 255, 0.3);
   }
 
-  button:hover::after {
+  button::after {
     font-family: 'Segoe UI';
     font-weight: bold;
     content: attr(aria-label);
-    animation: zoom 0.3s forwards;
+    transition: font-size 0.3s;
+    font-size: 0;
+  }
+
+  button:hover::after {
     font-size: small;
   }
 
   button:active {
     background: rgba(255, 255, 255, 0.7);
-  }
-
-  @keyframes zoom {
-    from {
-      font-size: 0;
-    }
-
-    to {
-      font-size: small;
-    }
   }
 </style>

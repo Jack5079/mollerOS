@@ -10,7 +10,7 @@
 
 <main>
   <header>
-    <img src="icon.svg" alt="mollerOS icon" />
+    <span class="material-icons">settings</span>
     <h1>mollerOS settings</h1>
   </header>
   <label>
@@ -43,36 +43,51 @@
   select {
     max-width: 100%;
   }
+  label {
+    margin-bottom: 5px;
+  }
   header {
     text-align: center;
   }
   main {
     min-width: 100%;
-    background: black;
+    background: darkslategray;
     color: white;
   }
   @media (prefers-color-scheme: light) {
     main {
       background: white;
-      color: black;
+      color: darkslategray;
     }
   }
   @media (prefers-color-scheme: dark) {
     input, select {
-      background: black;
+      background: darkslategray;
       color: white;
-      outline: solid 2px #2c2c2c;
+      box-shadow: inset 0 0 5px white;
+      padding: .5em;
+      border-radius: 1em;
       border: 0;
-      transition: outline-color .5s;
+      transition: box-shadow .5s;
     }
     input:focus, select:focus {
-      background: black;
+      box-shadow: inset 0 0 5px blue;
+      background: darkslategray;
       color: white;
-      outline-color: blue;
       border: 0;
     }
   }
-  img {
-    width: min(100%, 200px);
+  span {
+    font-size: 100px;
+    animation: turn 5s linear infinite;
+  }
+
+  @keyframes turn {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(1turn)
+    }
   }
 </style>
