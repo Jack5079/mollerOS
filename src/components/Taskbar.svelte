@@ -132,6 +132,7 @@
     gap: 1ch;
     flex-direction: row;
     position: relative;
+    font-family: 'moller', sans-serif;
     background: none;
     border: none;
     color: white;
@@ -167,7 +168,8 @@
       color: darkslategray;
     }
 
-    button:active,button:focus {
+    button:active,
+    button:focus {
       background: rgba(0, 0, 0, 0.3);
     }
 
