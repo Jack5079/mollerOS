@@ -3,34 +3,10 @@
   import { sessions } from '../stores'
   import type { Session, MouseEventHandler } from '../types'
   import { slide } from 'svelte/transition'
+  import { draggable } from 'svelte-drag'
   export let session: Session
-  export let x = Math.random() * (window.innerWidth - 500)
-  export let y = Math.random() * (window.innerHeight - 500)
   export let resizable = true
   let win: HTMLDivElement
-  $: {
-    if (win) {
-      win.style.left = x + 'px'
-      win.style.top = y + 'px'
-    }
-  }
-  function dragstart() {
-    const move = (ev: MouseEvent) => {
-      const { x: sizex, y: sizey } = win.getBoundingClientRect()
-      x = sizex + ev.movementX
-      y = sizey + ev.movementY
-    }
-    document.addEventListener('mousemove', move)
-    window.addEventListener(
-      'mouseup',
-      () => {
-        document.removeEventListener('mousemove', move)
-      },
-      {
-        once: true
-      }
-    )
-  }
   const move_to_top: MouseEventHandler<HTMLElement> = (event) => {
     if (
       $sessions.includes(session) &&
@@ -51,6 +27,14 @@ Requires a `session` (see ../types.ts)
 Takes a slot which is the content of the window
 -->
 <article
+  use:draggable={{
+    handle: 'header',
+    bounds: 'body',
+    /*defaultPosition: {
+      y: Math.random(),
+      x: Math.random()
+    }*/
+  }}
   on:mousedown={move_to_top}
   bind:this={win}
   on:introstart={() => (win.style.pointerEvents = 'none')}
@@ -61,22 +45,7 @@ Takes a slot which is the content of the window
   class:resizable
   class:maximized
 >
-  <Header
-    on:mousedown={dragstart}
-    bind:session
-    bind:maximized
-    on:keydown={(event) => {
-      if (event.key === 'ArrowUp') {
-        y -= 1
-      } else if (event.key == 'ArrowDown') {
-        y += 1
-      } else if (event.key == 'ArrowRight') {
-        x += 1
-      } else if (event.key == 'ArrowLeft') {
-        x -= 1
-      }
-    }}
-  />
+  <Header bind:session bind:maximized />
   <div class="slot">
     <slot />
   </div>
@@ -96,8 +65,7 @@ Takes a slot which is the content of the window
   }
   @keyframes maximize {
     to {
-      top: 0;
-      left: 0;
+      transform: translate3d(0,0,0);
       height: 100vh;
       width: 100%;
     }
@@ -120,11 +88,11 @@ Takes a slot which is the content of the window
     min-height: 35px;
     min-width: max-content;
     width: 500px;
+    top: 0;
+    left: 0;
     height: 500px;
-
-    scrollbar-color: lightslategray darkslategray;
-
     position: fixed;
+    scrollbar-color: lightslategray darkslategray;
     box-shadow: 5px 5px 50px black;
   }
   @media (prefers-color-scheme: light) {

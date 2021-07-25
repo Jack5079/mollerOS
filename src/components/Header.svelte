@@ -6,7 +6,7 @@
   export let maximized: boolean = false
 </script>
 
-<header on:mousedown|self tabindex="0" on:keydown|self>
+<header tabindex="0">
   <div>
     {#if session.app.icon.startsWith('https://') || session.app.icon.startsWith('data:')}
       <img
