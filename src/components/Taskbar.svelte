@@ -132,7 +132,6 @@
     gap: 1ch;
     flex-direction: row;
     position: relative;
-    font-family: 'moller', sans-serif;
     background: none;
     border: none;
     color: white;
@@ -148,8 +147,7 @@
   }
 
   button::after {
-    font-family: 'Segoe UI';
-    font-weight: bold;
+    font-family: 'moller', 'Segoe UI', sans-serif;
     content: attr(aria-label);
     transition: font-size 0.3s;
     font-size: 0;
