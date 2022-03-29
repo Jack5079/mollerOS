@@ -35,7 +35,7 @@
     "@jkearl/lightning-fs": "^0.0.3",
     "fuse.js": "^6.4.6",
     "isomorphic-git": "^1.8.2",
-    "minimist": "^1.2.5",
+    "minimist": "^1.2.6",
     "monaco-editor": "^0.23.0",
     "vscode-icons-js": "^11.1.0"
   }
